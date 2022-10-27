@@ -2,23 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:fakebustersapp/views/login_screen.dart';
 import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
 import '../reusable_widgets/DefaultFormField.dart';
+import 'package:regexed_validator/regexed_validator.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
 }
+
 class _SignupScreenState extends State<SignupScreen> {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmpasswordController = TextEditingController();
   var formkey = GlobalKey<FormState>();
+  var confirmpass;
   bool isPassword = true;
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +53,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       if (value!.isEmpty) {
                         return "Name must not be empty";
                       }
+                      if (!!validator.name(value)) {
+                        return "Invalid Name";
+                      }
                       return null;
                     },
                     Label: "Name",
@@ -62,6 +70,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     validate: (value) {
                       if (value!.isEmpty) {
                         return "Email must not be empty";
+                      }
+                      if (!validator.email(value)) {
+                        return "Invalid Email Address";
                       }
                       return null;
                     },
@@ -82,8 +93,13 @@ class _SignupScreenState extends State<SignupScreen> {
                     },
                     prefix: Icons.lock,
                     validate: (value) {
+                      confirmpass = value;
                       if (value!.isEmpty) {
                         return "Password must not be empty";
+                      } else if (value.length < 8) {
+                        return "Password must be atleast 8 characters long";
+                      } else if (!validator.password(value)) {
+                        return "Invalid password";
                       }
                       return null;
                     },
@@ -107,6 +123,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     validate: (value) {
                       if (value!.isEmpty) {
                         return "Password must not be empty";
+                      } else if (value.length < 8) {
+                        return "Password must be atleast 8 characters long";
+                      } else if (!validator.password(value)) {
+                        return "Invalid password";
+                      } else if (value != confirmpass) {
+                        return "Password Don't match";
                       }
                       return null;
                     },
