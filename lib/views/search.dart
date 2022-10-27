@@ -6,22 +6,14 @@ class  Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Search'),
-      actions: [
-        IconButton(onPressed: (){
-          showSearch(context: context,
-          delegate: MySearchDelegate(),
-          );
-        }, 
-        icon: const Icon(Icons.search))
-      ],),
+
       body: Center(
       child: Text("Search"),
     ),
     );
   }
 }
-
+/*
 class MySearchDelegate extends SearchDelegate{
   @override
   Widget? buildLeading(BuildContext context) =>
@@ -31,13 +23,16 @@ class MySearchDelegate extends SearchDelegate{
     );
 
   @override
-  List<Widget>? buildActions(BuildContext context) => IconButton(
-    icon: const Icon(Icons.clear),
-    onPressed: () => {if (query.isEmpty){
-      close(context,null)
-    } else {query = ''}}
-  );
-
+  List<Widget>? buildActions(BuildContext context) {
+    IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () =>
+        {if (query.isEmpty){
+          close(context, null)
+        } else
+          {query = ''}}
+    );
+  }
   @override
   Widget buildSuggestions(BuildContext context){
     List<String> suggestions = [
@@ -60,3 +55,4 @@ class MySearchDelegate extends SearchDelegate{
     })
   }
 }
+*/

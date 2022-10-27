@@ -8,7 +8,8 @@ class UserChoice extends StatelessWidget {
     required this.choiceText,
       this.circleRadius = 50,
      required this.imageScale,
-     required this.action
+     required this.action,
+     required this.circleBackgroundColor
   }) : super(key: key);
 
   String imagePath;
@@ -16,6 +17,7 @@ class UserChoice extends StatelessWidget {
   double imageScale;
   String choiceText;
   VoidCallback action;
+  Color circleBackgroundColor;
 
 
   @override
@@ -26,7 +28,7 @@ class UserChoice extends StatelessWidget {
           children: [
             CircleAvatar(child: Image.asset(imagePath,scale:imageScale ),
                 radius:circleRadius,
-            backgroundColor: ColorsManager.choiceCircleBackground,),
+            backgroundColor: circleBackgroundColor,),
             Container(
               padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 
+import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/user_choice.dart';
 import 'package:flutter/material.dart';
 
@@ -26,9 +27,11 @@ class UserTypeChoices extends StatelessWidget {
                   children: [
                     UserChoice(imagePath: 'assets/images/fakebuster.png',
                         choiceText: 'Fake Buster', imageScale: 1,
+                    circleBackgroundColor: ColorsManager.choiceCircleBackground!,
                     action: fakeBusterChoiceAction,),
                     UserChoice(imagePath: 'assets/images/siren.png',
                         choiceText: 'Busters Seeker', imageScale: 6,
+                    circleBackgroundColor: ColorsManager.choiceCircleBackground!,
                     action: bustersSeekerChoiceAction,)
                   ],
 
