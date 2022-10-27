@@ -28,11 +28,13 @@ class UserTypeChoices extends StatelessWidget {
                     UserChoice(imagePath: 'assets/images/fakebuster.png',
                         choiceText: 'Fake Buster', imageScale: 1,
                     circleBackgroundColor: ColorsManager.choiceCircleBackground!,
-                    action: fakeBusterChoiceAction,),
+                    action: fakeBusterChoiceAction,
+                    choiceButtonColor: ColorsManager.choiceActiveColor!),
                     UserChoice(imagePath: 'assets/images/siren.png',
                         choiceText: 'Busters Seeker', imageScale: 6,
                     circleBackgroundColor: ColorsManager.choiceCircleBackground!,
-                    action: bustersSeekerChoiceAction,)
+                    action: bustersSeekerChoiceAction,
+                        choiceButtonColor: ColorsManager.choiceActiveColor!)
                   ],
 
     ),

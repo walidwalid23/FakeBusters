@@ -9,7 +9,8 @@ class UserChoice extends StatelessWidget {
       this.circleRadius = 50,
      required this.imageScale,
      required this.action,
-     required this.circleBackgroundColor
+     required this.circleBackgroundColor,
+     required this.choiceButtonColor
   }) : super(key: key);
 
   String imagePath;
@@ -18,6 +19,7 @@ class UserChoice extends StatelessWidget {
   String choiceText;
   VoidCallback action;
   Color circleBackgroundColor;
+  Color choiceButtonColor;
 
 
   @override
@@ -33,7 +35,7 @@ class UserChoice extends StatelessWidget {
               padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   border:  Border.all(
-                    color: Colors.orange,
+                    color: choiceButtonColor,
                     width: 3,
                   ), //Border.all
                     borderRadius: BorderRadius.circular(15),
