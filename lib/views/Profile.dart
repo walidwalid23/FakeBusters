@@ -80,21 +80,42 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 50,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children:[
-
                           Container(
                             child:Column(
                               children:[
-                                Text("")
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Text(
+                                    "Milestone achieved",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  "Next Level",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
                             ],
                             ),
                             decoration: BoxDecoration(
                               color: ColorsManager.themeColor1,
-
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ]
