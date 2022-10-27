@@ -1,3 +1,5 @@
+import 'package:fakebustersapp/Logic/homeLogic.dart';
+import 'package:fakebustersapp/views/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
@@ -25,7 +27,7 @@ class HomeDrawer extends StatelessWidget {
             title: Text('Profile',style:StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-
+              Navigate(context, ProfileScreen());
             },
           ),
           ListTile(
