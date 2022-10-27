@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
 import 'package:flutter/material.dart';
 
@@ -46,6 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 validate: (value) {
                   if (value!.isEmpty) {
                     return "Email must not be empty";
+                  }if(!EmailValidator.validate(value, true)){
+                    return "Invalid Email Address";
                   }
                   return null;
                 },
