@@ -1,7 +1,8 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
+import 'package:fakebustersapp/views/Signuppage.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 validate: (value) {
                   if (value!.isEmpty) {
                     return "Email must not be empty";
-                  }else if(!EmailValidator.validate(value, true)){
+                  }else if(!validator.email(value)){
                     return "Invalid Email Address";
                   }
                   return null;
@@ -70,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     validate: (value) {
                       if (value!.isEmpty) {
                         return "Password must not be empty";
-                      }else if(value.length<=8){
+                      }else if(value.length<8){
                         return "Must be at least 8 characters in length";
                       }
                       return null;
@@ -87,8 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'login',
                     function: (){
                       if(formkey.currentState!.validate()){
-                        print(emailController.text);
-                        print(passwordController.text);
+                        Fluttertoast.showToast(
+                            msg: "Logging in",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb:3,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16
+                        );
                       }
                     },
                   ),
@@ -102,7 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Don\'t have an account?",
                       ),
                       TextButton(
-                        onPressed: () {  },
+                        onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder: (context) => SignupScreen()),
+                          );
+                          },
                         child: Text(
                             "Register",
                         ),
