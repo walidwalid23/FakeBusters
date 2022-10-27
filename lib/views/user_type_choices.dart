@@ -10,7 +10,10 @@ class UserTypeChoices extends StatelessWidget {
     return Column(
            mainAxisAlignment: MainAxisAlignment.center,
              children: [
-               Text("Which One Are You?",),
+               Text("Which One Are You?",
+               style: TextStyle(fontSize:20,
+               fontWeight: FontWeight.bold),),
+             SizedBox(height:15),
                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
