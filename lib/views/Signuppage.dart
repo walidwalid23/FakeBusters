@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:fakebustersapp/reusable_widgets/signupcomp.dart';
 import 'package:fakebustersapp/views/login_screen.dart';
-
+import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
+import '../reusable_widgets/DefaultFormField.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
 }
-
 class _SignupScreenState extends State<SignupScreen> {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmpasswordController = TextEditingController();
-
   var formkey = GlobalKey<FormState>();
   bool isPassword = true;
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  defaultFormField(
+                  DefaultFormField(
                     prefix: Icons.account_circle,
                     validate: (value) {
                       if (value!.isEmpty) {
@@ -60,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  defaultFormField(
+                  DefaultFormField(
                     prefix: Icons.email,
                     validate: (value) {
                       if (value!.isEmpty) {
@@ -75,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  defaultFormField(
+                  DefaultFormField(
                     suffix:
                         isPassword ? Icons.visibility : Icons.visibility_off,
                     icon: () {
@@ -98,7 +95,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  defaultFormField(
+                  DefaultFormField(
                     suffix:
                         isPassword ? Icons.visibility : Icons.visibility_off,
                     icon: () {
