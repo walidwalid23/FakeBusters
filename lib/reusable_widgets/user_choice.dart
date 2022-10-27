@@ -1,4 +1,4 @@
-import 'package:application/models/colors_manager.dart';
+import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:flutter/material.dart';
 
 
