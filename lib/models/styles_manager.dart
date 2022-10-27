@@ -6,5 +6,7 @@ class StylesManager{
   static TextStyle notificationStyle = TextStyle(fontWeight: FontWeight.bold,
   color:Colors.red);
 
+
+
 }
 

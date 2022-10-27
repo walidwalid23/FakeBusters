@@ -26,8 +26,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(HomeManager.appName),
-      centerTitle: true,),
       body:SafeArea(
         child:PageView(
           controller:pageController,
@@ -62,7 +60,6 @@ class _HomeState extends State<Home> {
 
         
       ),
-      drawer: HomeDrawer(),
     );
   }
   @override
