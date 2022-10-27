@@ -7,13 +7,15 @@ class UserChoice extends StatelessWidget {
     required this.imagePath,
     required this.choiceText,
       this.circleRadius = 50,
-     required this.imageScale
+     required this.imageScale,
+     required this.action
   }) : super(key: key);
 
   String imagePath;
   double circleRadius;
   double imageScale;
   String choiceText;
+  VoidCallback action;
 
 
   @override
@@ -51,11 +53,13 @@ class UserChoice extends StatelessWidget {
                     ), //BoxShadow
                   ],
                 ),
-                child: Text(choiceText))
+                child: Text(choiceText,
+                style:TextStyle(fontWeight: FontWeight.bold)))
 
           ],
         ),
       ),
+      onTap: action,
     );
   }
 }
