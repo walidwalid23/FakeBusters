@@ -1,14 +1,14 @@
-
+import 'package:fakebustersapp/Logic/homeLogic.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/values_manager.dart';
 import 'add_post.dart';
 import 'categories.dart';
 import 'search.dart';
 import 'user_type_choices.dart';
-
 import 'package:flutter/material.dart';
 import '../models/home_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fakebustersapp/globals.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,9 +17,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<Widget> mainPages = [UserTypeChoices(),Search(),Categories(),AddPost()];
-  final PageController pageController = PageController(initialPage:0);
+
   int currentPageIndex = 0;
+  final List<Widget> mainPages = [UserTypeChoices(fakeBusterChoiceAction:fakeBusterChoice,
+  bustersSeekerChoiceAction: bustersSeekerChoice,),Search(),Categories(),AddPost()];
 
   @override
   Widget build(BuildContext context) {
