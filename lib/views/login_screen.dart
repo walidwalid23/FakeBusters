@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 validate: (value) {
                   if (value!.isEmpty) {
                     return "Email must not be empty";
-                  }if(!EmailValidator.validate(value, true)){
+                  }else if(!EmailValidator.validate(value, true)){
                     return "Invalid Email Address";
                   }
                   return null;
@@ -70,6 +70,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     validate: (value) {
                       if (value!.isEmpty) {
                         return "Password must not be empty";
+                      }else if(value.length<=8){
+                        return "Must be at least 8 characters in length";
                       }
                       return null;
                     },
