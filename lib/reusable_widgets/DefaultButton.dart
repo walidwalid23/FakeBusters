@@ -1,25 +1,25 @@
+import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:flutter/material.dart';
+
 class defaultButton extends StatelessWidget {
-  defaultButton({Key? key,
+  defaultButton({
+    Key? key,
     required this.text,
     this.width = double.infinity,
     required this.function,
-    this.background=Colors.blue,
   }) : super(key: key);
 
   String text;
   double width;
   var function;
-  Color background;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      color: background,
+      color: ColorsManager.themeColor1,
       child: MaterialButton(
-        onPressed:
-        function,
+        onPressed: function,
         child: Text(
           text.toUpperCase(),
           style: TextStyle(
@@ -30,6 +30,7 @@ class defaultButton extends StatelessWidget {
     );
   }
 }
+
 Widget defaultFormField({
   required TextEditingController Controller,
   required TextInputType type,
@@ -40,28 +41,26 @@ Widget defaultFormField({
   required IconData prefix,
   var onTap,
   var suffix,
-  bool isPassword=false,
+  bool isPassword = false,
   var icon,
-})=>TextFormField(
-  validator:
-    validate,
-  controller:Controller,
-  keyboardType: type,
-  obscureText: isPassword,
-  onFieldSubmitted: onSubmit,
-  onChanged: onChange,
-  onTap: onTap,
-  decoration: InputDecoration(
-    labelText: "${Label}",
-    prefixIcon: Icon(
-        prefix
-    ),
-    suffixIcon: suffix!= null? IconButton(
-      onPressed: icon,
-      icon: Icon(
-          suffix
+}) =>
+    TextFormField(
+      validator: validate,
+      controller: Controller,
+      keyboardType: type,
+      obscureText: isPassword,
+      onFieldSubmitted: onSubmit,
+      onChanged: onChange,
+      onTap: onTap,
+      decoration: InputDecoration(
+        labelText: "${Label}",
+        prefixIcon: Icon(prefix),
+        suffixIcon: suffix != null
+            ? IconButton(
+                onPressed: icon,
+                icon: Icon(suffix),
+              )
+            : null,
+        border: OutlineInputBorder(),
       ),
-    ):null,
-    border:OutlineInputBorder(),
-  ),
-);
+    );
