@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/Logic/homeLogic.dart';
 import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
 import 'package:fakebustersapp/views/Signuppage.dart';
 import 'package:flutter/material.dart';
@@ -111,16 +112,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                          builder: (context) => SignupScreen()),
-                          );
-                          },
+                          Navigate(context, SignupScreen());
+                        },
                         child: Text(
                             "Register",
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
