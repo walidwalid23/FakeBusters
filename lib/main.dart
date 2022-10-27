@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(appBarTheme:AppThemeManager.appBarTheme ),
+      theme: ThemeData(appBarTheme:AppThemeManager.appBarTheme,),
       title: 'FakeBusters',
       home: Home(),
     );
