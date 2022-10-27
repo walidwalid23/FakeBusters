@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
+import 'package:fakebustersapp/models/styles_manager.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({Key? key}) : super(key: key);
@@ -14,20 +16,19 @@ class HomeDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color:ColorsManager.themeColor1,
             ),
-            child: Text('Drawer Header'),
+            child: CircleAvatar(child: Image.asset('assets/images/usericon.png',scale:1 ),
+              radius:50,
+              backgroundColor: Colors.white,),
           ),
           ListTile(
-            title: const Text('Item 1'),
+            leading: FaIcon(FontAwesomeIcons.idBadge),
+            title: Text('Profile',style:StylesManager.textStyle1),
+            trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
 
             },
           ),
-          ListTile(
-            title: const Text('Item 2'),
-            onTap: () {
-      
-            },
-          ),
+         
         ],
       ),
     );

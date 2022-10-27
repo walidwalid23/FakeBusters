@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ThemeManager{
+class StylesManager{
+
+  static TextStyle textStyle1 = TextStyle(fontWeight: FontWeight.bold);
 
 }
 
