@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
+import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -6,19 +7,30 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title:Text('YourProfile'),
+      centerTitle: true,),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
             child: Column(
               children: [
-                CircleAvatar(
-                  child:
-                  Image.asset(
-                      'assets/images/usericon.png',
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        child:
+                        Image.asset(
+                            'assets/images/usericon.png',
+                        ),
+                        radius:80,
+                        backgroundColor: Colors.white,
+                      ),
+                      SizedBox(height:10),
+                      Text("Username",style: StylesManager.textStyle1,)
+                    ],
                   ),
-                  radius:80,
-                  backgroundColor: Colors.white,
                 ),
                 SizedBox(
                   height: 35,
