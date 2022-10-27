@@ -15,7 +15,7 @@ class _CategoriesState extends State<Categories> {
   String musicInstrumentsState = 'musicinstrumentsoff.jpg';
   String fashionState = 'fashionoff.jpg';
   String electronicsState = 'electronicsoff.jpg';
-  String sportsEquipmentState = 'sportsEquipmentoff.jpg';
+  String sportsEquipmentState = 'sportsequipmentoff.jpg';
   Color toysButtonState = ColorsManager.choiceInActiveColor!;
   Color appliancesButtonState = ColorsManager.choiceInActiveColor!;
   Color musicInstrumentsButtonState = ColorsManager.choiceInActiveColor!;
@@ -27,7 +27,7 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly
@@ -93,15 +93,15 @@ class _CategoriesState extends State<Categories> {
             choiceButtonColor: musicInstrumentsButtonState,),
           UserChoice(
             imagePath: 'assets/images/$fashionState',
-            choiceText: 'Electronics',
-            imageScale: 45,
+            choiceText: 'Fashion',
+            imageScale: 15,
             action: (){setState(() {
-              if(fashionState=='electronicsoff.jpg') {
-                fashionState = 'electronicson.jpg';
+              if(fashionState=='fashionoff.jpg') {
+                fashionState = 'fashionon.jpg';
                 fashionButtonState = ColorsManager.choiceActiveColor!;
               }
               else{
-                fashionState='electronicsoff.jpg';
+                fashionState='fashionoff.jpg';
                 fashionButtonState  = ColorsManager.choiceInActiveColor!;
               }
 
@@ -115,8 +115,42 @@ class _CategoriesState extends State<Categories> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly
           ,children: [
-          Image.asset('assets/images/sportsequipmentoff.jpg',scale:40),
-          Image.asset('assets/images/musicinstrumentsoff.jpg',scale:40),
+          UserChoice(
+            imagePath: 'assets/images/$sportsEquipmentState',
+            choiceText: 'Sports Equipments',
+            imageScale:45,
+            action: (){setState(() {
+              if(sportsEquipmentState=='sportsequipmentoff.jpg') {
+                sportsEquipmentState = 'sportsequipmenton.jpg';
+                sportsEquipmentButtonState = ColorsManager.choiceActiveColor!;
+              }
+              else{
+                sportsEquipmentState ='sportsequipmentoff.jpg';
+                sportsEquipmentButtonState = ColorsManager.choiceInActiveColor!;
+              }
+
+            });},
+            circleBackgroundColor: Colors.white,
+            circleRadius: 70,
+            choiceButtonColor: sportsEquipmentButtonState ,),
+          UserChoice(
+            imagePath: 'assets/images/$toysState',
+            choiceText: 'Toys',
+            imageScale:45,
+            action: (){setState(() {
+              if(toysState=='toysoff.jpg') {
+                toysState = 'toyson.jpg';
+                toysButtonState = ColorsManager.choiceActiveColor!;
+              }
+              else{
+                toysState ='toysoff.jpg';
+                toysButtonState = ColorsManager.choiceInActiveColor!;
+              }
+
+            });},
+            circleBackgroundColor: Colors.white,
+            circleRadius: 70,
+            choiceButtonColor: toysButtonState ,),
         ],)
 
       ],
