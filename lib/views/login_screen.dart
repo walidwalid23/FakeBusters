@@ -1,5 +1,7 @@
+import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
 import 'package:flutter/material.dart';
-import 'package:grad_project/DefaultButton.dart';
+
+import '../reusable_widgets/DefaultFormField.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -39,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 40.0,
                   ),
-              defaultFormField(
+              DefaultFormField(
                 prefix: Icons.email,
                 validate: (value) {
                   if (value!.isEmpty) {
@@ -54,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  defaultFormField(
+                  DefaultFormField(
                     suffix: isPassword?Icons.visibility:Icons.visibility_off,
                     icon: (){
                       setState((){
