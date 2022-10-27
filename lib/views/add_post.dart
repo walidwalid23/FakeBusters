@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class  AddPost extends StatelessWidget {
     AddPost({Key? key}) : super(key: key);
-    
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
