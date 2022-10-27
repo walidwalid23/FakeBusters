@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/signupcomp.dart';
-import 'package:flutter_application_1/Login_screen.dart';
+import 'package:fakebustersapp/reusable_widgets/signupcomp.dart';
+import 'package:fakebustersapp/views/login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
