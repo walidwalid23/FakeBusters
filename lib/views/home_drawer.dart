@@ -28,7 +28,42 @@ class HomeDrawer extends StatelessWidget {
 
             },
           ),
-         
+          ListTile(
+            leading: FaIcon(FontAwesomeIcons.bell),
+            title: Row(
+              children: [
+                Text('Notifications',style:StylesManager.textStyle1),
+                SizedBox(width:10),
+                CircleAvatar(child: Text("1",
+                    style:StylesManager.notificationStyle),
+                backgroundColor: Colors.blueGrey[500],
+                radius: 15,)
+              ],
+            ),
+            trailing: FaIcon(FontAwesomeIcons.arrowRight),
+            onTap: () {
+
+            },
+          )
+
+          ,
+          ListTile(
+            leading: FaIcon(FontAwesomeIcons.gear),
+            title: Text('Settings',style:StylesManager.textStyle1),
+            trailing: FaIcon(FontAwesomeIcons.arrowRight),
+            onTap: () {
+
+            },
+          ),
+          ListTile(
+            leading: FaIcon(FontAwesomeIcons.rightFromBracket),
+            title: Text('Log Out',style:StylesManager.textStyle1),
+            trailing: FaIcon(FontAwesomeIcons.arrowRight),
+            onTap: () {
+
+            },
+          ),
+
         ],
       ),
     );
