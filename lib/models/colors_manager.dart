@@ -4,5 +4,5 @@ class ColorsManager{
   static final Color? bottomBarUnselectedIconsColor = Colors.black38;
   static final Color? bottomBarSelectedIconsColor = Colors.deepOrange[800];
   static final Color? choiceCircleBackground = Colors.deepOrangeAccent;
-
+  static final Color? themeColor2 = Color.fromARGB(255, 0, 0, 0);
 }
