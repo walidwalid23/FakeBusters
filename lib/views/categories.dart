@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
+import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/user_choice.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +55,7 @@ class _CategoriesState extends State<Categories> {
           UserChoice(
             imagePath: 'assets/images/$appliancesState',
             choiceText: 'Appliances',
-            imageScale: 45,
+            imageScale: 25,
             action: (){setState(() {
               if(appliancesState=='appliancesoff.jpg') {
                 appliancesState = 'applianceson.jpg';
@@ -67,7 +68,7 @@ class _CategoriesState extends State<Categories> {
 
             });},
             circleBackgroundColor: Colors.white,
-            circleRadius: 70,
+            circleRadius: 60,
             choiceButtonColor: appliancesButtonState,)
         ],),
         Row(
@@ -94,7 +95,7 @@ class _CategoriesState extends State<Categories> {
           UserChoice(
             imagePath: 'assets/images/$fashionState',
             choiceText: 'Fashion',
-            imageScale: 15,
+            imageScale: 10,
             action: (){setState(() {
               if(fashionState=='fashionoff.jpg') {
                 fashionState = 'fashionon.jpg';
@@ -107,7 +108,7 @@ class _CategoriesState extends State<Categories> {
 
             });},
             circleBackgroundColor: Colors.white,
-            circleRadius: 70,
+            circleRadius: 65,
             choiceButtonColor: fashionButtonState ,)
 
             ,
@@ -136,7 +137,7 @@ class _CategoriesState extends State<Categories> {
           UserChoice(
             imagePath: 'assets/images/$toysState',
             choiceText: 'Toys',
-            imageScale:45,
+            imageScale:50,
             action: (){setState(() {
               if(toysState=='toysoff.jpg') {
                 toysState = 'toyson.jpg';
@@ -151,7 +152,12 @@ class _CategoriesState extends State<Categories> {
             circleBackgroundColor: Colors.white,
             circleRadius: 70,
             choiceButtonColor: toysButtonState ,),
-        ],)
+        ],),
+
+        ElevatedButton(onPressed: (){}, child: Text("Start Busting",
+        style: StylesManager.textStyle1,),
+          style: ElevatedButton.styleFrom(backgroundColor: ColorsManager.themeColor1),
+        )
 
       ],
 
