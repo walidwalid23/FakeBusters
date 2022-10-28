@@ -1,34 +1,28 @@
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-
-
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
- 
+
   @override
   State<Search> createState() => _SearchState();
 }
- 
+
 class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Search",
+        title: const TextField(
+          decoration: InputDecoration(
+              hintText: 'Search', prefixIcon: Icon(Icons.search)),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {null;},
-            icon: const Icon(Icons.search),
-          )
-        ],
       ),
-      body:
-        Image.asset('images/search.png'),
+      body: Align(
+          alignment: Alignment.center,
+          child: Image.asset('assets/images/search.png')),
     );
   }
 }
-

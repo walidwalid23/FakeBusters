@@ -1,8 +1,8 @@
 import 'package:fakebustersapp/Logic/homeLogic.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/values_manager.dart';
-import 'package:fakebustersapp/views/home_drawer.dart';
-import 'add_post.dart';
+import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
+import 'upload_post.dart';
 import 'categories.dart';
 import 'search.dart';
 import 'user_type_choices.dart';
@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
 
   int currentPageIndex = 0;
   final List<Widget> mainPages = [UserTypeChoices(fakeBusterChoiceAction:fakeBusterChoice,
-  bustersSeekerChoiceAction: bustersSeekerChoice,),Search(),Categories(),AddPost()];
+  bustersSeekerChoiceAction: bustersSeekerChoice,),Search(),Categories(),UploadPost()];
 
   @override
   Widget build(BuildContext context) {
