@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 
@@ -24,6 +26,8 @@ class _SearchState extends State<Search> {
           )
         ],
       ),
+      body:
+        Image.asset('images/search.png'),
     );
   }
 }
