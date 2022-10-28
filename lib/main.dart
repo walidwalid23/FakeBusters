@@ -1,7 +1,6 @@
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/models/theme_manager.dart';
 import 'package:fakebustersapp/views/Profile.dart';
-import 'package:fakebustersapp/views/edit_post.dart';
 import 'package:fakebustersapp/views/upload_post.dart';
 import 'package:fakebustersapp/views/categories.dart';
 import 'package:fakebustersapp/views/display_post.dart';
@@ -38,9 +37,8 @@ class MyApp extends StatelessWidget {
         '/categories':(context)=> Categories(),
         '/uploadpost':(context)=> UploadPost(),
         '/displaypost':(context)=> DisplayPost(),
-        '/editpost':(context)=> EditPost()
       },
-      initialRoute:'/editpost' ,
+      initialRoute:'/home' ,
     );
   }
 }
