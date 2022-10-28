@@ -1,6 +1,7 @@
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/models/theme_manager.dart';
 import 'package:fakebustersapp/views/Profile.dart';
+import 'package:fakebustersapp/views/edit_post.dart';
 import 'package:fakebustersapp/views/home.dart';
 import 'package:fakebustersapp/views/login_screen.dart';
 import 'package:fakebustersapp/views/settings.dart';
@@ -29,9 +30,11 @@ class MyApp extends StatelessWidget {
         '/settings':(context)=> Settings(),
         '/search':(context)=> Search(),
         '/notifications':(context)=> NotificationsScreen(),
-        '/signup':(context)=> SignupScreen()
+        '/signup':(context)=> SignupScreen(),
+        '/editpost':(context)=>EditPost(),
+        '/login':(context)=>LoginScreen(),
       },
-      initialRoute:'/notifications' ,
+      initialRoute:'/editpost' ,
     );
   }
 }
