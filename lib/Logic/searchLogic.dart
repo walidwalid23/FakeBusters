@@ -1,18 +1,15 @@
+// import 'package:flutter/material.dart';
+
 // class CustomSearchDelegate extends SearchDelegate {
-//   // Demo list to show querying
 //   List<String> searchTerms = [
-//     "Apple",
-//     "Banana",
-//     "Mango",
-//     "Pear",
-//     "Watermelons",
-//     "Blueberries",
-//     "Pineapples",
-//     "Strawberries"
+//     "Adidas",
+//     "Nike",
+//     "Puma",
+//     "New Balance",
+//     "Converse",
+//     "Gucci",
 //   ];
-     
-//   // first overwrite to
-//   // clear the search text
+
 //   @override
 //   List<Widget>? buildActions(BuildContext context) {
 //     return [
@@ -20,11 +17,11 @@
 //         onPressed: () {
 //           query = '';
 //         },
-//         icon: Icon(Icons.clear),
+//         icon: const Icon(Icons.clear),
 //       ),
 //     ];
 //   }
- 
+
 //   // second overwrite to pop out of search menu
 //   @override
 //   Widget? buildLeading(BuildContext context) {
@@ -35,7 +32,7 @@
 //       icon: Icon(Icons.arrow_back),
 //     );
 //   }
- 
+
 //   // third overwrite to show query result
 //   @override
 //   Widget buildResults(BuildContext context) {
@@ -55,7 +52,7 @@
 //       },
 //     );
 //   }
- 
+
 //   // last overwrite to show the
 //   // querying process at the runtime
 //   @override
@@ -76,4 +73,4 @@
 //       },
 //     );
 //   }
-// }
+}
