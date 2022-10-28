@@ -2,7 +2,7 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/home_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/user_choice.dart';
-import 'package:fakebustersapp/views/home_drawer.dart';
+import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 
 class UserTypeChoices extends StatelessWidget {
