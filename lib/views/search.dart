@@ -16,18 +16,17 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Search",
+        title: const TextField(
+          decoration: InputDecoration(
+            hintText: 'Search',
+            prefixIcon: Icon(Icons.search)
         ),
-        actions: [
-          IconButton(
-            onPressed: () {null;},
-            icon: const Icon(Icons.search),
-          )
-        ],
       ),
-      body:
-        Image.asset('assets/images/search.png'),
+      ),
+      body: 
+      Align(alignment: Alignment.center ,
+      child: Image.asset('assets/images/search.png')
+      ),
     );
   }
 }
