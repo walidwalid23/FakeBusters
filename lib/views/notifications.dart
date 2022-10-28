@@ -33,10 +33,18 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: ListTile(leading: FaIcon(FontAwesomeIcons.circleExclamation),
               title: Text(notifications[index].text, style: StylesManager.textStyle1,),
-              trailing:FaIcon(FontAwesomeIcons.x,
-                color: Colors.red,) ,
-              tileColor: Colors.orange,
+              trailing:IconButton(
+                icon: FaIcon(FontAwesomeIcons.x,
+                  color: Colors.black,),
+                onPressed: (){
+                 setState(() {
+                   notifications.removeAt(index);
+                 });
 
+                },
+              ) ,
+              tileColor: Colors.orange,
+                enabled: (notifications[index].isNew)? true : false,
 
               ),
             );
