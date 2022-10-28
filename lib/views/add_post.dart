@@ -1,7 +1,11 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
+import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/add_post_form_field.dart';
+import 'package:fakebustersapp/reusable_widgets/product_image.dart';
 import 'package:fakebustersapp/views/home_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class AddPost extends StatefulWidget {
   const AddPost({Key? key}) : super(key: key);
@@ -13,14 +17,18 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   String dropdownValue = "select";
   final _formKey = GlobalKey<FormState>();
+  final ImagePicker _picker = ImagePicker();
+  File? productImage;
+  String imageValidationError = '';
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(title:Text('Add Product'), centerTitle: true,),
+      appBar: AppBar(title:Text('Add Post'), centerTitle: true,),
       body: Form(
         key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
+
           children: [
             AddPostTextInputField(label: 'Product Name', validatorFunc: (value) {
               if (value == null || value.isEmpty) {
@@ -78,25 +86,56 @@ class _AddPostState extends State<AddPost> {
                   });
                 },
                 validator: (value) {
-                  if (value == null ) {
+                  if (value == null || value == 'select' ) {
                     return 'Please select a category';
                   }
                   return null;
                 },
-                style: TextStyle(backgroundColor: Colors.blue),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                  ),
            ),
             ),
-
+            ProductImage(productImage: productImage,),
             ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-
-                }
+              child: const Text('Upload Product Image'),
+              onPressed: () async{
+                final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                if(image == null){return;}
+                setState(() {
+                  productImage = File(image.path);
+                });
               },
-              child: const Text('Submit'),
               style: ElevatedButton.styleFrom(
                   backgroundColor: ColorsManager.themeColor1
-              ), ),
+              ), )
+            ,
+            Center(child: Text(imageValidationError,style: StylesManager.notificationStyle,)),
+
+            SizedBox(height:30),
+
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate() && productImage != null) {
+                      print("everything is valid");
+                  }
+                  else if(productImage == null){
+                    setState(() {
+                      imageValidationError = 'Please Upload The Product Image';
+                    });
+                  }
+                },
+                child: const Text('Submit'),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorsManager.themeColor1
+                ), ),
+            ),
 
           ],
         ),
