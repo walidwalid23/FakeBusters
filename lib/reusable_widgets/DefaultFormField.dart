@@ -29,6 +29,7 @@ class DefaultFormField extends StatelessWidget {
       controller: Controller,
       keyboardType: type,
       obscureText: isPassword,
+      maxLength: 60,
       decoration: InputDecoration(
         labelText: "${Label}",
         prefixIcon: Icon(prefix, color: ColorsManager.themeColor1),
