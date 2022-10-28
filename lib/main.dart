@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/notifications':(context)=> NotificationsScreen(),
         '/signup':(context)=> SignupScreen()
       },
-      initialRoute:'/signup' ,
+      initialRoute:'/notifications' ,
     );
   }
 }
