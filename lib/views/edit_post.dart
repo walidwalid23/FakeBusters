@@ -26,7 +26,7 @@ class _EditPostState extends State<EditPost> {
     return  Scaffold(
         appBar: AppBar(
           title:Text(
-              'Add Post'
+              'Edit Post'
           ),
           centerTitle: true,
         ),
@@ -132,49 +132,50 @@ class _EditPostState extends State<EditPost> {
               ProductImage(
                 productImage: productImage,
               ),
-              ElevatedButton(
-                child: const Text('Upload Product Image'),
-                onPressed: () async{
-                  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-                  if(image == null){
-                    return;
-                  }
-                  setState(() {
-                    productImage = File(image.path);
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorsManager.themeColor1
-                ), )
-              ,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  child: const Text('Upload Product Image'),
+                  onPressed: () async{
+                    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                    if(image == null){
+                      return;
+                    }
+                    setState(() {
+                      productImage = File(image.path);
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorsManager.themeColor1
+                  ), ),
+              ),
               Center(
                   child: Text(
                     imageValidationError,
                     style: StylesManager.notificationStyle,
                   )
               ),
-
-              SizedBox(
-                  height:20
-              ),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() && productImage != null) {
-                      print("everything is valid");
-                    }
-                    else if(productImage == null){
-                      setState(() {
-                        imageValidationError = 'Please Upload The Product Image';
-                      });
-                    }
-                  },
-                  child: const Text(
-                      'Submit'
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorsManager.themeColor1,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate() && productImage != null) {
+                        print("everything is valid");
+                      }
+                      else if(productImage == null){
+                        setState(() {
+                          imageValidationError = 'Please Upload The Product Image';
+                        });
+                      }
+                    },
+                    child: const Text(
+                        'Submit'
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorsManager.themeColor1,
+                    ),
                   ),
                 ),
               ),
