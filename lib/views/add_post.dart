@@ -9,12 +9,16 @@ class  AddPost extends StatelessWidget {
     return  Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextFormField(
+            decoration: InputDecoration(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter some text';
+                return 'Please enter the product name';
+              }
+              else if(value.length==200){
+                return 'product name is too big';
               }
               return null;
             },

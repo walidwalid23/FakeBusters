@@ -58,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       }
                       return null;
                     },
-                    Label: "Name",
+                    Label: "Name*",
                     type: TextInputType.visiblePassword,
                     Controller: nameController,
                   ),
@@ -76,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       }
                       return null;
                     },
-                    Label: "Email",
+                    Label: "Email*",
                     type: TextInputType.visiblePassword,
                     Controller: emailController,
                   ),
@@ -103,7 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       }
                       return null;
                     },
-                    Label: "Password",
+                    Label: "Password*",
                     type: TextInputType.visiblePassword,
                     Controller: passwordController,
                     isPassword: isPassword,
@@ -132,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       }
                       return null;
                     },
-                    Label: "Confirm Password",
+                    Label: "Confirm Password*",
                     type: TextInputType.visiblePassword,
                     Controller: confirmpasswordController,
                     isPassword: isPassword,

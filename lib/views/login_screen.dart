@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                   return null;
                 },
-                Label:"Email" ,
+                Label:"Email*" ,
                 type: TextInputType.visiblePassword,
                 Controller: emailController,
               ),
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                       return null;
                     },
-                    Label:"Password" ,
+                    Label:"Password*" ,
                     type: TextInputType.visiblePassword,
                     Controller: passwordController,
                     isPassword: isPassword,
