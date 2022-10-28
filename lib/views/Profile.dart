@@ -7,8 +7,13 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:Text('YourProfile'),
-      centerTitle: true,),
+      appBar: AppBar(
+        title:
+        Text(
+            'Your Profile',
+        ),
+        centerTitle: true,
+        ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -95,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                         height: 50,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Your Achivements",
@@ -110,43 +115,59 @@ class ProfileScreen extends StatelessWidget {
                         height: 10,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children:[
                           Container(
                             child:Column(
                               children:[
                                 SizedBox(
-                                  height: 30,
+                                  height: 10,
                                 ),
-                                Text(
-                                    "Milestone achieved",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "MileStone Achieved",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                     IconButton(
+                                        icon:Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.white,
+                                        size: 20,
+                                        ),
+                                        onPressed: () {
+
+                                        },
+                                      ),
+                                  ],
                                 ),
                                 SizedBox(
-                                  height: 20,
+                                  height: 10,
                                 ),
                                 Text(
                                   "Next Level",
-                                  style: TextStyle(
+                                    style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 25,
-                                  ),
-                                ),
+                                    fontSize: 20,
+                                      ),
+                                    ),
                                 SizedBox(
-                                  height: 30,
+                                  height: 10,
                                 ),
-                            ],
+                              ],
                             ),
                             decoration: BoxDecoration(
                               color: ColorsManager.themeColor1,
                               borderRadius: BorderRadius.circular(10),
+
                             ),
                           ),
                         ]
-                      )
+                      ),
                     ],
                   ),
                 ),
