@@ -27,7 +27,7 @@ class _SearchState extends State<Search> {
         ],
       ),
       body:
-        Image.asset('images/search.png'),
+        Image.asset('assets/images/search.png'),
     );
   }
 }
