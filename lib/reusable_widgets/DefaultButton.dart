@@ -30,37 +30,3 @@ class defaultButton extends StatelessWidget {
     );
   }
 }
-
-Widget defaultFormField({
-  required TextEditingController Controller,
-  required TextInputType type,
-  var onSubmit,
-  var onChange,
-  required String Label,
-  required var validate,
-  required IconData prefix,
-  var onTap,
-  var suffix,
-  bool isPassword = false,
-  var icon,
-}) =>
-    TextFormField(
-      validator: validate,
-      controller: Controller,
-      keyboardType: type,
-      obscureText: isPassword,
-      onFieldSubmitted: onSubmit,
-      onChanged: onChange,
-      onTap: onTap,
-      decoration: InputDecoration(
-        labelText: "${Label}",
-        prefixIcon: Icon(prefix),
-        suffixIcon: suffix != null
-            ? IconButton(
-                onPressed: icon,
-                icon: Icon(suffix),
-              )
-            : null,
-        border: OutlineInputBorder(),
-      ),
-    );
