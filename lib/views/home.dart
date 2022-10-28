@@ -1,7 +1,7 @@
 import 'package:fakebustersapp/Logic/homeLogic.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/values_manager.dart';
-import 'package:fakebustersapp/views/home_drawer.dart';
+import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'upload_post.dart';
 import 'categories.dart';
 import 'search.dart';

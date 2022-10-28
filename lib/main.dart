@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/uploadpost':(context)=> UploadPost(),
         '/displaypost':(context)=> DisplayPost(),
       },
-      initialRoute:'/displaypost' ,
+      initialRoute:'/home' ,
     );
   }
 }
