@@ -1,6 +1,7 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/user_choice.dart';
+import 'package:fakebustersapp/views/home_drawer.dart';
 import 'package:flutter/material.dart';
 
 class Categories extends StatefulWidget {
@@ -164,6 +165,7 @@ class _CategoriesState extends State<Categories> {
         ],
 
       ),
+      drawer: HomeDrawer(),
     );
 
 

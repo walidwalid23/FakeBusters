@@ -6,7 +6,9 @@ class AddPostTextInputField  extends StatelessWidget {
   String? Function(String? value) validatorFunc;
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
+    return  Padding(
+        padding: const EdgeInsets.all(15),
+    child:TextFormField(
       maxLength: 60,
       decoration: InputDecoration(
         labelText: label,
@@ -22,6 +24,7 @@ class AddPostTextInputField  extends StatelessWidget {
       ),
 
       validator: validatorFunc,
+    )
     );
   }
 }
