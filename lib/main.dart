@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
   }
   final GoRouter _router = GoRouter(
     routes: <GoRoute>[
-      GoRoute(path: path)
+      GoRoute(path: '')
     ]
   );
 }
