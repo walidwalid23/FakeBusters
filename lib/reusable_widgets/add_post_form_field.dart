@@ -1,14 +1,17 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:flutter/material.dart';
 class AddPostTextInputField  extends StatelessWidget {
-    AddPostTextInputField ({Key? key, required this.label, required this.validatorFunc}) : super(key: key);
+    AddPostTextInputField ({Key? key, required this.label, required this.validatorFunc,
+    required this.textFieldController}) : super(key: key);
   String label;
   String? Function(String? value) validatorFunc;
+  TextEditingController textFieldController;
   @override
   Widget build(BuildContext context) {
     return  Padding(
         padding: const EdgeInsets.all(15),
     child:TextFormField(
+      controller:textFieldController,
       maxLength: 60,
       decoration: InputDecoration(
         labelText: label,

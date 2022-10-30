@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import, prefer_const_constructors_in_immutables, prefer_const_constructors, sort_child_properties_last
-
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';

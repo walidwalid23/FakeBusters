@@ -99,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             textColor: Colors.white,
                             fontSize: 16
                         );
+                        context.push('/');
                       }
                     },
                   ),
@@ -113,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          context.go('/signup');
+                          context.push('/signup');
                         },
                         child: Text(
                             "Register",

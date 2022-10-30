@@ -1,8 +1,7 @@
-// ignore_for_file: file_names, unused_import, prefer_typing_uninitialized_variables, prefer_const_constructors, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/views/login_screen.dart';
 import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
+import 'package:go_router/go_router.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
@@ -148,6 +147,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       if (formkey.currentState!.validate()) {
                         print(emailController.text);
                         print(passwordController.text);
+                        context.push('/');
                       }
                     },
                   ),

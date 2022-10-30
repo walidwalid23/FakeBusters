@@ -1,6 +1,3 @@
-
-// ignore_for_file: prefer_const_constructors, must_be_immutable
-
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/home_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/user_choice.dart';

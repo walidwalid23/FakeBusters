@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last
-
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/add_post_form_field.dart';
@@ -8,6 +6,7 @@ import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:go_router/go_router.dart';
 
 class UploadPost extends StatefulWidget {
   const UploadPost({Key? key}) : super(key: key);
@@ -22,6 +21,8 @@ class _UploadPostState extends State<UploadPost> {
   final ImagePicker _picker = ImagePicker();
   File? productImage;
   String imageValidationError = '';
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController brandNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +131,8 @@ class _UploadPostState extends State<UploadPost> {
                        child: Text('Submit',),
                       onPressed: () {
                         if (_formKey.currentState!.validate() && productImage != null) {
-                            print("everything is valid");
+                          // DATA IS VALID
+                            context.push('/displaypost', extra:productImage);
                         }
                         else if(productImage == null){
                           setState(() {

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_new, unused_import, unused_field
-
 import 'package:fakebustersapp/models/home_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';

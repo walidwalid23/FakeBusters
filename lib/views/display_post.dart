@@ -4,17 +4,22 @@ import 'package:fakebustersapp/reusable_widgets/post_choice_button.dart';
 import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:io';
 
 class DisplayPost extends StatefulWidget {
-  const DisplayPost({Key? key}) : super(key: key);
+  DisplayPost({Key? key,required  this.productImage}) : super(key: key);
+
+  File productImage;
 
   @override
   State<DisplayPost> createState() => _DisplayPostState();
 }
 
 class _DisplayPostState extends State<DisplayPost> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(title:Text('Your Post'), centerTitle: true,),
       body: SafeArea(
@@ -42,7 +47,9 @@ class _DisplayPostState extends State<DisplayPost> {
                    children: [
                      ClipRRect(
                          borderRadius: BorderRadius.circular(15),
-                         child: Image.asset('assets/images/rayban.jpg',
+                         child: Image.file(
+                           // PRODUCT IMAGE
+                           widget.productImage,
                            width: 400,
                            height:400,
                          )),

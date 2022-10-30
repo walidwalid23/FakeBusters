@@ -40,7 +40,7 @@ class HomeDrawer extends StatelessWidget {
             title: Text('Profile', style: StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              context.go('/profile');
+              context.push('/profile');
             },
           ),
           ListTile(
@@ -58,7 +58,7 @@ class HomeDrawer extends StatelessWidget {
             ),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              context.go('/notifications');
+              context.push('/notifications');
             },
           ),
           ListTile(
@@ -66,7 +66,7 @@ class HomeDrawer extends StatelessWidget {
             title: Text('Settings', style: StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              context.go('/settings');
+              context.push('/settings');
             },
           ),
           ListTile(
@@ -81,7 +81,7 @@ class HomeDrawer extends StatelessWidget {
                 FontAwesomeIcons.arrowRight,
             ),
             onTap: () {
-              context.go('/hintscreen');
+              context.push('/hintscreen');
 
             },
           ),
