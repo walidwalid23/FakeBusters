@@ -101,42 +101,48 @@ class _UploadPostState extends State<UploadPost> {
              ),
               ),
               ProductImage(productImage: productImage,),
-              ElevatedButton(
-                child: const Text('Upload Product Image'),
-                onPressed: () async{
-                  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-                  if(image == null){return;}
-                  setState(() {
-                    productImage = File(image.path);
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorsManager.themeColor1
-                ), )
-              ,
-              Center(child: Text(imageValidationError,style: StylesManager.notificationStyle,)),
-
-              SizedBox(height:30),
-
-
-              SizedBox(
-                width: double.infinity,
+              Padding(
+                padding: const EdgeInsets.all(15),
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() && productImage != null) {
-                        print("everything is valid");
-                    }
-                    else if(productImage == null){
-                      setState(() {
-                        imageValidationError = 'Please Upload The Product Image';
-                      });
-                    }
+                  child: const Text('Upload Product Image'),
+                  onPressed: () async{
+                    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                    if(image == null){return;}
+                    setState(() {
+                      productImage = File(image.path);
+                    });
                   },
-                  child: const Text('Submit'),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: ColorsManager.themeColor1
                   ), ),
-              ),
+              )
+              ,
+              Center(child: Text(imageValidationError,style: StylesManager.notificationStyle,)),
+
+                 Padding(
+                   padding: const EdgeInsets.all(15),
+                   child: SizedBox(
+                     child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate() && productImage != null) {
+                            print("everything is valid");
+                        }
+                        else if(productImage == null){
+                          setState(() {
+                            imageValidationError = 'Please Upload The Product Image';
+                          });
+                        }
+                      },
+
+                        child: Text('Submit',),
+
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorsManager.themeColor1,
+
+                      ), ),
+                   ),
+                 ),
+
 
             ],
           ),
