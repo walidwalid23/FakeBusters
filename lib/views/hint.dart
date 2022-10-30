@@ -129,7 +129,7 @@ class HintScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child:Text(
-                          "Check the Logo Design",
+                          "Check the Logo Design.",
                           style: TextStyle(
                               fontSize: 16
                           ),
@@ -154,6 +154,30 @@ class HintScreen extends StatelessWidget {
                       Expanded(
                         child:Text(
                           "Check the Grammatical & spelling mistakes in the product.",
+                          style: TextStyle(
+                              fontSize: 16
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    children:[
+                      Text(
+                        "\u2022",
+                        style: TextStyle(
+                            fontSize: 16
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child:Text(
+                          "Check the barcode or the QR code attached on the product.",
                           style: TextStyle(
                               fontSize: 16
                           ),
