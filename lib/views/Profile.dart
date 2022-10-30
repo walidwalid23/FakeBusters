@@ -2,6 +2,7 @@
 
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
+import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -16,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         centerTitle: true,
         ),
+      drawer: HomeDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

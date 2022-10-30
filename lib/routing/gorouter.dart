@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/views/hint.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fakebustersapp/views/Signuppage.dart';
@@ -77,6 +78,12 @@ final GoRouter appRouter = GoRouter(
       path: '/editpost',
       builder: (BuildContext context, GoRouterState state) {
         return EditPost();
+      },
+    ),
+    GoRoute(
+      path: '/hintscreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return HintScreen();
       },
     )
 

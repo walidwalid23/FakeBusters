@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({Key? key}) : super(key: key);
@@ -27,11 +28,19 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: FaIcon(FontAwesomeIcons.houseUser),
+            title: Text('Home', style: StylesManager.textStyle1),
+            trailing: FaIcon(FontAwesomeIcons.arrowRight),
+            onTap: () {
+              context.go('/');
+            },
+          ),
+          ListTile(
             leading: FaIcon(FontAwesomeIcons.idBadge),
             title: Text('Profile', style: StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              Navigate(context, ProfileScreen());
+              context.go('/profile');
             },
           ),
           ListTile(
@@ -49,7 +58,7 @@ class HomeDrawer extends StatelessWidget {
             ),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              Navigator.pushNamed(context, '/notifications');
+              context.go('/notifications');
             },
           ),
           ListTile(
@@ -57,7 +66,7 @@ class HomeDrawer extends StatelessWidget {
             title: Text('Settings', style: StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              Navigate(context, Settings());
+              context.go('/settings');
             },
           ),
           ListTile(
@@ -72,14 +81,18 @@ class HomeDrawer extends StatelessWidget {
                 FontAwesomeIcons.arrowRight,
             ),
             onTap: () {
-              Navigate(context, HintScreen());
+              context.go('/hintscreen');
+
             },
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.rightFromBracket),
             title: Text('Log Out', style: StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
-            onTap: () {},
+            onTap: () {
+              context.go('/login');
+
+            },
           ),
         ],
       ),

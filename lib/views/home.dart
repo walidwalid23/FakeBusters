@@ -60,11 +60,14 @@ class _HomeState extends State<Home> {
 
         
       ),
+
     );
   }
   @override
   void dispose(){
-    pageController.dispose();
+    // don't dipose page controller since its global and used across all app back and forth
+  //  pageController.dispose();
     super.dispose();
   }
+
 }

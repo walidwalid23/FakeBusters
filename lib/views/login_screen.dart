@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import '../reusable_widgets/DefaultFormField.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -112,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigate(context, SignupScreen());
+                          context.go('/signup');
                         },
                         child: Text(
                             "Register",
@@ -126,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+
     );
   }
 }
