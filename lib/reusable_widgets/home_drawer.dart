@@ -1,5 +1,6 @@
 import 'package:fakebustersapp/Logic/homeLogic.dart';
 import 'package:fakebustersapp/views/Profile.dart';
+import 'package:fakebustersapp/views/hint.dart';
 import 'package:fakebustersapp/views/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
@@ -55,6 +56,21 @@ class HomeDrawer extends StatelessWidget {
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
               Navigate(context, Settings());
+            },
+          ),
+          ListTile(
+            leading: FaIcon(
+                FontAwesomeIcons.lightbulb,
+            ),
+            title: Text(
+                'Hints',
+                style: StylesManager.textStyle1,
+            ),
+            trailing: FaIcon(
+                FontAwesomeIcons.arrowRight,
+            ),
+            onTap: () {
+              Navigate(context, HintScreen());
             },
           ),
           ListTile(
