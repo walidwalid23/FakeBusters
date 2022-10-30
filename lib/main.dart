@@ -12,22 +12,27 @@ import 'package:flutter/material.dart';
 import 'package:fakebustersapp/views/Signuppage.dart';
 import 'package:fakebustersapp/views/search.dart';
 import 'package:fakebustersapp/views/notifications.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+    MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      routerDelegate: _router.routerDelegate,
+      routeInformationParser:_router.routeInformationParser,
+
       theme: ThemeData(
         appBarTheme: AppThemeManager.appBarTheme,
       ),
       title: 'FakeBusters',
+      /*
       routes: {'/home':(context)=> Home(),
         '/profile':(context)=> ProfileScreen(),
         '/settings':(context)=> Settings(),
@@ -41,6 +46,12 @@ class MyApp extends StatelessWidget {
         '/editpost':(context)=>EditPost(),
       },
       initialRoute:'/home' ,
+*/
     );
   }
+  final GoRouter _router = GoRouter(
+    routes: <GoRoute>[
+      GoRoute(path: path)
+    ]
+  );
 }
