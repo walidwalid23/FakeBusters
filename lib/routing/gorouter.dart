@@ -17,7 +17,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return Home();
+        return DisplayPost();
       },
     ),
     GoRoute(

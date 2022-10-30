@@ -54,7 +54,9 @@ class _DisplayPostState extends State<DisplayPost> {
                          buttonAction: (){},),
                          PostChoiceButton(
                            buttonText: 'Original',
-                           buttonAction: (){},)
+                           buttonAction: (){},),
+                         FaIcon(FontAwesomeIcons.comment, color: Colors.deepOrange,size:40,)
+
                      ],)
                    ],
                  ),
