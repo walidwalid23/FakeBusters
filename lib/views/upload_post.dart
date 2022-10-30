@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
+import 'package:fakebustersapp/models/post_model.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/add_post_form_field.dart';
 import 'package:fakebustersapp/reusable_widgets/product_image.dart';
@@ -39,14 +40,16 @@ class _UploadPostState extends State<UploadPost> {
                   return 'Please enter the product name';
                 }
                 return null;
-              },),
+              },
+              textFieldController: productNameController,),
 
               AddPostTextInputField(label: 'Brand Name', validatorFunc: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the brand name';
                 }
                 return null;
-              },),
+              },
+              textFieldController: brandNameController,),
 
               Padding(
                 padding: const EdgeInsets.all(15),
@@ -132,7 +135,12 @@ class _UploadPostState extends State<UploadPost> {
                       onPressed: () {
                         if (_formKey.currentState!.validate() && productImage != null) {
                           // DATA IS VALID
-                            context.push('/displaypost', extra:productImage);
+                          PostModel postData = PostModel(
+                            productName: productNameController.text,
+                            brandName: brandNameController.text,
+                          productImage: productImage!,
+                          productCategory: dropdownValue);
+                            context.push('/displaypost', extra:postData);
                         }
                         else if(productImage == null){
                           setState(() {

@@ -44,7 +44,7 @@ class _EditPostState extends State<EditPost> {
                 }
                 return null;
               },
-              ),
+             textFieldController: TextEditingController(), ),
               AddPostTextInputField(
                 label: 'Brand Name',
                 validatorFunc: (value) {
@@ -52,8 +52,7 @@ class _EditPostState extends State<EditPost> {
                   return 'Please enter the brand name';
                 }
                 return null;
-              },
-              ),
+              }, textFieldController: TextEditingController()),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: DropdownButtonFormField(

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fakebustersapp/models/post_model.dart';
 import 'package:fakebustersapp/views/hint.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -73,7 +74,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/displaypost',
       builder: (BuildContext context, GoRouterState state) {
-       return DisplayPost(productImage: state.extra as File);
+       return DisplayPost(postData: state.extra as PostModel);
       },
     ),
     GoRoute(

@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/models/colors_manager.dart';
+import 'package:fakebustersapp/models/post_model.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
 import 'package:fakebustersapp/reusable_widgets/post_choice_button.dart';
 import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
@@ -7,9 +8,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
 
 class DisplayPost extends StatefulWidget {
-  DisplayPost({Key? key,required  this.productImage}) : super(key: key);
+  DisplayPost({Key? key,required  this.postData}) : super(key: key);
 
-  File productImage;
+  PostModel postData;
 
   @override
   State<DisplayPost> createState() => _DisplayPostState();
@@ -37,9 +38,9 @@ class _DisplayPostState extends State<DisplayPost> {
               subtitle:Text('20 min ago',style: TextStyle(color: ColorsManager.bottomBarUnselectedIconsColor),)
                 ,trailing: IconButton(icon: FaIcon(FontAwesomeIcons.ellipsis),
                 onPressed: (){},),),
-              Text('Product Name: rayban glasses model 238',style: StylesManager.textStyle1),
-              Text('Brand Name: rayban',style: StylesManager.textStyle1),
-              Text('Product Category: Fashion',style: StylesManager.textStyle1),
+              Text('Product Name: ${widget.postData.productName}',style: StylesManager.textStyle1),
+              Text('Brand Name: ${widget.postData.brandName}',style: StylesManager.textStyle1),
+              Text('Product Category: ${widget.postData.productCategory}',style: StylesManager.textStyle1),
                Container(
                child: Padding(
                  padding: const EdgeInsets.all(8.0),
@@ -49,7 +50,7 @@ class _DisplayPostState extends State<DisplayPost> {
                          borderRadius: BorderRadius.circular(15),
                          child: Image.file(
                            // PRODUCT IMAGE
-                           widget.productImage,
+                           widget.postData.productImage,
                            width: 400,
                            height:400,
                          )),
