@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_new, unused_import, unused_field
 
 import 'package:fakebustersapp/models/home_manager.dart';
+import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
@@ -34,6 +35,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: HomeDrawer(),
         body: SafeArea(
             child: Form(
                 key: formkey,
@@ -130,7 +132,7 @@ class _SettingsState extends State<Settings> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'which mode you prefer',
+                          'Which mode do you prefer?',
                           style: TextStyle(
                             fontSize: 21,
                             height: 0,
