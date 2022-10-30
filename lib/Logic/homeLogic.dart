@@ -12,10 +12,3 @@ void bustersSeekerChoice(){
       duration: Duration(milliseconds: ValuesManager.swipePageAnimationDuration),
       curve: Curves.easeInCirc);
 }
-void Navigate(context,widget){
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-        builder: (context) => widget),
-  );
-}

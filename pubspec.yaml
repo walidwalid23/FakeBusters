@@ -52,7 +52,7 @@ dev_dependencies:
 
 flutter_native_splash:
   image: assets/images/fakebuster.png
-  color: "#545454" #grey
+  color: "#FFFFFF" #white
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
