@@ -1,30 +1,33 @@
 import 'package:fakebustersapp/models/styles_manager.dart';
+import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class HintScreen extends StatelessWidget {
   const HintScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    List<String> str = [
-      "Hello World",
-      "This is FlutterCampus",
-      "Learn App Building.",
-      "Flutter is the Best"];
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
+        title: Text(
               'Hints',
           ),
-        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Column(
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.lightbulb,
+                  size: 130,
+                ),
+              ],
+            ),
             SizedBox(
-              height: 10,
+              height: 50,
             ),
             Text(
                 'How to know whether it\'s fake or not?',
@@ -44,17 +47,17 @@ class HintScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 16
                           ),
-                        ), //bullet text
+                        ),
                         SizedBox(
                           width: 10,
-                        ), //space between bullet and text
+                        ),
                         Expanded(
                           child:Text(
-                            "Check the Logo Dimensions",
+                            "Check the Logo Dimensions.",
                             style: TextStyle(
                                 fontSize: 16
                             ),
-                          ), //text
+                          ),
                         ),
                       ],
                   ),
@@ -66,19 +69,23 @@ class HintScreen extends StatelessWidget {
                       Text(
                         "\u2022",
                         style: TextStyle(
-                            fontSize: 16
+                            fontSize: 18
                         ),
-                      ), //bullet text
+                      ),
                       SizedBox(
                         width: 10,
-                      ), //space between bullet and text
+                      ),
                       Expanded(
-                        child:Text(
-                          "Check the Logo Dimensions",
-                          style: TextStyle(
-                              fontSize: 16
-                          ),
-                        ), //text
+                        child:Column(
+                          children: [
+                            Text(
+                              "Search for the authentication code found in the certificate of quality if found on the product.",
+                              style: TextStyle(
+                                  fontSize: 16
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -92,17 +99,17 @@ class HintScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 16
                         ),
-                      ), //bullet text
+                      ),
                       SizedBox(
                         width: 10,
-                      ), //space between bullet and text
+                      ),
                       Expanded(
                         child:Text(
-                          "Check the Logo Dimensions",
+                          "Check the Logo position on the product.",
                           style: TextStyle(
                               fontSize: 16
                           ),
-                        ), //text
+                        ),
                       ),
                     ],
                   ),
@@ -116,17 +123,41 @@ class HintScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 16
                         ),
-                      ), //bullet text
+                      ),
                       SizedBox(
                         width: 10,
-                      ), //space between bullet and text
+                      ),
                       Expanded(
                         child:Text(
-                          "Check the Logo Dimensions",
+                          "Check the Logo Design",
                           style: TextStyle(
                               fontSize: 16
                           ),
-                        ), //text
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    children:[
+                      Text(
+                        "\u2022",
+                        style: TextStyle(
+                            fontSize: 16
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child:Text(
+                          "Check the Grammatical & spelling mistakes in the product.",
+                          style: TextStyle(
+                              fontSize: 16
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -136,6 +167,7 @@ class HintScreen extends StatelessWidget {
           ],
         ),
       ),
+      drawer: HomeDrawer(),
     );
   }
 }
