@@ -12,4 +12,3 @@ void bustersSeekerChoice(){
       duration: Duration(milliseconds: ValuesManager.swipePageAnimationDuration),
       curve: Curves.easeInCirc);
 }
-}
