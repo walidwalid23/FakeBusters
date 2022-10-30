@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last
 
 import 'package:fakebustersapp/models/colors_manager.dart';
 import 'package:fakebustersapp/models/styles_manager.dart';
