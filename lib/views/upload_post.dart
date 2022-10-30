@@ -102,7 +102,9 @@ class _UploadPostState extends State<UploadPost> {
                     ),
              ),
               ),
+
               ProductImage(productImage: productImage,),
+
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: ElevatedButton(
@@ -125,6 +127,7 @@ class _UploadPostState extends State<UploadPost> {
                    padding: const EdgeInsets.all(15),
                    child: SizedBox(
                      child: ElevatedButton(
+                       child: Text('Submit',),
                       onPressed: () {
                         if (_formKey.currentState!.validate() && productImage != null) {
                             print("everything is valid");
@@ -136,7 +139,7 @@ class _UploadPostState extends State<UploadPost> {
                         }
                       },
 
-                        child: Text('Submit',),
+
 
                       style: ElevatedButton.styleFrom(
                           backgroundColor: ColorsManager.themeColor1,
