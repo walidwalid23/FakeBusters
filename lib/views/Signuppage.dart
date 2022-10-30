@@ -53,8 +53,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     validate: (value) {
                       if (value!.isEmpty) {
                         return "Name must not be empty";
-                      }
-                      if (!validator.name(value)) {
+                      } else if (validator.name(value)) {
                         return "Invalid Name";
                       }
                       return null;
