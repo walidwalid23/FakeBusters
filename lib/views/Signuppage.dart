@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, unused_import, prefer_typing_uninitialized_variables, prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/views/login_screen.dart';
 import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';

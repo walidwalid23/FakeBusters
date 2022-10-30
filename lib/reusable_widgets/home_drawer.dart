@@ -48,7 +48,9 @@ class HomeDrawer extends StatelessWidget {
               ],
             ),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/notifications');
+            },
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.gear),
