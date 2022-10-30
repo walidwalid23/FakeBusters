@@ -12,10 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:fakebustersapp/views/Signuppage.dart';
 import 'package:fakebustersapp/views/search.dart';
 import 'package:fakebustersapp/views/notifications.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 
 void main() {
+ 
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
