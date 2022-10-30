@@ -38,8 +38,7 @@ class MyApp extends StatelessWidget {
         '/categories':(context)=> Categories(),
         '/uploadpost':(context)=> UploadPost(),
         '/displaypost':(context)=> DisplayPost(),
-        '/editpost':(context)=> EditPost(),
-
+        '/editpost':(context)=>EditPost(),
       },
       initialRoute:'/home' ,
     );

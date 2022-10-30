@@ -123,7 +123,7 @@ class _SettingsState extends State<Settings> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'which mode you prefer?',
+                        'which mode you prefer',
                         style: TextStyle(
                           fontSize: 21,
                           height: 0,
