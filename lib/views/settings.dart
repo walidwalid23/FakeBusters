@@ -8,6 +8,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:day_night_switcher/day_night_switcher.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -21,6 +22,7 @@ class _SettingsState extends State<Settings> {
   var passwordController = TextEditingController();
   bool status = false;
   bool isPassword = true;
+  bool isDarkModeEnabled = false;
   Color _textColor = Colors.black;
   Color _appBarColor = Color.fromRGBO(36, 41, 46, 1);
   Color _scaffoldBgcolor = Colors.white;
@@ -33,7 +35,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: HomeDrawer(),
+        drawer: HomeDrawer(),
         body: SafeArea(
             child: Form(
                 key: formkey,
@@ -138,46 +140,11 @@ class _SettingsState extends State<Settings> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        FlutterSwitch(
-                          width: 100.0,
-                          height: 55.0,
-                          toggleSize: 45.0,
-                          value: status,
-                          borderRadius: 30.0,
-                          padding: 2.0,
-                          activeToggleColor: Color.fromARGB(255, 0, 0, 0),
-                          inactiveToggleColor:
-                              Color.fromARGB(255, 253, 254, 255),
-                          activeSwitchBorder: Border.all(
-                            color: Color.fromARGB(255, 73, 71, 71),
-                            width: 6.0,
-                          ),
-                          inactiveSwitchBorder: Border.all(
-                            color: Color.fromARGB(255, 227, 230, 233),
-                            width: 6.0,
-                          ),
-                          activeColor: Color.fromARGB(255, 2, 2, 2),
-                          inactiveColor: Color.fromARGB(255, 245, 239, 239),
-                          activeIcon: Icon(
-                            Icons.nightlight_round,
-                            color: Color.fromARGB(255, 255, 254, 251),
-                          ),
-                          inactiveIcon: Icon(
-                            Icons.wb_sunny,
-                            color: Color(0xFFFFDF5D),
-                          ),
-                          onToggle: (val) {
+                        DayNightSwitcher(
+                          isDarkModeEnabled: isDarkModeEnabled,
+                          onStateChanged: (isDarkModeEnabled) {
                             setState(() {
-                              status = val;
-                              if (val) {
-                                _textColor = Colors.white;
-                                _appBarColor = Color.fromRGBO(22, 27, 34, 1);
-                                _scaffoldBgcolor = Color(0xFF0D1117);
-                              } else {
-                                _textColor = Colors.black;
-                                _appBarColor = Color.fromRGBO(36, 41, 46, 1);
-                                _scaffoldBgcolor = Colors.white;
-                              }
+                              this.isDarkModeEnabled = isDarkModeEnabled;
                             });
                           },
                         ),

@@ -42,6 +42,7 @@ dependencies:
   flutter_switch: ^0.3.2
   image_picker: ^0.8.6
   go_router: ^5.1.1
+  day_night_switcher: ^0.2.0+1
 
 
 dev_dependencies:
