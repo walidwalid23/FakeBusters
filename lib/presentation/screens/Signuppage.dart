@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fakebustersapp/views/login_screen.dart';
-import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
+import 'package:fakebustersapp/presentation/screens/login_screen.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:go_router/go_router.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 import 'package:regexed_validator/regexed_validator.dart';

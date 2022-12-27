@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:fakebustersapp/models/colors_manager.dart';
-import 'package:fakebustersapp/models/styles_manager.dart';
-import 'package:fakebustersapp/reusable_widgets/add_post_form_field.dart';
-import 'package:fakebustersapp/reusable_widgets/product_image.dart';
-import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
+import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/add_post_form_field.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/product_image.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

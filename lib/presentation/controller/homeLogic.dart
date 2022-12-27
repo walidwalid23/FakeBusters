@@ -1,6 +1,6 @@
-import 'package:fakebustersapp/models/values_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:fakebustersapp/globals.dart';
+import 'package:fakebustersapp/core/globals.dart';
 void fakeBusterChoice(){
   pageController.animateToPage(2,
       duration: Duration(milliseconds: ValuesManager.swipePageAnimationDuration),

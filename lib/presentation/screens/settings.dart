@@ -1,13 +1,12 @@
-import 'package:fakebustersapp/models/home_manager.dart';
-import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
+import 'package:fakebustersapp/core/utils/constants/home_manager.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:fakebustersapp/models/colors_manager.dart';
-import 'package:fakebustersapp/models/styles_manager.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
-import '../reusable_widgets/DefaultFormField.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+
+import '../reusable_widgets/DefaultFormField.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});

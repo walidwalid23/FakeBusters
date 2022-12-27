@@ -1,20 +1,20 @@
 import 'dart:io';
-
-import 'package:fakebustersapp/models/post_model.dart';
-import 'package:fakebustersapp/views/hint.dart';
+import 'package:fakebustersapp/domain/entities/post.dart';
+import 'package:fakebustersapp/presentation/screens/hint.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:fakebustersapp/views/Signuppage.dart';
-import 'package:fakebustersapp/views/search.dart';
-import 'package:fakebustersapp/views/notifications.dart';
-import 'package:fakebustersapp/views/Profile.dart';
-import 'package:fakebustersapp/views/edit_post.dart';
-import 'package:fakebustersapp/views/upload_post.dart';
-import 'package:fakebustersapp/views/categories.dart';
-import 'package:fakebustersapp/views/display_post.dart';
-import 'package:fakebustersapp/views/home.dart';
-import 'package:fakebustersapp/views/login_screen.dart';
-import 'package:fakebustersapp/views/settings.dart';
+import 'package:fakebustersapp/presentation/screens/categories.dart';
+import 'package:fakebustersapp/presentation/screens/display_post.dart';
+import '../../presentation/screens/Profile.dart';
+import '../../presentation/screens/Signuppage.dart';
+import '../../presentation/screens/edit_post.dart';
+import '../../presentation/screens/home.dart';
+import '../../presentation/screens/login_screen.dart';
+import '../../presentation/screens/notifications.dart';
+import '../../presentation/screens/search.dart';
+import '../../presentation/screens/settings.dart';
+import '../../presentation/screens/upload_post.dart';
+
 final GoRouter appRouter = GoRouter(
   routes: <GoRoute>[
     GoRoute(

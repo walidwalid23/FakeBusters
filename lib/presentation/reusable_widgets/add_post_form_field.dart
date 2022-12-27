@@ -1,4 +1,4 @@
-import 'package:fakebustersapp/models/colors_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:flutter/material.dart';
 class AddPostTextInputField  extends StatelessWidget {
     AddPostTextInputField ({Key? key, required this.label, required this.validatorFunc,

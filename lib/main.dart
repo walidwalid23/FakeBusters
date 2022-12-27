@@ -1,6 +1,7 @@
-import 'package:fakebustersapp/models/theme_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/theme_manager.dart';
 import 'package:flutter/material.dart';
-import 'routing/gorouter.dart';
+import 'core/routing/gorouter.dart';
+
 
 
 void main() {

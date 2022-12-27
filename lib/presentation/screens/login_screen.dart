@@ -1,6 +1,6 @@
-import 'package:fakebustersapp/Logic/homeLogic.dart';
-import 'package:fakebustersapp/reusable_widgets/DefaultButton.dart';
-import 'package:fakebustersapp/views/Signuppage.dart';
+import 'package:fakebustersapp/presentation/controller/homeLogic.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
+import 'package:fakebustersapp/presentation/screens/Signuppage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:regexed_validator/regexed_validator.dart';

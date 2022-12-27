@@ -1,10 +1,9 @@
-import 'package:fakebustersapp/Logic/homeLogic.dart';
-import 'package:fakebustersapp/views/Profile.dart';
-import 'package:fakebustersapp/views/hint.dart';
-import 'package:fakebustersapp/views/settings.dart';
+import 'package:fakebustersapp/presentation/controller/homeLogic.dart';
+import 'package:fakebustersapp/presentation/screens/Profile.dart';
+import 'package:fakebustersapp/presentation/screens/hint.dart';
 import 'package:flutter/material.dart';
-import 'package:fakebustersapp/models/colors_manager.dart';
-import 'package:fakebustersapp/models/styles_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 

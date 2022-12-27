@@ -1,15 +1,14 @@
-import 'package:fakebustersapp/Logic/homeLogic.dart';
-import 'package:fakebustersapp/models/colors_manager.dart';
-import 'package:fakebustersapp/models/values_manager.dart';
-import 'package:fakebustersapp/reusable_widgets/home_drawer.dart';
-import 'upload_post.dart';
+import 'package:fakebustersapp/presentation/controller/homeLogic.dart';
+import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
+import 'package:fakebustersapp/core/utils/constants/values_manager.dart';
+import 'package:fakebustersapp/presentation/screens/search.dart';
+import 'package:fakebustersapp/presentation/screens/upload_post.dart';
+import 'package:fakebustersapp/presentation/screens/user_type_choices.dart';
 import 'categories.dart';
-import 'search.dart';
-import 'user_type_choices.dart';
 import 'package:flutter/material.dart';
-import '../models/home_manager.dart';
+import '../../core/utils/constants/home_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fakebustersapp/globals.dart';
+import 'package:fakebustersapp/core/globals.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
