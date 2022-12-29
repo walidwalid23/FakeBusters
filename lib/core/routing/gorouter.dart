@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:fakebustersapp/presentation/screens/categories.dart';
 import 'package:fakebustersapp/presentation/screens/display_post.dart';
 import '../../presentation/screens/Profile.dart';
-import '../../presentation/screens/Signuppage.dart';
+import '../../presentation/screens/signup_screen.dart';
 import '../../presentation/screens/edit_post.dart';
 import '../../presentation/screens/home.dart';
 import '../../presentation/screens/login_screen.dart';
@@ -20,7 +20,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return Home();
+        return SignupScreen();
       },
     ),
     GoRoute(

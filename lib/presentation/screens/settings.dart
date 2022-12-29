@@ -80,7 +80,7 @@ class _SettingsState extends State<Settings> {
                     DefaultTextFormField(
                       suffix:
                           isPassword ? Icons.visibility : Icons.visibility_off,
-                      icon: () {
+                      iconSwitch: () {
                         setState(() {
                           isPassword = !isPassword;
                         });

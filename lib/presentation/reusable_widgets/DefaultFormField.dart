@@ -10,7 +10,7 @@ class DefaultTextFormField extends StatelessWidget {
     required this.validate,
     required this.prefix,
     this.isPassword = false,
-    this.icon,
+    this.iconSwitch,
     this.suffix,
   }) : super(key: key);
   TextEditingController Controller;
@@ -20,7 +20,7 @@ class DefaultTextFormField extends StatelessWidget {
   IconData prefix;
   var suffix;
   bool isPassword;
-  var icon;
+  var iconSwitch;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DefaultTextFormField extends StatelessWidget {
         prefixIcon: Icon(prefix, color: ColorsManager.themeColor1),
         suffixIcon: suffix != null
             ? IconButton(
-                onPressed: icon,
+                onPressed: iconSwitch,
                 icon: Icon(suffix),
               )
             : null,

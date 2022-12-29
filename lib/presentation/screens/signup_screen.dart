@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:go_router/go_router.dart';
 import '../reusable_widgets/DefaultFormField.dart';
-import 'package:regexed_validator/regexed_validator.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import '../reusable_widgets/image_container.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -12,13 +14,16 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
+  var usernameController = TextEditingController();
   var passwordController = TextEditingController();
-  var confirmpasswordController = TextEditingController();
-  var formkey = GlobalKey<FormState>();
-  var confirmpass;
+  var confirmPasswordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+  var confirmPass;
   bool isPassword = true;
+  bool isConfirmPassword = true;
+  final ImagePicker _picker = ImagePicker();
+  File? userImage;
+
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
@@ -32,12 +37,13 @@ class _SignupScreenState extends State<SignupScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Form(
-              key: formkey,
+              key: formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+
                 children: [
                   Text(
-                    "Signup",
+                    "SignUp",
                     style: TextStyle(
                       fontSize: 40,
                       color: Colors.black,
@@ -62,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     },
                     Label: "UserName*",
                     type: TextInputType.visiblePassword,
-                    Controller: nameController,
+                    Controller: usernameController,
                   ),
 
                   SizedBox(
@@ -71,20 +77,18 @@ class _SignupScreenState extends State<SignupScreen> {
                   DefaultTextFormField(
                     suffix:
                         isPassword ? Icons.visibility : Icons.visibility_off,
-                    icon: () {
+                    iconSwitch: () {
                       setState(() {
                         isPassword = !isPassword;
                       });
                     },
                     prefix: Icons.lock,
                     validate: (value) {
-                      confirmpass = value;
+                      confirmPass = value;
                       if (value!.isEmpty) {
                         return "Password must not be empty";
                       } else if (value.length < 8) {
                         return "Password must be atleast 8 characters long";
-                      } else if (!validator.password(value)) {
-                        return "Invalid password";
                       }
                       return null;
                     },
@@ -98,10 +102,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   DefaultTextFormField(
                     suffix:
-                        isPassword ? Icons.visibility : Icons.visibility_off,
-                    icon: () {
+                    isConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                    iconSwitch: () {
                       setState(() {
-                        isPassword = !isPassword;
+                        isConfirmPassword = !isConfirmPassword;
                       });
                     },
                     prefix: Icons.lock,
@@ -110,26 +114,33 @@ class _SignupScreenState extends State<SignupScreen> {
                         return "Password must not be empty";
                       } else if (value.length < 8) {
                         return "Password must be atleast 8 characters long";
-                      } else if (!validator.password(value)) {
-                        return "Invalid password";
-                      } else if (value != confirmpass) {
+                      }
+                      else if (value != confirmPass) {
                         return "Password Don't match";
                       }
                       return null;
                     },
                     Label: "Confirm Password*",
                     type: TextInputType.visiblePassword,
-                    Controller: confirmpasswordController,
-                    isPassword: isPassword,
+                    Controller: confirmPasswordController,
+                    isPassword: isConfirmPassword,
                   ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  defaultButton(
+                 SizedBox(height:10),
+                  ImageContainer(width: 200,height: 200,uploadedImage: userImage,),
+                  DefaultButton(text: "Upload Image",width: 200, function: ()async{
+                    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                    if(image == null){return;}
+                    setState(() {
+                      userImage = File(image.path);
+                    });
+                  }),
+                SizedBox(height:10)
+                  ,
+
+                  DefaultButton(
                     text: 'Signup',
                     function: () {
-                      if (formkey.currentState!.validate()) {
-                        print(emailController.text);
+                      if (formKey.currentState!.validate()) {
                         print(passwordController.text);
                         context.push('/');
                       }
@@ -138,6 +149,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
+
                 ],
               ),
             ),

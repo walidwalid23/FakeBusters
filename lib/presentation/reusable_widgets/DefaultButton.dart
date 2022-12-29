@@ -1,8 +1,8 @@
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:flutter/material.dart';
 
-class defaultButton extends StatelessWidget {
-  defaultButton({
+class DefaultButton extends StatelessWidget {
+  DefaultButton({
     Key? key,
     required this.text,
     this.width = double.infinity,
@@ -15,17 +15,20 @@ class defaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
-      color: ColorsManager.themeColor1,
-      child: MaterialButton(
+      child: ElevatedButton(
         onPressed: function,
+         style:ElevatedButton.styleFrom(
+            backgroundColor: ColorsManager.themeColor1
+             ),
         child: Text(
           text.toUpperCase(),
           style: TextStyle(
             color: Colors.white,
           ),
         ),
+
       ),
     );
   }

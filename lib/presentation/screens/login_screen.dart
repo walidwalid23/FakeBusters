@@ -1,6 +1,6 @@
 import 'package:fakebustersapp/presentation/controller/homeLogic.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
-import 'package:fakebustersapp/presentation/screens/Signuppage.dart';
+import 'package:fakebustersapp/presentation/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   DefaultTextFormField(
                     suffix: isPassword?Icons.visibility:Icons.visibility_off,
-                    icon: (){
+                    iconSwitch: (){
                       setState((){
                         isPassword=!isPassword;
                       });
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  defaultButton(
+                  DefaultButton(
                     text: 'login',
                     function: (){
                       if(formkey.currentState!.validate()){
