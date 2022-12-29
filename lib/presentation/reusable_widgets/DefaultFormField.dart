@@ -1,8 +1,8 @@
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:flutter/material.dart';
 
-class DefaultFormField extends StatelessWidget {
-  DefaultFormField({
+class DefaultTextFormField extends StatelessWidget {
+  DefaultTextFormField({
     Key? key,
     required this.type,
     required this.Controller,
@@ -29,7 +29,7 @@ class DefaultFormField extends StatelessWidget {
       controller: Controller,
       keyboardType: type,
       obscureText: isPassword,
-      maxLength: 60,
+      maxLength: 50,
       decoration: InputDecoration(
         labelText: "${Label}",
         prefixIcon: Icon(prefix, color: ColorsManager.themeColor1),

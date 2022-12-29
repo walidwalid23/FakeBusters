@@ -60,7 +60,7 @@ class _SettingsState extends State<Settings> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    DefaultFormField(
+                    DefaultTextFormField(
                       prefix: Icons.email,
                       validate: (value) {
                         if (value!.isEmpty) {
@@ -77,7 +77,7 @@ class _SettingsState extends State<Settings> {
                     SizedBox(
                       height: 20.0,
                     ),
-                    DefaultFormField(
+                    DefaultTextFormField(
                       suffix:
                           isPassword ? Icons.visibility : Icons.visibility_off,
                       icon: () {

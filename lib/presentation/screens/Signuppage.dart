@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fakebustersapp/presentation/screens/login_screen.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:go_router/go_router.dart';
 import '../reusable_widgets/DefaultFormField.dart';
@@ -48,42 +47,28 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  DefaultFormField(
+                  DefaultTextFormField(
                     prefix: Icons.account_circle,
                     validate: (value) {
                       if (value!.isEmpty) {
-                        return "Name must not be empty";
-                      } else if (validator.name(value)) {
-                        return "Invalid Name";
+                        return "UserName must not be empty";
                       }
+
+                      else if (value.length < 3) {
+                        return "Username must be atleast 3 characters long";
+                      }
+
                       return null;
                     },
-                    Label: "Name*",
+                    Label: "UserName*",
                     type: TextInputType.visiblePassword,
                     Controller: nameController,
                   ),
+
                   SizedBox(
                     height: 20.0,
                   ),
-                  DefaultFormField(
-                    prefix: Icons.email,
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return "Email must not be empty";
-                      }
-                      if (!validator.email(value)) {
-                        return "Invalid Email Address";
-                      }
-                      return null;
-                    },
-                    Label: "Email*",
-                    type: TextInputType.visiblePassword,
-                    Controller: emailController,
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  DefaultFormField(
+                  DefaultTextFormField(
                     suffix:
                         isPassword ? Icons.visibility : Icons.visibility_off,
                     icon: () {
@@ -111,7 +96,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  DefaultFormField(
+                  DefaultTextFormField(
                     suffix:
                         isPassword ? Icons.visibility : Icons.visibility_off,
                     icon: () {

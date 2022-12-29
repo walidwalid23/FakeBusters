@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 40.0,
                   ),
-              DefaultFormField(
+              DefaultTextFormField(
                 prefix: Icons.email,
                 validate: (value) {
                   if (value!.isEmpty) {
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  DefaultFormField(
+                  DefaultTextFormField(
                     suffix: isPassword?Icons.visibility:Icons.visibility_off,
                     icon: (){
                       setState((){
