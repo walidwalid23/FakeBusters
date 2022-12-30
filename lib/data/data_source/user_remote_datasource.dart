@@ -41,12 +41,12 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         "password": user.password
       });
     }
-    // send a post request to the server
+    // send a post request to the server //
     try {
       Dio dio = new Dio();
       var response = await dio.post(ServerManager.baseUrl + "/users/signup", data: formData);
       int statusCode = response.statusCode!;
-      
+
       // The User Have Signed Up Successfully Now Store His JWT Token Locally
       if (statusCode == 200) {
         String userToken = response.headers['user-token']![0];
