@@ -1,11 +1,11 @@
 import 'package:fakebustersapp/core/utils/constants/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'core/routing/gorouter.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 void main() {
-  runApp( MyApp());
+  runApp(ProviderScope(child:MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -7,11 +7,17 @@ class ServerException implements Exception{
     required this.networkErrorModel});
 }
 
+class ConnectionException implements Exception{
+  final String errorMessage;
+
+  ConnectionException({required this.errorMessage});
+
+}
 
 class LocalDatabaseException implements Exception{
   final String errorMessage;
 
-  LocalDatabaseException(this.errorMessage);
+  LocalDatabaseException({required this.errorMessage});
 
 
 }

@@ -6,6 +6,11 @@ abstract class Failure{
 }
 
 
+class ConnectionFailure extends Failure{
+  ConnectionFailure({required super.errorMessage, required super.stackTrace});
+
+}
+
 class ServerFailure extends Failure{
   ServerFailure({required super.errorMessage, required super.stackTrace});
 

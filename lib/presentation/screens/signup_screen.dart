@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../data/data_source/user_remote_datasource.dart';
 import '../../domain/entities/user.dart';
+import '../controller/user_providers.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../reusable_widgets/image_container.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
-class SignupScreen extends StatefulWidget {
+class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _SignupScreenState extends ConsumerState<SignupScreen> {
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
@@ -141,24 +144,30 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(height:10)
                   ,
 
-                  DefaultButton(
-                    text: 'Signup',
-                    function: () async{
-                      if (formKey.currentState!.validate()) {
-                        User user = User(username: usernameController.text,
-                        password: passwordController.text,
-                        profileImage: userImage);
+                   DefaultButton(
+                      text: 'Signup',
+                      function: () async {
+                        if (formKey.currentState!.validate()) {
+                          User user = User(
+                              username: usernameController.text,
+                              password: passwordController.text,
+                              profileImage: userImage);
 
-                        bool signedUp = await UserRemoteDataSource().signUp(user);
+                          ref.read(userSignUpProvider.notifier).signupState(context, user);
 
 
-                        context.push('/');
-                      }
-                    },
+
+
+                        }
+                      },
                   ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
+                ref.watch(userSignUpProvider).when(
+                           data: (data)=> (data==null)?Container(): Text(data.toString(),style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold)) ,
+                           error: (error, trace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                          loading: ()=>SpinKitRing(color: Colors.orange)
+                )
+                       
+
 
                 ],
               ),
