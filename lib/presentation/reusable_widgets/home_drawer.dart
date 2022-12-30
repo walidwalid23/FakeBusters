@@ -21,7 +21,7 @@ class HomeDrawer extends StatelessWidget {
               color: ColorsManager.themeColor1,
             ),
             child: CircleAvatar(
-              child: Image.asset('assets/images/usericon.png', scale: 1),
+              child: Image.asset('assets/images/default_profile_image.png', scale: 1),
               radius: 50,
               backgroundColor: Colors.white,
             ),

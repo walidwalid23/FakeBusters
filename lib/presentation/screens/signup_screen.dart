@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:go_router/go_router.dart';
+import '../../data/data_source/user_remote_datasource.dart';
+import '../../domain/entities/user.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../reusable_widgets/image_container.dart';
+
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -132,6 +135,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     if(image == null){return;}
                     setState(() {
                       userImage = File(image.path);
+                      print(image.path);
                     });
                   }),
                 SizedBox(height:10)
@@ -139,9 +143,15 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   DefaultButton(
                     text: 'Signup',
-                    function: () {
+                    function: () async{
                       if (formKey.currentState!.validate()) {
-                        print(passwordController.text);
+                        User user = User(username: usernameController.text,
+                        password: passwordController.text,
+                        profileImage: userImage);
+
+                        bool signedUp = await UserRemoteDataSource().signUp(user);
+
+
                         context.push('/');
                       }
                     },

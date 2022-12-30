@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 
 import '../reusable_widgets/DefaultFormField.dart';
@@ -65,8 +64,6 @@ class _SettingsState extends State<Settings> {
                       validate: (value) {
                         if (value!.isEmpty) {
                           return "Email must not be empty";
-                        } else if (!validator.email(value)) {
-                          return "Invalid Email Address";
                         }
                         return null;
                       },

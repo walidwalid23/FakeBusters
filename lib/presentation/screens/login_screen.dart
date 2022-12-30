@@ -1,9 +1,6 @@
-import 'package:fakebustersapp/presentation/controller/homeLogic.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
-import 'package:fakebustersapp/presentation/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 import 'package:go_router/go_router.dart';
 
@@ -50,8 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 validate: (value) {
                   if (value!.isEmpty) {
                     return "Email must not be empty";
-                  }else if(!validator.email(value)){
-                    return "Invalid Email Address";
                   }
                   return null;
                 },
