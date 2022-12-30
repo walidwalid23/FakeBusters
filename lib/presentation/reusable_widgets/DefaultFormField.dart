@@ -9,7 +9,7 @@ class DefaultTextFormField extends StatelessWidget {
     required this.Label,
     required this.validate,
     required this.prefix,
-    this.isPassword = false,
+    this.showPassword = false,
     this.iconSwitch,
     this.suffix,
   }) : super(key: key);
@@ -19,7 +19,7 @@ class DefaultTextFormField extends StatelessWidget {
   var validate;
   IconData prefix;
   var suffix;
-  bool isPassword;
+  bool showPassword;
   var iconSwitch;
 
   @override
@@ -28,7 +28,7 @@ class DefaultTextFormField extends StatelessWidget {
       validator: validate,
       controller: Controller,
       keyboardType: type,
-      obscureText: isPassword,
+      obscureText: showPassword,
       maxLength: 50,
       decoration: InputDecoration(
         labelText: "${Label}",

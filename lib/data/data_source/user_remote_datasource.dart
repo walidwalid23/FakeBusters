@@ -41,11 +41,12 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         "password": user.password
       });
     }
-    // send a post request to the server //
+    // send a post request to the server
     try {
       Dio dio = new Dio();
       var response = await dio.post(ServerManager.baseUrl + "/users/signup", data: formData);
       int statusCode = response.statusCode!;
+
 
       // The User Have Signed Up Successfully Now Store His JWT Token Locally
       if (statusCode == 200) {
@@ -88,16 +89,13 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
 
   @override
   Future<String> login(User user) async{
-
-      FormData formData = FormData.fromMap({
-        "username": user.username,
-        "password": user.password
-      });
-
     // send a post request to the server
     try {
       Dio dio = new Dio();
-      var response = await dio.post(ServerManager.baseUrl + "/users/login", data: formData);
+      var response = await dio.post(ServerManager.baseUrl+ "/users/login", data: {
+        "username": user.username,
+        "password": user.password
+      });
 
       int statusCode = response.statusCode!;
 

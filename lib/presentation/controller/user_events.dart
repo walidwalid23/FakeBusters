@@ -28,7 +28,8 @@ class UserSignUpEvent extends StateNotifier <AsyncValue<dynamic>>{
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
     } , (String successMessage) {
       //we don't need to change the state when succeed cause we will move to another screen
-      //super.state = AsyncData(successMessage);
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
       // go to home page and show signed up alert
       Fluttertoast.showToast(
           msg: successMessage,
@@ -61,7 +62,8 @@ class UserLoginEvent extends StateNotifier <AsyncValue<dynamic>>{
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
     } , (String successMessage) {
       //we don't need to change the state when succeed cause we will move to another screen
-      //super.state = AsyncData(successMessage);
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
       // go to home page and show logged in alert
       Fluttertoast.showToast(
           msg: successMessage,

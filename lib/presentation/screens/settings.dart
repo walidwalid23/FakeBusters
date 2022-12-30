@@ -19,7 +19,7 @@ class _SettingsState extends State<Settings> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool status = false;
-  bool isPassword = true;
+  bool showPassword = true;
   bool isDarkModeEnabled = false;
   Color _textColor = Colors.black;
   Color _appBarColor = Color.fromRGBO(36, 41, 46, 1);
@@ -76,10 +76,10 @@ class _SettingsState extends State<Settings> {
                     ),
                     DefaultTextFormField(
                       suffix:
-                          isPassword ? Icons.visibility : Icons.visibility_off,
+                      showPassword ? Icons.visibility : Icons.visibility_off,
                       iconSwitch: () {
                         setState(() {
-                          isPassword = !isPassword;
+                          showPassword = !showPassword;
                         });
                       },
                       prefix: Icons.lock,
@@ -94,7 +94,7 @@ class _SettingsState extends State<Settings> {
                       Label: "Update Password",
                       type: TextInputType.visiblePassword,
                       Controller: passwordController,
-                      isPassword: isPassword,
+                      showPassword: showPassword,
                     ),
                     ElevatedButton(
                       onPressed: () {},

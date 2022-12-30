@@ -1,3 +1,3 @@
 class ServerManager{
-  static const String baseUrl = 'http://api.openweathermap.org';
+  static const String baseUrl = 'http://192.168.1.5';
 }

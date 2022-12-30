@@ -19,7 +19,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
   var formkey =GlobalKey<FormState>();
-  bool isPassword=true;
+  bool showPassword=true;
 @override
   void setState(VoidCallback fn) {
     super.setState(fn);
@@ -67,10 +67,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     height: 20.0,
                   ),
                   DefaultTextFormField(
-                    suffix: isPassword?Icons.visibility:Icons.visibility_off,
+                    suffix: showPassword?Icons.visibility:Icons.visibility_off,
                     iconSwitch: (){
                       setState((){
-                        isPassword=!isPassword;
+                        showPassword=!showPassword;
                       });
                     },
                     prefix: Icons.lock,
@@ -85,7 +85,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     Label:"Password*" ,
                     type: TextInputType.visiblePassword,
                     Controller: passwordController,
-                    isPassword: isPassword,
+                    showPassword: showPassword,
                   ),
                   SizedBox(
                     height: 20.0,
@@ -97,7 +97,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         User user = User(
                             username: usernameController.text,
                             password: passwordController.text);
-
                        ref.read(userLoginProvider.notifier).loginState(context, user);
                       }
                     },
@@ -108,7 +107,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   ref.watch(userLoginProvider).when(
                       data: (data)=>Container(),
-                      error: (error, trace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
+                      error: (error, trace)=>Center(child: Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold))),
                       loading: ()=>SpinKitRing(color: ColorsManager.themeColor1!) )
 
                   ,

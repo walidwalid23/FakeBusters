@@ -25,8 +25,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   var confirmPasswordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   var confirmPass;
-  bool isPassword = true;
-  bool isConfirmPassword = true;
+  bool showPassword = true;
+  bool showConfirmPassword = true;
   final ImagePicker _picker = ImagePicker();
   File? userImage;
 
@@ -45,7 +45,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             child: Form(
               key: formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
                   Text(
@@ -82,10 +82,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   ),
                   DefaultTextFormField(
                     suffix:
-                        isPassword ? Icons.visibility : Icons.visibility_off,
+                    showPassword ? Icons.visibility : Icons.visibility_off,
                     iconSwitch: () {
                       setState(() {
-                        isPassword = !isPassword;
+                        showPassword = !showPassword;
                       });
                     },
                     prefix: Icons.lock,
@@ -101,17 +101,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     Label: "Password*",
                     type: TextInputType.visiblePassword,
                     Controller: passwordController,
-                    isPassword: isPassword,
+                    showPassword: showPassword,
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
                   DefaultTextFormField(
                     suffix:
-                    isConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                    showConfirmPassword ? Icons.visibility : Icons.visibility_off,
                     iconSwitch: () {
                       setState(() {
-                        isConfirmPassword = !isConfirmPassword;
+                        showConfirmPassword = !showConfirmPassword;
                       });
                     },
                     prefix: Icons.lock,
@@ -129,7 +129,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     Label: "Confirm Password*",
                     type: TextInputType.visiblePassword,
                     Controller: confirmPasswordController,
-                    isPassword: isConfirmPassword,
+                    showPassword: showConfirmPassword,
                   ),
                  SizedBox(height:10),
                   ImageContainer(width: 200,height: 200,uploadedImage: userImage,),
@@ -163,7 +163,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   ),
                 ref.watch(userSignUpProvider).when(
                            data: (data)=> Container(),
-                           error: (error, trace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                           error: (error, trace)=> Center(child: Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
                           loading: ()=>SpinKitRing(color: Colors.orange)
                 )
                        
