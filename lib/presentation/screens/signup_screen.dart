@@ -67,7 +67,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       }
 
                       else if (value.length < 3) {
-                        return "Username must be atleast 3 characters long";
+                        return "Username must be at least 3 characters long";
                       }
 
                       return null;
@@ -94,7 +94,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       if (value!.isEmpty) {
                         return "Password must not be empty";
                       } else if (value.length < 8) {
-                        return "Password must be atleast 8 characters long";
+                        return "Password must be at least 8 characters long";
                       }
                       return null;
                     },
@@ -162,7 +162,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       },
                   ),
                 ref.watch(userSignUpProvider).when(
-                           data: (data)=> (data==null)?Container(): Text(data.toString(),style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold)) ,
+                           data: (data)=> Container(),
                            error: (error, trace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
                           loading: ()=>SpinKitRing(color: Colors.orange)
                 )

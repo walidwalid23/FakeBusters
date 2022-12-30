@@ -13,6 +13,7 @@ class UserRepository extends BaseUserRepository{
   Future<Either<Failure, String>> signUp(User user) async{
     try{
       String signedUpSuccessMessage = await userRemoteDataSource.signUp(user);
+      //if no exception was thrown then the method has succeeded
       return Right(signedUpSuccessMessage);
 
     }
@@ -34,8 +35,26 @@ class UserRepository extends BaseUserRepository{
 
   @override
   Future<Either<Failure, String>> login(User user) async{
-    // TODO: implement login
-    throw UnimplementedError();
+    try{
+      String loggedInSuccessMessage = await userRemoteDataSource.login(user);
+      //if no exception was thrown then the method has succeeded
+      return Right(loggedInSuccessMessage);
+
+    }
+    on ConnectionException catch(exception, stackTrace){
+      return Left(
+          ConnectionFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+    }
+
+    on ServerException catch(exception, stackTrace){
+      return Left(
+          ServerFailure(
+              errorMessage:exception.networkErrorModel.errorMessage,
+              stackTrace: stackTrace));
+    }
+
   }
 
 

@@ -1,17 +1,22 @@
+import 'package:fakebustersapp/presentation/controller/user_providers.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../core/utils/constants/colors_manager.dart';
+import '../../domain/entities/user.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  var emailController = TextEditingController();
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  var usernameController = TextEditingController();
   var passwordController = TextEditingController();
   var formkey =GlobalKey<FormState>();
   bool isPassword=true;
@@ -43,16 +48,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 40.0,
                   ),
               DefaultTextFormField(
-                prefix: Icons.email,
+                prefix: Icons.account_circle,
                 validate: (value) {
                   if (value!.isEmpty) {
-                    return "Email must not be empty";
+                    return "Username must not be empty";
+                  }
+                  else if (value.length < 3) {
+                    return "Username must be at least 3 characters long";
                   }
                   return null;
+
                 },
-                Label:"Email*" ,
+                Label:"Username*" ,
                 type: TextInputType.visiblePassword,
-                Controller: emailController,
+                Controller: usernameController,
               ),
                   SizedBox(
                     height: 20.0,
@@ -68,8 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     validate: (value) {
                       if (value!.isEmpty) {
                         return "Password must not be empty";
-                      }else if(value.length<8){
-                        return "Must be at least 8 characters in length";
+                      }else if(value.length < 8){
+                        return "Password must be at least 8 characters in length";
                       }
                       return null;
                     },
@@ -85,22 +94,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'login',
                     function: (){
                       if(formkey.currentState!.validate()){
-                        Fluttertoast.showToast(
-                            msg: "Logging in",
-                            toastLength: Toast.LENGTH_LONG,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb:3,
-                            backgroundColor: Colors.green,
-                            textColor: Colors.white,
-                            fontSize: 16
-                        );
-                        context.push('/');
+                        User user = User(
+                            username: usernameController.text,
+                            password: passwordController.text);
+
+                       ref.read(userLoginProvider.notifier).loginState(context, user);
                       }
                     },
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 10.0,
                   ),
+
+                  ref.watch(userLoginProvider).when(
+                      data: (data)=>Container(),
+                      error: (error, trace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
+                      loading: ()=>SpinKitRing(color: ColorsManager.themeColor1!) )
+
+                  ,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -112,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           context.push('/signup');
                         },
                         child: Text(
-                            "Register",
+                            "Register Now",
                         ),
                       ),
                     ],
