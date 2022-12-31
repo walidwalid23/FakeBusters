@@ -165,7 +165,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ref.watch(userSignUpProvider).when(
                            data: (data)=> Container(),
                            error: (error, trace)=> Center(child: Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
-                          loading: ()=>SpinKitRing(color: ColorsManager.themeColor1!)
+                          loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!)
                 )
                        
 

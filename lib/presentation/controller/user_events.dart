@@ -15,6 +15,7 @@ import '../../data/data_source/user_remote_datasource.dart';
 import '../../domain/domain_repository/base_user_repository.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/usecases/login_usecase.dart';
+import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/verify_user_token_usecase.dart';
 
 class UserSignUpEvent extends StateNotifier <AsyncValue<dynamic>>{
@@ -84,10 +85,7 @@ class UserLoginEvent extends StateNotifier <AsyncValue<dynamic>>{
       context.push('/home');
 
     });
-
-
   }
-
 }
 
 class verifyUserTokenEvent extends StateNotifier <AsyncValue<dynamic>>{
@@ -126,6 +124,45 @@ class verifyUserTokenEvent extends StateNotifier <AsyncValue<dynamic>>{
       super.state = AsyncData(null);
       // go to home page since the token is verified
       context.push('/home');
+
+    });
+
+
+  }
+
+}
+
+class UserLogoutEvent extends StateNotifier <AsyncValue<dynamic>>{
+  // the initial state will be null cause nothing should be shown till the login button is clicked
+  UserLogoutEvent(): super( AsyncData(null) );
+
+  void logoutState(BuildContext context) async{
+    BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
+    BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
+    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
+    LogoutUseCase logoutUseCase = LogoutUseCase(userRepository: userRepository);
+
+    super.state = AsyncLoading();
+    Either<Failure, Success> data = await logoutUseCase.excute();
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    } , (Success success) {
+      //we don't need to change the state when succeed cause we will move to another screen
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
+      // go to home page and show logged in alert
+      Fluttertoast.showToast(
+          msg:  success.successMessage,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb:3,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16
+      );
+      // we don't want the user to return to home again after logging out so we use .go
+      context.go('/login');
 
     });
 

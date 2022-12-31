@@ -9,7 +9,7 @@ class UserLocalDataSource extends BaseUserLocalDataSource{
     final tokenIsRemoved = await prefs.remove('userToken');
 
     if(tokenIsRemoved){
-      return "Token is Removed Successfully";
+      return "Logged Out";
     }
     else{
       throw LocalDatabaseException(errorMessage: "Couldn't remove the token");
