@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import '../../data/data_source/user_remote_datasource.dart';
+import '../../core/utils/constants/colors_manager.dart';
 import '../../domain/entities/user.dart';
 import '../controller/user_providers.dart';
 import '../reusable_widgets/DefaultFormField.dart';
@@ -132,15 +131,17 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     showPassword: showConfirmPassword,
                   ),
                  SizedBox(height:10),
-                  ImageContainer(width: 200,height: 200,uploadedImage: userImage,),
-                  DefaultButton(text: "Upload Image",width: 200, function: ()async{
-                    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-                    if(image == null){return;}
-                    setState(() {
-                      userImage = File(image.path);
-                      print(image.path);
-                    });
-                  }),
+                  Center(child: ImageContainer(width: 200,height: 200,uploadedImage: userImage,)),
+                  Center(
+                    child: DefaultButton(text: "Upload Image",width: 200, function: ()async{
+                      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                      if(image == null){return;}
+                      setState(() {
+                        userImage = File(image.path);
+                        print(image.path);
+                      });
+                    }),
+                  ),
                 SizedBox(height:10)
                   ,
 
@@ -164,7 +165,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ref.watch(userSignUpProvider).when(
                            data: (data)=> Container(),
                            error: (error, trace)=> Center(child: Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
-                          loading: ()=>SpinKitRing(color: Colors.orange)
+                          loading: ()=>SpinKitRing(color: ColorsManager.themeColor1!)
                 )
                        
 

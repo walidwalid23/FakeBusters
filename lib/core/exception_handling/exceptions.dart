@@ -19,5 +19,11 @@ class LocalDatabaseException implements Exception{
 
   LocalDatabaseException({required this.errorMessage});
 
+}
+
+class GenericException implements Exception{
+  final String errorMessage;
+
+  GenericException({required this.errorMessage});
 
 }

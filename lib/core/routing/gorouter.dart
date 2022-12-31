@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:fakebustersapp/domain/entities/post.dart';
 import 'package:fakebustersapp/presentation/screens/hint.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:fakebustersapp/presentation/screens/categories.dart';
 import 'package:fakebustersapp/presentation/screens/display_post.dart';
 import '../../presentation/screens/Profile.dart';
+import '../../presentation/screens/initial_loading_screen.dart';
 import '../../presentation/screens/signup_screen.dart';
 import '../../presentation/screens/edit_post.dart';
 import '../../presentation/screens/home.dart';
@@ -20,7 +20,13 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return LoginScreen();
+        return InitialLoadingScreen();
+      },
+    ),
+    GoRoute(
+      path: '/home',
+      builder: (BuildContext context, GoRouterState state) {
+        return Home();
       },
     ),
     GoRoute(

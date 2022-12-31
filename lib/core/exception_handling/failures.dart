@@ -20,3 +20,8 @@ class LocalDatabaseFailure extends Failure{
   LocalDatabaseFailure({required super.errorMessage, required super.stackTrace});
 
 }
+
+class GenericFailure extends Failure{
+  GenericFailure({required super.errorMessage, required super.stackTrace});
+
+}
