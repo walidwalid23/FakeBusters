@@ -76,7 +76,9 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
       }
       else{
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
-        rethrow;
+        //rethrow;
+        // OR CREATE A GENERIC ERROR MESSAGE
+        throw GenericException(errorMessage:"Unknown Exception Has Occurred");
     }
 
       }
@@ -132,9 +134,9 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
       }
       else{
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
-        rethrow;
+       // rethrow;
         // OR CREATE A GENERIC ERROR MESSAGE
-      //  throw GenericException(errorMessage:"Unknown Exception Has Occurred");
+        throw GenericException(errorMessage:"Unknown Exception Has Occurred");
 
       }
     }
@@ -181,7 +183,9 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
       }
       else{
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
-        rethrow;
+        // rethrow;
+        // OR CREATE A GENERIC ERROR MESSAGE
+        throw GenericException(errorMessage:"Unknown Exception Has Occurred");
       }
 
     }

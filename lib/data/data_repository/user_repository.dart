@@ -2,13 +2,15 @@ import 'package:dartz/dartz.dart';
 import 'package:fakebustersapp/core/exception_handling/exceptions.dart';
 import 'package:fakebustersapp/core/exception_handling/failures.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
+import 'package:fakebustersapp/data/data_source/base_user_local_datasource.dart';
 import 'package:fakebustersapp/data/data_source/base_user_remote_datasource.dart';
 import 'package:fakebustersapp/domain/domain_repository/base_user_repository.dart';
 import 'package:fakebustersapp/domain/entities/user.dart';
 
 class UserRepository extends BaseUserRepository{
   BaseUserRemoteDataSource userRemoteDataSource;
-  UserRepository({required this.userRemoteDataSource});
+  BaseUserLocalDataSource userLocalDataSource;
+  UserRepository(this.userRemoteDataSource,  this.userLocalDataSource);
 
   @override
   Future<Either<Failure, Success>> signUp(User user) async{
@@ -98,6 +100,23 @@ class UserRepository extends BaseUserRepository{
               errorMessage:exception.errorMessage,
               stackTrace: stackTrace));
     }
+  }
+
+  @override
+  Future<Either<Failure, Success>> logout() async{
+    try {
+      String tokenRemovalSuccessMessage = await userLocalDataSource.logout();
+      //if no exception was thrown then the method has succeeded
+      return Right(LocalDBSuccess(successMessage: tokenRemovalSuccessMessage));
+    }
+    on LocalDatabaseException catch(exception, stackTrace){
+      return Left(
+          LocalDatabaseFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+    }
+
+
   }
 
 

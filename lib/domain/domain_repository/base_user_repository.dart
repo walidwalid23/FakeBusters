@@ -6,5 +6,6 @@ abstract class BaseUserRepository{
   Future<Either<Failure, Success>> signUp(User user);
   Future<Either<Failure, Success>> login(User user);
   Future<Either<Failure, Success>> verifyUserToken(String token);
+  Future<Either<Failure, Success>> logout();
 
 }

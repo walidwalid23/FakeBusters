@@ -9,6 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/data_repository/user_repository.dart';
+import '../../data/data_source/base_user_local_datasource.dart';
+import '../../data/data_source/user_local_datasource.dart';
 import '../../data/data_source/user_remote_datasource.dart';
 import '../../domain/domain_repository/base_user_repository.dart';
 import '../../domain/entities/user.dart';
@@ -21,7 +23,8 @@ class UserSignUpEvent extends StateNotifier <AsyncValue<dynamic>>{
 
   void signupState(BuildContext context, User user) async{
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
-    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource: userRemoteDataSource);
+    BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
+    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
     SignUpUseCase signupUseCase = SignUpUseCase(userRepository: userRepository);
 
     super.state = AsyncLoading();
@@ -55,7 +58,8 @@ class UserLoginEvent extends StateNotifier <AsyncValue<dynamic>>{
 
   void loginState(BuildContext context, User user) async{
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
-    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource: userRemoteDataSource);
+    BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
+    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
     LoginUseCase loginUseCase = LoginUseCase(userRepository: userRepository);
 
     super.state = AsyncLoading();
@@ -106,7 +110,8 @@ class verifyUserTokenEvent extends StateNotifier <AsyncValue<dynamic>>{
 
   void verifyUserTokenState(BuildContext context, String token) async{
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
-    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource: userRemoteDataSource);
+    BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
+    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
     VerifyUserTokenUseCase  verifyUserTokenUseCase =  VerifyUserTokenUseCase(userRepository: userRepository);
 
     super.state = AsyncLoading();
