@@ -14,7 +14,7 @@ class _SearchState extends State<Search> {
       appBar: AppBar(
         title: const TextField(
           decoration: InputDecoration(
-              hintText: 'Search', prefixIcon: Icon(Icons.search)
+              hintText: 'Search For Products', prefixIcon: Icon(Icons.search)
           ),
         ),
       ),

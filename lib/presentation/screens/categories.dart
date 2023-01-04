@@ -24,6 +24,8 @@ class _CategoriesState extends State<Categories> {
   Color fashionButtonState = ColorsManager.choiceInActiveColor!;
   Color electronicsButtonState = ColorsManager.choiceInActiveColor!;
   Color sportsEquipmentButtonState = ColorsManager.choiceInActiveColor!;
+  List<String> selectedCategories=[];
+
 
 
   @override
@@ -44,10 +46,12 @@ class _CategoriesState extends State<Categories> {
                 if(electronicsState=='electronicsoff.jpg') {
                   electronicsState = 'electronicson.jpg';
                   electronicsButtonState = ColorsManager.choiceActiveColor!;
+                  selectedCategories.add("electronics");
                 }
                 else{
                 electronicsState='electronicsoff.jpg';
                 electronicsButtonState  = ColorsManager.choiceInActiveColor!;
+                selectedCategories.remove("electronics");
                 }
 
               });},
@@ -63,10 +67,12 @@ class _CategoriesState extends State<Categories> {
                 if(appliancesState=='appliancesoff.jpg') {
                   appliancesState = 'applianceson.jpg';
                   appliancesButtonState = ColorsManager.choiceActiveColor!;
+                  selectedCategories.add("appliances");
                 }
                 else{
                   appliancesState='appliancesoff.jpg';
                   appliancesButtonState = ColorsManager.choiceInActiveColor!;
+                  selectedCategories.remove("appliances");
                 }
 
               });},
@@ -85,10 +91,12 @@ class _CategoriesState extends State<Categories> {
                 if(musicInstrumentsState=='musicinstrumentsoff.jpg') {
                   musicInstrumentsState = 'musicinstrumentson.jpg';
                   musicInstrumentsButtonState = ColorsManager.choiceActiveColor!;
+                  selectedCategories.add("musicInstruments");
                 }
                 else{
                   musicInstrumentsState='musicinstrumentsoff.jpg';
                   musicInstrumentsButtonState = ColorsManager.choiceInActiveColor!;
+                  selectedCategories.remove("musicInstruments");
                 }
 
               });},
@@ -103,10 +111,12 @@ class _CategoriesState extends State<Categories> {
                 if(fashionState=='fashionoff.jpg') {
                   fashionState = 'fashionon.jpg';
                   fashionButtonState = ColorsManager.choiceActiveColor!;
+                  selectedCategories.add("fashion");
                 }
                 else{
                   fashionState='fashionoff.jpg';
                   fashionButtonState  = ColorsManager.choiceInActiveColor!;
+                  selectedCategories.remove("fashion");
                 }
 
               });},
@@ -127,10 +137,13 @@ class _CategoriesState extends State<Categories> {
                 if(sportsEquipmentState=='sportsequipmentoff.jpg') {
                   sportsEquipmentState = 'sportsequipmenton.jpg';
                   sportsEquipmentButtonState = ColorsManager.choiceActiveColor!;
+                  selectedCategories.add("sportsEquipment");
+
                 }
                 else{
                   sportsEquipmentState ='sportsequipmentoff.jpg';
                   sportsEquipmentButtonState = ColorsManager.choiceInActiveColor!;
+                  selectedCategories.remove("sportsEquipment");
                 }
 
               });},
@@ -145,10 +158,12 @@ class _CategoriesState extends State<Categories> {
                 if(toysState=='toysoff.jpg') {
                   toysState = 'toyson.jpg';
                   toysButtonState = ColorsManager.choiceActiveColor!;
+                  selectedCategories.add("toys");
                 }
                 else{
                   toysState ='toysoff.jpg';
                   toysButtonState = ColorsManager.choiceInActiveColor!;
+                  selectedCategories.remove("toys");
                 }
 
               });},
@@ -157,7 +172,12 @@ class _CategoriesState extends State<Categories> {
               choiceButtonColor: toysButtonState ,),
           ],),
 
-          ElevatedButton(onPressed: (){}, child: Text("Start Busting",
+          ElevatedButton(
+            onPressed: (){
+            // make sure the categories list isn't empty
+            print("here");
+            print(selectedCategories);
+          }, child: Text("Start Busting",
           style: StylesManager.textStyle1,),
             style: ElevatedButton.styleFrom(backgroundColor: ColorsManager.themeColor1),
           )
