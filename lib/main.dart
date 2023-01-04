@@ -20,8 +20,6 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppThemeManager.appBarTheme,
       ),
       title: 'FakeBusters',
-
-
     );
   }
 
