@@ -41,14 +41,15 @@ class PostRepository extends BasePostRepository{
   }
 
   @override
-  Future<Either<Failure, Success>> incrementFakeVotes(String postID) {
+  Future<Either<Failure, Success>> incrementFakeVotes(String postID, String userToken) {
     // TODO: implement incrementFakeVotes
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, Success>> incrementOriginalVotes(String postID) {
+  Future<Either<Failure, Success>> incrementOriginalVotes(String postID, String userToken) {
     // TODO: implement incrementOriginalVotes
+    
     throw UnimplementedError();
   }
 }
