@@ -41,14 +41,60 @@ class PostRepository extends BasePostRepository{
   }
 
   @override
-  Future<Either<Failure, Success>> incrementFakeVotes(String postID) {
-    // TODO: implement incrementFakeVotes
-    throw UnimplementedError();
+  Future<Either<Failure, Success>> incrementFakeVotes(String postID, String userToken) async {
+    try{
+      String postUploadedSuccessMessage = await postRemoteDataSource.incrementFakeVotes(postID, userToken);
+      //if no exception was thrown then the method has succeeded
+      return Right(ServerSuccess(successMessage: postUploadedSuccessMessage ));
+
+    }
+    on ConnectionException catch(exception, stackTrace){
+      return Left(
+          ConnectionFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+
+    }
+    on ServerException catch(exception, stackTrace){
+      return Left(
+          ServerFailure(
+              errorMessage:exception.networkErrorModel.errorMessage,
+              stackTrace: stackTrace));
+    }
+    on GenericException catch(exception, stackTrace){
+      return Left(
+          GenericFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+    }
   }
 
   @override
-  Future<Either<Failure, Success>> incrementOriginalVotes(String postID) {
-    // TODO: implement incrementOriginalVotes
-    throw UnimplementedError();
+  Future<Either<Failure, Success>> incrementOriginalVotes(String postID, String userToken)async {
+        try{
+      String incrementOriginalVotesSuccessMessage = await postRemoteDataSource.incrementOriginalVotes(postID, userToken);
+      //if no exception was thrown then the method has succeeded
+      return Right(ServerSuccess(successMessage: incrementOriginalVotesSuccessMessage ));
+
+    }
+    on ConnectionException catch(exception, stackTrace){
+      return Left(
+          ConnectionFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+
+  }
+    on ServerException catch(exception, stackTrace){
+      return Left(
+          ServerFailure(
+              errorMessage:exception.networkErrorModel.errorMessage,
+              stackTrace: stackTrace));
+    }
+    on GenericException catch(exception, stackTrace){
+      return Left(
+          GenericFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+    }
   }
 }
