@@ -5,8 +5,8 @@ import 'package:fakebustersapp/domain/entities/post.dart';
 
 abstract class BasePostRepository{
    Future<Either<Failure, Success>> uploadPost(Post post, String userToken);
-   Future<Either<Failure, Success>> incrementFakeVotes(String postID);
-   Future<Either<Failure, Success>> incrementOriginalVotes(String postID);
+   Future<Either<Failure, Success>> incrementFakeVotes(String postID, String userToken);
+   Future<Either<Failure, Success>> incrementOriginalVotes(String postID, String userToken);
 
 
 }
