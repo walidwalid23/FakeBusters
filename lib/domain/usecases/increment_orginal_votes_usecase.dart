@@ -5,9 +5,9 @@ import '../domain_repository/base_post_repository.dart';
 import '../entities/post.dart';
 
 
-class IncrementOriginalVotes{
+class IncrementOriginalVotesUseCase{
   BasePostRepository postRepository;
-  IncrementOriginalVotes({required this.postRepository});
+  IncrementOriginalVotesUseCase( this.postRepository);
 
   Future<Either<Failure, Success>> excute(String postID, String userToken) async {
     
