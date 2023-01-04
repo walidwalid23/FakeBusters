@@ -64,7 +64,14 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
     });
   }
 }
+class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
+  String? userToken;
+  String? PostID;
+  BuildContext context;
+  IncrementFakeVotesEvent (this.context): super( AsyncData(null) ) {
 
+  }
+}
 class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
