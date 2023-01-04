@@ -43,9 +43,9 @@ class PostRepository extends BasePostRepository{
   @override
   Future<Either<Failure, Success>> incrementFakeVotes(String postID, String userToken) async {
     try{
-      String postUploadedSuccessMessage = await postRemoteDataSource.incrementFakeVotes(postID, userToken);
+      String incrementFakeVotesSuccessMessage = await postRemoteDataSource.incrementFakeVotes(postID, userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(ServerSuccess(successMessage: postUploadedSuccessMessage ));
+      return Right(ServerSuccess(successMessage: incrementFakeVotesSuccessMessage ));
 
     }
     on ConnectionException catch(exception, stackTrace){

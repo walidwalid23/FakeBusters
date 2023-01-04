@@ -3,7 +3,6 @@ import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../core/utils/constants/colors_manager.dart';
 import '../../domain/entities/user.dart';
 import '../reusable_widgets/DefaultFormField.dart';
