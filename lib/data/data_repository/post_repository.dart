@@ -39,4 +39,16 @@ class PostRepository extends BasePostRepository{
               stackTrace: stackTrace));
     }
   }
+
+  @override
+  Future<Either<Failure, Success>> incrementFakeVotes(String postID) {
+    // TODO: implement incrementFakeVotes
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Success>> incrementOriginalVotes(String postID) {
+    // TODO: implement incrementOriginalVotes
+    throw UnimplementedError();
+  }
 }

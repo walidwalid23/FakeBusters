@@ -75,5 +75,17 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
     }
   }
 
+  @override
+  Future<String> incrementFakeVotes(String postID) {
+    // TODO: implement incrementFakeVotes
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> incrementOriginalVotes(String postID) {
+    // TODO: implement incrementOriginalVotes
+    throw UnimplementedError();
+  }
+
  
 }
