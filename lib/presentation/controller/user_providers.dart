@@ -10,3 +10,4 @@ final verifyUserTokenProvider =
 StateNotifierProvider.family<verifyUserTokenEvent, AsyncValue<dynamic>, BuildContext>((ref,BuildContext context) => verifyUserTokenEvent(context));
 
 final userLogoutProvider = StateNotifierProvider<UserLogoutEvent, AsyncValue<dynamic>>((ref) => UserLogoutEvent());
+

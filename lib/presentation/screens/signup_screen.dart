@@ -157,8 +157,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ref.read(userSignUpProvider.notifier).signupState(context, user);
 
 
-
-
                         }
                       },
                   ),

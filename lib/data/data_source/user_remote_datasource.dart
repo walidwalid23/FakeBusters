@@ -111,7 +111,6 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
           print(response.data['successMessage']);
         return response.data['successMessage'];
       }
-
       // since the server didn't return 200 then there must have been a problem
       else {
         throw ServerException(

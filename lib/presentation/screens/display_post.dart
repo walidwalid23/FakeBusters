@@ -10,7 +10,7 @@ import 'dart:io';
 class DisplayPost extends StatefulWidget {
   DisplayPost({Key? key,required  this.postData}) : super(key: key);
 
-  PostModel postData;
+  Post postData;
 
   @override
   State<DisplayPost> createState() => _DisplayPostState();

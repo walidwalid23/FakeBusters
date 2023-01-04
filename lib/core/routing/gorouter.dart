@@ -80,7 +80,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/displaypost',
       builder: (BuildContext context, GoRouterState state) {
-       return DisplayPost(postData: state.extra as PostModel);
+       return DisplayPost(postData: state.extra as Post);
       },
     ),
     GoRoute(

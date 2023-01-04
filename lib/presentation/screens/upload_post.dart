@@ -5,19 +5,20 @@ import 'package:fakebustersapp/presentation/reusable_widgets/add_post_form_field
 import 'package:fakebustersapp/presentation/reusable_widgets/image_container.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:go_router/go_router.dart';
+import '../controller/post_providers.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-
-class UploadPost extends StatefulWidget {
+class UploadPost extends ConsumerStatefulWidget {
   const UploadPost({Key? key}) : super(key: key);
 
   @override
-  State<UploadPost> createState() => _UploadPostState();
+  ConsumerState<UploadPost> createState() => _UploadPostState();
 }
 
-class _UploadPostState extends State<UploadPost> {
+class _UploadPostState extends ConsumerState<UploadPost> {
   String dropdownValue = "select";
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
@@ -40,6 +41,9 @@ class _UploadPostState extends State<UploadPost> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the product name';
                 }
+                else  if (value.length > 60) {
+                  return 'Exceeded Maximum Length';
+                }
                 return null;
               },
               textFieldController: productNameController,),
@@ -47,6 +51,9 @@ class _UploadPostState extends State<UploadPost> {
               AddPostTextInputField(label: 'Brand Name', validatorFunc: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the brand name';
+                }
+                else  if (value.length > 60) {
+                  return 'Exceeded Maximum Length';
                 }
                 return null;
               },
@@ -130,34 +137,40 @@ class _UploadPostState extends State<UploadPost> {
 
                  Padding(
                    padding: const EdgeInsets.all(15),
-                   child: SizedBox(
-                     child: ElevatedButton(
-                       child: Text('Submit',),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate() && productImage != null) {
-                          // DATA IS VALID
-                          PostModel postData = PostModel(
-                            productName: productNameController.text,
-                            brandName: brandNameController.text,
-                          productImage: productImage!,
-                          productCategory: dropdownValue);
-                            context.push('/displaypost', extra:postData);
-                        }
-                        else if(productImage == null){
-                          setState(() {
-                            imageValidationError = 'Please Upload The Product Image';
-                          });
-                        }
-                      },
+                       child: ElevatedButton(
+                         child: Text('Submit',),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate() && productImage != null) {
+                            // DATA IS VALID
+                            Post postData =
+                            Post(
+                              productName: productNameController.text,
+                              brandName: brandNameController.text,
+                            productImage: productImage!,
+                            productCategory: dropdownValue);
+                            // upload the post
+                            ref.read(uploadPostProvider(context).notifier).uploadPostState(postData);
+
+                          }
+                          else if(productImage == null){
+                            setState(() {
+                              imageValidationError = 'Please Upload The Product Image';
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorsManager.themeColor1,
 
 
+                        ), ),
+                     
 
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorsManager.themeColor1,
-
-                      ), ),
-                   ),
                  ),
+
+              ref.watch(uploadPostProvider(context)).when(
+                  data: (data)=> Container(),
+                  error: (error, st)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                  loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
 
 
             ],
