@@ -66,7 +66,6 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
 }
 class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
   String? userToken;
-  String? PostID;
   BuildContext context;
   IncrementFakeVotesEvent (this.context): super( AsyncData(null) ) {
 
