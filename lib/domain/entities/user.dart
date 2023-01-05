@@ -1,8 +1,8 @@
 import 'dart:io';
 
 class User{
-  String? username;
+  String username;
   File? profileImage;
-  String? password;
-  User({this.username, this.profileImage, this.password});
+  String password;
+  User({required this.username, this.profileImage, required this.password});
 }

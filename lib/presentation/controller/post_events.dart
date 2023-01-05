@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/domain/entities/vote.dart';
 import 'package:fakebustersapp/domain/usecases/increment_orginal_votes_usecase.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +14,7 @@ import '../../domain/domain_repository/base_post_repository.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/entities/uploaded_post.dart';
 import '../../domain/usecases/find_posts_by_categories_usecase.dart';
+import '../../domain/usecases/increment_fake_votes_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
 import '../../domain/usecases/delete_post_usecase.dart';
@@ -125,8 +127,40 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
 class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
   String? userToken;
   BuildContext context;
-  IncrementFakeVotesEvent (this.context): super( AsyncData(null) ) {
-
+  IncrementFakeVotesEvent(this.context) : super(AsyncData(null)) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        Fluttertoast.showToast(
+            msg: "Please Vote Again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16);
+        context.push('/login');
+      }
+    });
+  }
+  void IncrementFakeVotesEventState(String postID) async {
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    IncrementFakeVotesUseCase incrementFakeVotesUseCase = IncrementFakeVotesUseCase(postRepository: postRepository);
+    super.state = AsyncLoading();
+    Either<Failure, Vote> data =
+    await incrementFakeVotesUseCase.excute(postID, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    }, (Vote vote) {
+      //we don't need to change the state when succeed cause we will move to another screen
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
+      // go to home page and show signed up alert
+      context.push('/displaypost', extra: postID);
+    });
   }
 }
 

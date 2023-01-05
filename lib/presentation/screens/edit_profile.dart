@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/domain/entities/updateuser.dart';
 import 'package:fakebustersapp/domain/entities/user.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultFormField.dart';
@@ -98,18 +99,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     text: 'Update',
                     function: (){
                       if(keyform.currentState!.validate()){
-                        User user = User(
+                        UpdateUser user = UpdateUser(
                             username: usernameController.text,
                             password: passwordController.text);
-                        ref.read(EditProfileProvider.notifier).EditProfileState(context);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(user);
                       }else if(userform.currentState!.validate()){
-                        User user = User(
+                        UpdateUser user = UpdateUser(
                             username: usernameController.text);
-                        ref.read(EditProfileProvider.notifier).EditProfileState(context);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(user);
                       }else if(passwordform.currentState!.validate()){
-                        User user = User(
+                        UpdateUser user = UpdateUser(
                             password: passwordController.text);
-                        ref.read(EditProfileProvider.notifier).EditProfileState(context);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(user);
                       }
                     },
                   ),

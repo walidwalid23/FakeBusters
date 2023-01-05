@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/core/exception_handling/network_error_model.dart';
+import 'package:fakebustersapp/domain/entities/updateuser.dart';
 import '../../core/exception_handling/exceptions.dart';
 import '../../core/utils/constants/server_manager.dart';
 import '../../domain/entities/user.dart';
@@ -195,10 +196,10 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
   }
 
   @override
-  Future<String> EditProfile(User user) async {
+  Future<String> EditProfile(UpdateUser user,String userToken) async {
     try {
       Dio dio = new Dio();
-
+      dio.options.headers['user-token'] = userToken;
       var response = await dio.post(ServerManager.baseUrl+ "/users/login", data: {
         "username": user.username,
         "password": user.password

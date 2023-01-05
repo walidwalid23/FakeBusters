@@ -1,3 +1,5 @@
+import 'package:fakebustersapp/domain/entities/updateuser.dart';
+import 'package:fakebustersapp/domain/usecases/edit_profile_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fakebustersapp/core/exception_handling/failures.dart';
@@ -172,17 +174,20 @@ class UserLogoutEvent extends StateNotifier <AsyncValue<dynamic>>{
 }
 
 class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
-  // the initial state will be null cause nothing should be shown till the login button is clicked
+  String? userToken;
+  BuildContext? context;
+  UpdateUser? user;
   EditProfileEvent(): super( AsyncData(null) );
 
-  void EditProfileState(BuildContext context) async{
+  void EditProfileState(UpdateUser user) async{
+
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
     BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
     BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
-    LogoutUseCase logoutUseCase = LogoutUseCase(userRepository: userRepository);
+    EditProfileUsecase editprofileevent = EditProfileUsecase(userRepository: userRepository);
 
     super.state = AsyncLoading();
-    Either<Failure, Success> data = await logoutUseCase.excute();
+    Either<Failure, Success> data = await editprofileevent.excute(user, userToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
@@ -201,7 +206,7 @@ class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
           fontSize: 16
       );
       // we don't want the user to return to home again after logging out so we use .go
-      context.push('/home');
+      context!.push('/home');
 
     });
 
