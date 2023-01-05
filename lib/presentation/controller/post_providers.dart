@@ -5,8 +5,11 @@ import 'package:riverpod/riverpod.dart';
 final uploadPostProvider = StateNotifierProvider.family<UploadPostEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  UploadPostEvent(context));
 
-final IncrementFakeVotesProvider = StateNotifierProvider.family<IncrementFakeVotesEvent,AsyncValue<dynamic>, BuildContext
+final incrementFakeVotesProvider = StateNotifierProvider.family<IncrementFakeVotesEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  IncrementFakeVotesEvent(context));
 
-final IncrementOriginalVotesProvider = StateNotifierProvider.family<IncrementOriginalVotesEvent,AsyncValue<dynamic>, BuildContext
+final incrementOriginalVotesProvider = StateNotifierProvider.family<IncrementOriginalVotesEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  IncrementOriginalVotesEvent(context));
+
+final deletePostProvider = StateNotifierProvider.family<DeletePostEvent,AsyncValue<dynamic>, BuildContext
+>((ref, context) =>  DeletePostEvent(context));

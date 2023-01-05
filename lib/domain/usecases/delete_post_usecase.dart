@@ -5,13 +5,13 @@ import '../domain_repository/base_post_repository.dart';
 
 
 
-class IncrementOriginalVotesUseCase{
+class DeletePostUseCase{
   BasePostRepository postRepository;
-  IncrementOriginalVotesUseCase( this.postRepository);
+  DeletePostUseCase( this.postRepository);
 
   Future<Either<Failure, Success>> excute(String postID, String userToken) async {
     
-    return await postRepository.incrementOriginalVotes(postID, userToken);
+    return await postRepository.deletePost(postID, userToken);
 
   }
 
