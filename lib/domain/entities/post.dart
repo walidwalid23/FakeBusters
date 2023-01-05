@@ -9,7 +9,10 @@ dynamic productImage;
 int? fakeVotes;
 int? originalVotes;
 String? postDate;
+String uploaderUsername;
+String uploaderImage;
+
 
 Post({required this.productName, required this.brandName, required this.productCategory,
-required this.productImage, this.postDate});
+required this.productImage, this.postDate, required this.uploaderImage, required this.uploaderUsername});
 }

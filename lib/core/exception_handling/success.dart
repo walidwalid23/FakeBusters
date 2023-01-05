@@ -14,3 +14,9 @@ class LocalDBSuccess extends Success{
   LocalDBSuccess({required super.successMessage});
 
 }
+
+class UploadingPostSuccess extends Success{
+  UploadingPostSuccess({required super.successMessage});
+
+
+}

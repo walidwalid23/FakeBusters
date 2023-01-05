@@ -4,6 +4,7 @@ import 'package:fakebustersapp/core/exception_handling/success.dart';
 import 'package:fakebustersapp/domain/entities/post.dart';
 import '../../core/exception_handling/exceptions.dart';
 import '../../domain/domain_repository/base_post_repository.dart';
+import '../../domain/entities/vote.dart';
 import '../data_source/base_post_remote_datasource.dart';
 
 class PostRepository extends BasePostRepository{
@@ -73,11 +74,11 @@ class PostRepository extends BasePostRepository{
 
 
   @override
-  Future<Either<Failure, Success>> incrementFakeVotes(String postID, String userToken) async {
+  Future<Either<Failure, Vote>> incrementFakeVotes(String postID, String userToken) async {
     try{
-      String incrementFakeVotesSuccessMessage = await postRemoteDataSource.incrementFakeVotes(postID, userToken);
+      Vote voteObject = await postRemoteDataSource.incrementFakeVotes(postID, userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(ServerSuccess(successMessage: incrementFakeVotesSuccessMessage ));
+      return Right(voteObject);
 
     }
     on ConnectionException catch(exception, stackTrace){
