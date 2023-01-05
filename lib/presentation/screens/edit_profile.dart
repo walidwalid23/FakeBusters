@@ -95,6 +95,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         User user = User(
                             username: usernameController.text,
                             password: passwordController.text);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(context);
                       }
                     },
                   ),

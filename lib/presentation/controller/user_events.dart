@@ -170,3 +170,42 @@ class UserLogoutEvent extends StateNotifier <AsyncValue<dynamic>>{
   }
 
 }
+
+class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
+  // the initial state will be null cause nothing should be shown till the login button is clicked
+  EditProfileEvent(): super( AsyncData(null) );
+
+  void EditProfileState(BuildContext context) async{
+    BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
+    BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
+    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
+    LogoutUseCase logoutUseCase = LogoutUseCase(userRepository: userRepository);
+
+    super.state = AsyncLoading();
+    Either<Failure, Success> data = await logoutUseCase.excute();
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    } , (Success success) {
+      //we don't need to change the state when succeed cause we will move to another screen
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
+      // go to home page and show logged in alert
+      Fluttertoast.showToast(
+          msg:  success.successMessage,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb:3,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16
+      );
+      // we don't want the user to return to home again after logging out so we use .go
+      context.push('/home');
+
+    });
+
+
+  }
+
+}

@@ -119,6 +119,35 @@ class UserRepository extends BaseUserRepository{
 
   }
 
+  @override
+  Future<Either<Failure, Success>> EditProfile(User user) async{
+    try{
+      String loggedInSuccessMessage = await userRemoteDataSource.login(user);
+      //if no exception was thrown then the method has succeeded
+      return Right(ServerSuccess(successMessage: loggedInSuccessMessage));
+
+    }
+    on ConnectionException catch(exception, stackTrace){
+      return Left(
+          ConnectionFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+    }
+
+    on ServerException catch(exception, stackTrace){
+      return Left(
+          ServerFailure(
+              errorMessage:exception.networkErrorModel.errorMessage,
+              stackTrace: stackTrace));
+    }
+    on GenericException catch(exception, stackTrace){
+      return Left(
+          GenericFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+    }
+  }
+
 
 
 

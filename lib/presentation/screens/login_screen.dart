@@ -56,7 +56,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     return "Username must be at least 3 characters long";
                   }
                   return null;
-
                 },
                 Label:"Username*" ,
                 type: TextInputType.visiblePassword,
