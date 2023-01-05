@@ -4,6 +4,7 @@ import 'package:fakebustersapp/core/exception_handling/success.dart';
 import 'package:fakebustersapp/domain/entities/post.dart';
 import '../../core/exception_handling/exceptions.dart';
 import '../../domain/domain_repository/base_post_repository.dart';
+import '../../domain/entities/uploaded_post.dart';
 import '../../domain/entities/vote.dart';
 import '../data_source/base_post_remote_datasource.dart';
 
@@ -13,7 +14,7 @@ class PostRepository extends BasePostRepository{
 
 
   @override
-  Future<Either<Failure, Success>> uploadPost(Post post, String userToken) async{
+  Future<Either<Failure, Success>> uploadPost(UploadedPost post, String userToken) async{
     try{
       String postUploadedSuccessMessage = await postRemoteDataSource.uploadPost(post, userToken);
       //if no exception was thrown then the method has succeeded

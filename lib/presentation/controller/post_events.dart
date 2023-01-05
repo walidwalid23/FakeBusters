@@ -11,6 +11,7 @@ import '../../data/data_source/base_post_remote_datasource.dart';
 import '../../data/data_source/post_remote_datasource.dart';
 import '../../domain/domain_repository/base_post_repository.dart';
 import '../../domain/entities/post.dart';
+import '../../domain/entities/uploaded_post.dart';
 import '../../domain/usecases/find_posts_by_categories_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
@@ -38,7 +39,7 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
     });
   }
 
-  void uploadPostState(Post post) async {
+  void uploadPostState(UploadedPost post) async {
     BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
     BasePostRepository postRepository = PostRepository(postRemoteDataSource);
     UploadPostUseCase uploadPostUseCase = UploadPostUseCase(postRepository);

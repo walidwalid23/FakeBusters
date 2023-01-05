@@ -40,7 +40,7 @@ class PostWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(leading:
-          CircleAvatar(backgroundImage:NetworkImage(uploaderImage),
+          CircleAvatar(backgroundImage:NetworkImage(ServerManager.baseUrl+"\\"+uploaderImage),
             backgroundColor: Colors.deepOrangeAccent,
           ),
             title: Text(uploaderUsername,style: StylesManager.textStyle1,),

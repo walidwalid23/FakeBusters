@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import '../../domain/entities/uploaded_post.dart';
 import '../controller/post_providers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -142,8 +143,8 @@ class _UploadPostState extends ConsumerState<UploadPost> {
                         onPressed: () {
                           if (_formKey.currentState!.validate() && productImage != null) {
                             // DATA IS VALID
-                            Post postData =
-                            Post(
+                            UploadedPost postData =
+                            UploadedPost(
                               productName: productNameController.text,
                               brandName: brandNameController.text,
                             productImage: productImage!,

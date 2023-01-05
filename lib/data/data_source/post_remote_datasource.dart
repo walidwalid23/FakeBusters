@@ -1,5 +1,6 @@
 import 'package:fakebustersapp/data/models/post_model.dart';
 import 'package:fakebustersapp/domain/entities/post.dart';
+import '../../domain/entities/uploaded_post.dart';
 import '../../domain/entities/vote.dart';
 import '../models/vote_model.dart';
 import 'base_post_remote_datasource.dart';
@@ -13,7 +14,7 @@ import 'package:http_parser/http_parser.dart';
 
 class PostRemoteDataSource extends BasePostRemoteDataSource{
   @override
-  Future<String> uploadPost(Post post, String userToken)async{
+  Future<String> uploadPost(UploadedPost post, String userToken)async{
     // send a post request to the server
     try {
       File productImage = post.productImage;
