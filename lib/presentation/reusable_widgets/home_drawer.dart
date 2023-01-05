@@ -20,11 +20,15 @@ class HomeDrawer extends ConsumerWidget {
             decoration: BoxDecoration(
               color: ColorsManager.themeColor1,
             ),
-            child: CircleAvatar(
-              child: Image.asset('assets/images/default_profile_image.png', scale: 1),
-              radius: 50,
-              backgroundColor: Colors.white,
+            child: GestureDetector(
+              onTap: ()=>context.push('/editprofilescreen'),
+              child: CircleAvatar(
+                child: Image.asset('assets/images/default_profile_image.png', scale: 1),
+                radius: 50,
+                backgroundColor: Colors.white,
+              ),
             ),
+
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.houseUser),
