@@ -36,7 +36,7 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
       int statusCode = response.statusCode!;
 
-      // The User Have Signed Up Successfully Now Store His JWT Token Locally
+
       if (statusCode == 200) {
 
         return response.data['successMessage'];
@@ -87,7 +87,6 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
       int statusCode = response.statusCode!;
 
-      // The User Have Signed Up Successfully Now Store His JWT Token Locally
       if (statusCode == 200) {
 
         return response.data['successMessage'];
@@ -138,7 +137,7 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
       int statusCode = response.statusCode!;
 
-      // The User Have Signed Up Successfully Now Store His JWT Token Locally
+
       if (statusCode == 200) {
 
         return response.data['successMessage'];
