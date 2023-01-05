@@ -6,7 +6,7 @@ import '../entities/uploaded_post.dart';
 import '../entities/vote.dart';
 
 abstract class BasePostRepository{
-   Future<Either<Failure, Success>> uploadPost(UploadedPost post, String userToken);
+   Future<Either<Failure, UploadingPostSuccess>> uploadPost(UploadedPost post, String userToken);
    Future<Either<Failure, Vote>> incrementFakeVotes(String postID, String userToken);
    Future<Either<Failure, Success>> incrementOriginalVotes(String postID, String userToken);
    Future<Either<Failure, List<Post>>> findPostsByCategories(List<String> categories, String userToken);

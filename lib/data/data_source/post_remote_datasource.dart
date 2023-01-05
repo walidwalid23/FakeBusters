@@ -1,5 +1,6 @@
 import 'package:fakebustersapp/data/models/post_model.dart';
 import 'package:fakebustersapp/domain/entities/post.dart';
+import '../../core/exception_handling/success.dart';
 import '../../domain/entities/uploaded_post.dart';
 import '../../domain/entities/vote.dart';
 import '../models/vote_model.dart';
@@ -14,7 +15,7 @@ import 'package:http_parser/http_parser.dart';
 
 class PostRemoteDataSource extends BasePostRemoteDataSource{
   @override
-  Future<String> uploadPost(UploadedPost post, String userToken)async{
+  Future<UploadingPostSuccess> uploadPost(UploadedPost post, String userToken)async{
     // send a post request to the server
     try {
       File productImage = post.productImage;
@@ -40,10 +41,11 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
       int statusCode = response.statusCode!;
 
-
       if (statusCode == 200) {
 
-        return response.data['successMessage'];
+        return UploadingPostSuccess(successMessage:response.data['successMessage'],
+        uploaderImage:response.data['uploaderImage'],
+        uploaderUsername:response.data['uploaderUsername'] );
       }
       // since the server didn't return 200 then there must have been a problem
       else {
@@ -66,6 +68,7 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
             networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
       }
       else{
+
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
         // rethrow;
         // OR CREATE A GENERIC ERROR MESSAGE
@@ -73,7 +76,8 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
       }
     }
-    catch(error){
+    catch(error, st){
+      print(st);
       // CATCH ANY OTHER LEFT EXCEPTION
       throw GenericException(errorMessage:"Unknown Exception Has Occurred");
     }

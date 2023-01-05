@@ -44,16 +44,21 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
     BasePostRepository postRepository = PostRepository(postRemoteDataSource);
     UploadPostUseCase uploadPostUseCase = UploadPostUseCase(postRepository);
 
+
     super.state = AsyncLoading();
-    Either<Failure, Success> data =
+    Either<Failure, UploadingPostSuccess> data =
         await uploadPostUseCase.excute(post, userToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
-    }, (Success success) {
+    }, (UploadingPostSuccess success) {
       //we don't need to change the state when succeed cause we will move to another screen
       // but we set it to null to stop loading in case the user went to previous screen
       super.state = AsyncData(null);
+
+      UploadedPost uploadedPostWithUploader = UploadedPost(productName: post.productName,
+          brandName: post.brandName, productCategory: post.productCategory, productImage: post.productImage,
+      uploaderImage: success.uploaderImage, uploaderUsername: success.uploaderUsername);
       // go to home page and show signed up alert
       Fluttertoast.showToast(
           msg: success.successMessage,
@@ -63,7 +68,7 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16);
-      context.push('/displaypost', extra: post);
+      context.push('/displaypost', extra: uploadedPostWithUploader);
     });
   }
 }
@@ -124,11 +129,6 @@ class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
 
   }
 }
-
-
-
-
-
 
 
 

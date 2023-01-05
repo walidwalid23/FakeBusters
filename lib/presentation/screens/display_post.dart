@@ -7,13 +7,14 @@ import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import '../../domain/entities/uploaded_post.dart';
 import '../reusable_widgets/post_widget.dart';
 
 
 class DisplayPost extends StatefulWidget {
   DisplayPost({Key? key,required  this.postData}) : super(key: key);
 
-  Post postData;
+  UploadedPost postData;
 
   @override
   State<DisplayPost> createState() => _DisplayPostState();
@@ -29,8 +30,8 @@ class _DisplayPostState extends State<DisplayPost> {
       appBar: AppBar(title:Text('Your Post'), centerTitle: true,),
       body: SafeArea(
         child: PostWidget(
-            uploaderUsername:widget.postData.uploaderUsername,
-            uploaderImage: widget.postData.uploaderImage,
+            uploaderUsername:widget.postData.uploaderUsername!,
+            uploaderImage: widget.postData.uploaderImage!,
             productCategory: widget.postData.productCategory,
         productImage: widget.postData.productImage,
         productName: widget.postData.productName,
