@@ -38,7 +38,7 @@ class PostWidget extends StatelessWidget {
             subtitle:Row(
               children: [
                 Text(
-                  '20 min ago',
+                  productDate,
                   style: TextStyle(
                       color: ColorsManager.bottomBarUnselectedIconsColor
                   ),
@@ -120,12 +120,15 @@ class PostWidget extends StatelessWidget {
                 children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: (productImage.runtimeType==File)?Image.file(
+                      child:Image.file(
                         // PRODUCT IMAGE
                         productImage,
                         width: 400,
                         height:400,
-                      ): Image.network(ServerManager.baseUrl+"\\"+productImage)),
+                      ))
+                  //      (productImage.runtimeType==_File)?
+           //     Image.network(ServerManager.baseUrl+"\\"+productImage))
+                    ,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
