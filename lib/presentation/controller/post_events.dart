@@ -12,7 +12,9 @@ import '../../data/data_source/post_remote_datasource.dart';
 import '../../domain/domain_repository/base_post_repository.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/entities/uploaded_post.dart';
+import '../../domain/entities/vote.dart';
 import '../../domain/usecases/find_posts_by_categories_usecase.dart';
+import '../../domain/usecases/increment_fake_votes_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
 import '../../domain/usecases/delete_post_usecase.dart';
@@ -121,15 +123,47 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
 
 
 
-
 class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
   String? userToken;
   BuildContext context;
-  IncrementFakeVotesEvent (this.context): super( AsyncData(null) ) {
-
+  IncrementFakeVotesEvent (this.context): super(AsyncData(null)) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        Fluttertoast.showToast(
+            msg: "Please Login Again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16);
+        context.push('/login');
+      }
+    });
   }
-}
 
+  void incrementFakeVotesState(String postID) async {
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    IncrementFakeVotesUseCase incrementFakeVotesUseCase = IncrementFakeVotesUseCase(postRepository);
+    super.state = AsyncLoading();
+    Either<Failure, Vote> data =
+    await incrementFakeVotesUseCase.excute(postID, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    }, (Vote voteObj) {
+
+      super.state = AsyncData(voteObj);
+
+    });
+  }
+
+
+
+}
 
 
 class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
@@ -179,7 +213,6 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
       context.push('/displaypost', extra: postID);
     });
   }
-
 
 
 }

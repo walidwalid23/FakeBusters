@@ -184,6 +184,7 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
       }
     }
     catch(error){
+      print(error);
       // CATCH ANY OTHER LEFT EXCEPTION
       throw GenericException(errorMessage:"Unknown Exception Has Occurred");
     }

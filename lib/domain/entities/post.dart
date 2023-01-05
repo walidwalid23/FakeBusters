@@ -1,5 +1,6 @@
 
 class Post{
+  String postID;
 String productName;
 String brandName;
 String productCategory;
@@ -13,5 +14,6 @@ String uploaderImage;
 
 
 Post({required this.productName, required this.brandName, required this.productCategory,
-required this.productImage, this.postDate, required this.uploaderImage, required this.uploaderUsername});
+required this.productImage, this.postDate, required this.uploaderImage, required this.uploaderUsername,
+required this.postID});
 }

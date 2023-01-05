@@ -6,7 +6,7 @@ import '../entities/vote.dart';
 
 class IncrementFakeVotesUseCase{
   BasePostRepository postRepository;
-  IncrementFakeVotesUseCase({required this.postRepository});
+  IncrementFakeVotesUseCase(this.postRepository);
 
   Future<Either<Failure, Vote>> excute(String postID, String userToken) async {
     return await postRepository.incrementFakeVotes(postID, userToken);

@@ -1,6 +1,6 @@
 class Vote{
-   double fakeVotes;
-   double originalVotes;
+   int fakeVotes;
+   int originalVotes;
 
    Vote({required this.fakeVotes, required this.originalVotes});
 
