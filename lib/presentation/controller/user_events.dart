@@ -1,3 +1,5 @@
+import 'package:fakebustersapp/domain/entities/updateuser.dart';
+import 'package:fakebustersapp/domain/usecases/edit_profile_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fakebustersapp/core/exception_handling/failures.dart';
@@ -163,6 +165,48 @@ class UserLogoutEvent extends StateNotifier <AsyncValue<dynamic>>{
       );
       // we don't want the user to return to home again after logging out so we use .go
       context.go('/login');
+
+    });
+
+
+  }
+
+}
+
+class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
+  String? userToken;
+  BuildContext? context;
+  UpdateUser? user;
+  EditProfileEvent(): super( AsyncData(null) );
+
+  void EditProfileState(UpdateUser user) async{
+
+    BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
+    BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
+    BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
+    EditProfileUsecase editprofileevent = EditProfileUsecase(userRepository: userRepository);
+
+    super.state = AsyncLoading();
+    Either<Failure, Success> data = await editprofileevent.excute(user, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    } , (Success success) {
+      //we don't need to change the state when succeed cause we will move to another screen
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
+      // go to home page and show logged in alert
+      Fluttertoast.showToast(
+          msg:  success.successMessage,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb:3,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16
+      );
+      // we don't want the user to return to home again after logging out so we use .go
+      context!.push('/home');
 
     });
 

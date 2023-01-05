@@ -3,19 +3,21 @@ import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
-import 'package:flutter_switch/flutter_switch.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 
+import '../controller/user_providers.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 
-class Settings extends StatefulWidget {
+class Settings extends ConsumerStatefulWidget {
   const Settings({super.key});
 
   @override
-  State<Settings> createState() => _SettingsState();
+  _SettingsState createState() => _SettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingsState extends ConsumerState<Settings> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool status = false;
@@ -147,7 +149,9 @@ class _SettingsState extends State<Settings> {
                       height: 150.0,
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {              
+                        ref.read(userLogoutProvider.notifier).logoutState(context);
+                      },
                       icon: Icon(Icons.logout_rounded),
                       label: Padding(
                         padding: const EdgeInsets.only(top: 15, bottom: 15),
@@ -160,7 +164,12 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                      
-                    )
+                    ),
+                    ref.watch(userLogoutProvider).when(
+                        data: (data)=> Container(),
+                        error: (error, stackTrace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                        loading:()=> SpinKitRing(color: ColorsManager.themeColor1!))
+
                   ]
                   ),
                 )

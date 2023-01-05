@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/domain/entities/updateuser.dart';
 import 'package:fakebustersapp/domain/entities/user.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultFormField.dart';
@@ -19,6 +20,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
   var keyform =GlobalKey<FormState>();
+  var userform =GlobalKey<FormState>();
+  var passwordform =GlobalKey<FormState>();
+
   bool showPassword=true;  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,20 +50,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   SizedBox(
                     height: 50.0,
                   ),
-                  DefaultTextFormField(
-                    prefix: Icons.account_circle,
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return "Username must not be empty";
-                      }
-                      else if (value.length < 3) {
-                        return "Username must be at least 3 characters long";
-                      }
-                      return null;
-                    },
-                    Label:"Username*" ,
-                    type: TextInputType.visiblePassword,
-                    Controller: TextEditingController(),
+                  Form(
+                    key: userform,
+                    child: DefaultTextFormField(
+                      prefix: Icons.account_circle,
+                      validate: (value) {
+                        if (value!.isEmpty) {
+                          return "Username must not be empty";
+                        }
+                        else if (value.length < 3) {
+                          return "Username must be at least 3 characters long";
+                        }
+                        return null;
+                      },
+                      Label:"Username*" ,
+                      type: TextInputType.visiblePassword,
+                      Controller:usernameController,
+                    ),
                   ),
                   SizedBox(
                     height: 20.0,
@@ -82,7 +89,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     },
                     Label:"Password*" ,
                     type: TextInputType.visiblePassword,
-                    Controller: TextEditingController(),
+                    Controller: passwordController,
                     showPassword: showPassword,
                   ),
                   SizedBox(
@@ -92,9 +99,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     text: 'Update',
                     function: (){
                       if(keyform.currentState!.validate()){
-                        User user = User(
+                        UpdateUser user = UpdateUser(
                             username: usernameController.text,
                             password: passwordController.text);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(user);
+                      }else if(userform.currentState!.validate()){
+                        UpdateUser user = UpdateUser(
+                            username: usernameController.text);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(user);
+                      }else if(passwordform.currentState!.validate()){
+                        UpdateUser user = UpdateUser(
+                            password: passwordController.text);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(user);
                       }
                     },
                   ),
