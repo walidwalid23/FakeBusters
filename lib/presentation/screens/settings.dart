@@ -21,9 +21,6 @@ class _SettingsState extends State<Settings> {
   bool status = false;
   bool showPassword = true;
   bool isDarkModeEnabled = false;
-  Color _textColor = Colors.black;
-  Color _appBarColor = Color.fromRGBO(36, 41, 46, 1);
-  Color _scaffoldBgcolor = Colors.white;
   var formkey = GlobalKey<FormState>();
   @override
   void setState(VoidCallback fn) {
@@ -162,9 +159,13 @@ class _SettingsState extends State<Settings> {
                           borderRadius: new BorderRadius.circular(5.0),
                         ),
                       ),
+                     
                     )
-                  ]),
-                ))),
+                  ]
+                  ),
+                )
+                )
+                ),
         appBar: AppBar(
           title: Text(HomeManager.appSettings),
           centerTitle: true,
