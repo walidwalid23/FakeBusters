@@ -14,6 +14,8 @@ class PostsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("in build now");
+    print(categories);
     return Scaffold(
       appBar: AppBar(title:Text('Posts'), centerTitle: true,),
       body: SafeArea(

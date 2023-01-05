@@ -72,6 +72,7 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
   String? userToken;
   List<String> categories;
   FindPostsByCategoriesEvent(this.categories) : super(AsyncLoading()) {
+    print("in provider constructor");
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
       // if the token doesn't exist move to login page without sending a request to the server
@@ -88,6 +89,7 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
   }
 
   void findPostsByCategoriesState(List<String> categories) async {
+    print('in the state event');
     BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
     BasePostRepository postRepository = PostRepository(postRemoteDataSource);
     FindPostsByCategoriesUseCase findPostsByCategoriesUseCase = FindPostsByCategoriesUseCase(postRepository);

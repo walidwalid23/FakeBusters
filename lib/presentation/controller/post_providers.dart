@@ -16,5 +16,6 @@ final incrementOriginalVotesProvider = StateNotifierProvider.family<IncrementOri
 final deletePostProvider = StateNotifierProvider.family<DeletePostEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  DeletePostEvent(context));
 
-final findPostsByCategoriesProvider = StateNotifierProvider.family<FindPostsByCategoriesEvent,AsyncValue<List<Post>>,List<String>
+//using autoDispose To reset the state when the user leaves a screen and re-enters it
+final findPostsByCategoriesProvider = StateNotifierProvider.autoDispose.family<FindPostsByCategoriesEvent,AsyncValue<List<Post>>,List<String>
 >((ref, categories) =>  FindPostsByCategoriesEvent(categories));
