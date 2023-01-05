@@ -104,11 +104,11 @@ class PostRepository extends BasePostRepository{
   }
 
   @override
-  Future<Either<Failure, Success>> incrementOriginalVotes(String postID, String userToken)async {
-        try{
-      String incrementOriginalVotesSuccessMessage = await postRemoteDataSource.incrementOriginalVotes(postID, userToken);
+  Future<Either<Failure, Vote>> incrementOriginalVotes(String postID, String userToken) async {
+    try{
+      Vote voteObject = await postRemoteDataSource.incrementOriginalVotes(postID, userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(ServerSuccess(successMessage: incrementOriginalVotesSuccessMessage ));
+      return Right(voteObject);
 
     }
     on ConnectionException catch(exception, stackTrace){
@@ -117,7 +117,7 @@ class PostRepository extends BasePostRepository{
               errorMessage:exception.errorMessage,
               stackTrace: stackTrace));
 
-  }
+    }
     on ServerException catch(exception, stackTrace){
       return Left(
           ServerFailure(

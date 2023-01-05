@@ -151,6 +151,8 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
       int statusCode = response.statusCode!;
 
+
+
       if (statusCode == 200) {
 
         return VoteModel.fromJson(response.data);
@@ -191,21 +193,22 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
   }
 
   @override
-  Future<String> incrementOriginalVotes(String postID, String userToken) async{
-    
- try {
+  Future<Vote> incrementOriginalVotes(String postID, String userToken) async {
+
+    try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = userToken;
-      var response = await dio.post(ServerManager.baseUrl+ "/posts/uploadPost", data: {
+      var response = await dio.post(ServerManager.baseUrl+ "/posts/incrementOriginalVotes", data: {
         "postID": postID,
       });
 
-      int statusCode = response.statusCode!;
+      print(response);
 
+      int statusCode = response.statusCode!;
 
       if (statusCode == 200) {
 
-        return response.data['successMessage'];
+        return VoteModel.fromJson(response.data);
       }
       // since the server didn't return 200 then there must have been a problem
       else {
@@ -236,12 +239,12 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
       }
     }
     catch(error){
+      print(error);
       // CATCH ANY OTHER LEFT EXCEPTION
       throw GenericException(errorMessage:"Unknown Exception Has Occurred");
     }
-
-
   }
+
 
   @override
   Future<String> deletePost(String postID, String userToken) async{

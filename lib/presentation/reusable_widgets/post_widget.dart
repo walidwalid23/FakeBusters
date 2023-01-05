@@ -79,7 +79,7 @@ class PostWidget extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Card(
-                      color: Colors.deepOrangeAccent[200],
+                      color: Colors.deepOrangeAccent[100],
                       child:Container(
 
                         height: 25,
@@ -97,7 +97,7 @@ class PostWidget extends ConsumerWidget {
                     height: 5,
                   ),
                   Card(
-                    color:Colors.deepOrangeAccent[200],
+                    color:Colors.deepOrangeAccent[100],
                     child:
                     Container(
                       height: 25,
@@ -115,7 +115,7 @@ class PostWidget extends ConsumerWidget {
                     height: 5,
                   ),
                   Card(
-                    color: Colors.deepOrangeAccent[200],
+                    color: Colors.deepOrangeAccent[100],
                     child: Container(
                       height: 25,
                       width: 350,
@@ -147,13 +147,35 @@ class PostWidget extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ref.watch(incrementFakeVotesProvider(context)).when(
+                      // THE Fake BUTTON MUST LISTEN TO THE ORIGINAL BUTTON AND THE FAKE BUTTON AS WELL
+                      ref.watch(incrementOriginalVotesProvider(context)).when(
                           data: (data){ if (data==null){
-                            return PostChoiceButton(
-                              buttonText: 'Fake',
-                              buttonAction: (){
-                                ref.read(incrementFakeVotesProvider(context).notifier).incrementFakeVotesState(postID!);
-                              },);
+                            //initial state
+                            return  ref.watch(incrementFakeVotesProvider(context)).when(
+                                data: (data){ if (data==null){
+                                  return PostChoiceButton(
+                                    buttonText: 'Fake',
+                                    buttonAction: (){
+                                      ref.read(incrementFakeVotesProvider(context).notifier).incrementFakeVotesState(postID!);
+                                    },);
+                                }
+                                else{
+                                  return  LinearPercentIndicator(
+                                    width: 160.0,
+                                    lineHeight: 37.0,
+                                    percent: double.parse(data.getFakeVotesPercentage())/100,
+                                    center: Text(
+                                      "Fake: ${data.getFakeVotesPercentage()}%",
+                                      style: new TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold),
+                                    ),
+                                    barRadius: Radius.circular(7),
+                                    backgroundColor: Colors.orangeAccent[100],
+                                    progressColor:ColorsManager.themeColor1,
+                                  );
+                                }
+                                },
+                                error: (error,st)=>Text(error.toString()),
+                                loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!));
                           }
                           else{
                             return  LinearPercentIndicator(
@@ -161,25 +183,70 @@ class PostWidget extends ConsumerWidget {
                               lineHeight: 37.0,
                               percent: double.parse(data.getFakeVotesPercentage())/100,
                               center: Text(
-                                "Fake: ${data.getFakeVotesPercentage()}",
-                                style: new TextStyle(fontSize: 15.0),
+                                "Fake: ${data.getFakeVotesPercentage()}%",
+                                style: new TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold),
                               ),
                               barRadius: Radius.circular(7),
                               backgroundColor: Colors.orangeAccent[100],
                               progressColor:ColorsManager.themeColor1,
                             );
                           }
-                       },
+                          },
+                          error: (error,st)=>Text(error.toString()),
+                          loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
+                      ,
+                      SizedBox(
+                        width: 2,
+                      ),
+                      // THE ORIGINAL BUTTON MUST LISTEN TO THE FAKE BUTTON AND THE ORIGINAL BUTTON AS WELL
+                      ref.watch(incrementFakeVotesProvider(context)).when(
+                          data: (data){ if (data==null){
+                            //initial state
+                            return   ref.watch(incrementOriginalVotesProvider(context)).when(
+                                data: (data){ if (data==null){
+                                  return PostChoiceButton(
+                                    buttonText: 'Original',
+                                    buttonAction: (){
+                                      ref.read(incrementOriginalVotesProvider(context).notifier).incrementOriginalVotesState(postID!);
+                                    },);
+                                }
+                                else{
+                                  return  LinearPercentIndicator(
+                                    width: 160.0,
+                                    lineHeight: 37.0,
+                                    percent: double.parse(data.getOriginalVotesPercentage())/100,
+                                    center: Text(
+                                      "Original: ${data.getOriginalVotesPercentage()}%",
+                                      style: new TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                                    ),
+                                    barRadius: Radius.circular(7),
+                                    backgroundColor: Colors.orangeAccent[100],
+                                    progressColor:ColorsManager.themeColor1,
+                                  );
+                                }
+                                },
+                                error: (error,st)=>Text(error.toString()),
+                                loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!));
+                          }
+                          else{
+                            return  LinearPercentIndicator(
+                              width: 160.0,
+                              lineHeight: 37.0,
+                              percent: double.parse(data.getOriginalVotesPercentage())/100,
+                              center: Text(
+                                "Original: ${data.getOriginalVotesPercentage()}%",
+                                style: new TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                              ),
+                              barRadius: Radius.circular(7),
+                              backgroundColor: Colors.orangeAccent[100],
+                              progressColor:ColorsManager.themeColor1,
+                            );
+                          }
+                          },
                           error: (error,st)=>Text(error.toString()),
                           loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
                       ,
 
-                      SizedBox(
-                        width: 2,
-                      ),
-                      PostChoiceButton(
-                        buttonText: 'Original',
-                        buttonAction: (){},),
                       SizedBox(
                         width: 2,
                       ),
