@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import '../../domain/entities/uploaded_post.dart';
 import '../controller/post_providers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -115,49 +116,40 @@ class _UploadPostState extends ConsumerState<UploadPost> {
                           borderSide: BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(10)),
                     ),
-                  ),
-                ),
-                ImageContainer(
-                  uploadedImage: productImage,
-                  width: 200,
-                  height: 200,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: ElevatedButton(
-                    child: const Text('Upload Product Image'),
-                    onPressed: () async {
-                      final XFile? image =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                      if (image == null) {
-                        return;
-                      }
-                      setState(() {
-                        productImage = File(image.path);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorsManager.themeColor1),
-                  ),
-                ),
-                Center(
-                    child: Text(
-                  imageValidationError,
-                  style: StylesManager.notificationStyle,
-                )),
-                Padding(
-                  padding: const EdgeInsets.only(right: 70, left: 70),
-                  child: ElevatedButton(
-                    child: Text(
-                      'Submit',
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate() &&
-                          productImage != null) {
-                        // DATA IS VALID
-                        Post postData = Post(
-                            productName: productNameController.text,
-                            brandName: brandNameController.text,
+             ),
+              ),
+
+              ImageContainer (uploadedImage: productImage,width: 200, height: 200,),
+
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: ElevatedButton(
+                  child: const Text('Upload Product Image'),
+                  onPressed: () async{
+                    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                    if(image == null){return;}
+                    setState(() {
+                      productImage = File(image.path);
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorsManager.themeColor1
+                  ), ),
+              )
+              ,
+              Center(child: Text(imageValidationError,style: StylesManager.notificationStyle,)),
+
+                 Padding(
+                   padding: const EdgeInsets.all(15),
+                       child: ElevatedButton(
+                         child: Text('Submit',),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate() && productImage != null) {
+                            // DATA IS VALID
+                            Post postData =
+                            Post(
+                              productName: productNameController.text,
+                              brandName: brandNameController.text,
                             productImage: productImage!,
                             productCategory: dropdownValue);
                         // upload the post

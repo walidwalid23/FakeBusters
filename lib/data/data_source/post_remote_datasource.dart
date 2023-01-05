@@ -1,5 +1,8 @@
 import 'package:fakebustersapp/data/models/post_model.dart';
 import 'package:fakebustersapp/domain/entities/post.dart';
+import '../../domain/entities/uploaded_post.dart';
+import '../../domain/entities/vote.dart';
+import '../models/vote_model.dart';
 import 'base_post_remote_datasource.dart';
 import 'package:dio/dio.dart';
 import '../../core/exception_handling/exceptions.dart';
@@ -11,7 +14,7 @@ import 'package:http_parser/http_parser.dart';
 
 class PostRemoteDataSource extends BasePostRemoteDataSource{
   @override
-  Future<String> uploadPost(Post post, String userToken)async{
+  Future<String> uploadPost(UploadedPost post, String userToken)async{
     // send a post request to the server
     try {
       File productImage = post.productImage;
@@ -133,12 +136,12 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
 
   @override
-  Future<String> incrementFakeVotes(String postID, String userToken) async {
-    // TODO: implement incrementFakeVotes
+  Future<Vote> incrementFakeVotes(String postID, String userToken) async {
+
     try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = userToken;
-      var response = await dio.post(ServerManager.baseUrl+ "/posts/uploadPost", data: {
+      var response = await dio.post(ServerManager.baseUrl+ "/posts/incrementFakeVotes", data: {
         "postID": postID,
       });
 
@@ -146,7 +149,7 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
 
       if (statusCode == 200) {
 
-        return response.data['successMessage'];
+        return VoteModel.fromJson(response.data);
       }
       // since the server didn't return 200 then there must have been a problem
       else {

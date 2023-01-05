@@ -29,12 +29,15 @@ class _DisplayPostState extends State<DisplayPost> {
       appBar: AppBar(title:Text('Your Post'), centerTitle: true,),
       body: SafeArea(
         child: PostWidget(
+            uploaderUsername:widget.postData.uploaderUsername,
+            uploaderImage: widget.postData.uploaderImage,
             productCategory: widget.postData.productCategory,
         productImage: widget.postData.productImage,
         productName: widget.postData.productName,
         brandName: widget.postData.brandName,
         // since this widget will be displayed when the user submit a post show the current date
         productDate: DatesManager.currentDate+" "+DatesManager.currentTime),
+
       ),
       drawer: HomeDrawer(),
       backgroundColor: Colors.grey[400],

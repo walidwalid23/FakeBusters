@@ -1,7 +1,6 @@
 import 'package:fakebustersapp/presentation/reusable_widgets/post_choice_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:io';
 import '../../core/utils/constants/colors_manager.dart';
 import '../../core/utils/constants/server_manager.dart';
 import '../../core/utils/constants/styles_manager.dart';
@@ -12,7 +11,10 @@ class PostWidget extends StatelessWidget {
    required this.productCategory,
    required this.brandName,
    required this.productDate,
-   required this.productImage
+   required this.productImage,
+   required this.uploaderUsername,
+   required this.uploaderImage,
+
    }) : super(key: key);
 
   String productName;
@@ -20,6 +22,8 @@ class PostWidget extends StatelessWidget {
   String brandName;
   String productDate;
   dynamic productImage;
+  String uploaderUsername;
+  String uploaderImage;
 
 
   @override
@@ -36,10 +40,10 @@ class PostWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(leading:
-          CircleAvatar(backgroundImage:AssetImage('assets/images/usericon2.png'),
+          CircleAvatar(backgroundImage:NetworkImage(ServerManager.baseUrl+"\\"+uploaderImage),
             backgroundColor: Colors.deepOrangeAccent,
           ),
-            title: Text('Walid Mohamed',style: StylesManager.textStyle1,),
+            title: Text(uploaderUsername,style: StylesManager.textStyle1,),
             subtitle:Row(
               children: [
                 Text(

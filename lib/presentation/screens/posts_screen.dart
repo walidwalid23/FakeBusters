@@ -30,6 +30,8 @@ class PostsScreen extends ConsumerWidget {
                        brandName: posts[index].brandName ,
                        productCategory: posts[index].productCategory ,
                        productDate: posts[index].postDate!,
+                       uploaderImage: posts[index].uploaderImage,
+                       uploaderUsername: posts[index].uploaderUsername ,
 
                      );
                   }
