@@ -8,7 +8,6 @@ import '../../presentation/screens/Profile.dart';
 import '../../presentation/screens/initial_loading_screen.dart';
 import '../../presentation/screens/posts_screen.dart';
 import '../../presentation/screens/signup_screen.dart';
-import '../../presentation/screens/edit_post.dart';
 import '../../presentation/screens/home.dart';
 import '../../presentation/screens/login_screen.dart';
 import '../../presentation/screens/notifications.dart';
@@ -84,12 +83,7 @@ final GoRouter appRouter = GoRouter(
        return DisplayPost(postData: state.extra as Post);
       },
     ),
-    GoRoute(
-      path: '/editpost',
-      builder: (BuildContext context, GoRouterState state) {
-        return EditPost();
-      },
-    ),
+
     GoRoute(
       path: '/hintscreen',
       builder: (BuildContext context, GoRouterState state) {

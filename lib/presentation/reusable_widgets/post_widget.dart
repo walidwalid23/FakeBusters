@@ -26,7 +26,12 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(child: Column(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+          child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -63,12 +68,13 @@ class PostWidget extends StatelessWidget {
                   Card(
                       color: Colors.deepOrangeAccent[200],
                       child:Container(
+
                         height: 25,
                         width: 350,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(10,3,2,2),
                           child: Text(
-                              'Product Name:${productName}',
+                              'Product Name: ${productName}',
                               style: StylesManager.textStyle1
                           ),
                         ),
@@ -103,7 +109,7 @@ class PostWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(10,3,2,2),
                         child: Text(
-                          'Product Category:${productCategory}',
+                          'Product Category: ${productCategory}',
                           style: StylesManager.textStyle1,
                         ),
                       ),
@@ -120,9 +126,10 @@ class PostWidget extends StatelessWidget {
                 children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child:Image.network(ServerManager.baseUrl+"\\"+productImage))
-
-
+                      child:(productImage.runtimeType==String)?
+                      Image.network(ServerManager.baseUrl+"\\"+productImage):
+                       Image.file(productImage)
+                  )
                     ,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -159,9 +166,7 @@ class PostWidget extends StatelessWidget {
           )
 
         ],
-      ),decoration: BoxDecoration(
-          color: Colors.white
-      )),
+      ),),
     );
   }
 }

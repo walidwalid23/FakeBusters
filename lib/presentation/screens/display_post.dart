@@ -23,6 +23,7 @@ class _DisplayPostState extends State<DisplayPost> {
 
   @override
   Widget build(BuildContext context) {
+
   print(widget.postData.productImage.runtimeType);
     return Scaffold(
       appBar: AppBar(title:Text('Your Post'), centerTitle: true,),
