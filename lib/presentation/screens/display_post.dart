@@ -35,12 +35,84 @@ class _DisplayPostState extends State<DisplayPost> {
                 backgroundColor: Colors.deepOrangeAccent,
               ),
               title: Text('Walid Mohamed',style: StylesManager.textStyle1,),
-              subtitle:Text('20 min ago',style: TextStyle(color: ColorsManager.bottomBarUnselectedIconsColor),)
-                ,trailing: IconButton(icon: FaIcon(FontAwesomeIcons.ellipsis),
+              subtitle:Row(
+                children: [
+                  Text(
+                    '20 min ago',
+                    style: TextStyle(
+                        color: ColorsManager.bottomBarUnselectedIconsColor
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.public,
+                    size: 14,
+                  ),
+                ],
+              ),
+                trailing: IconButton(icon: FaIcon(FontAwesomeIcons.ellipsis),
                 onPressed: (){},),),
-              Text('Product Name: ${widget.postData.productName}',style: StylesManager.textStyle1),
-              Text('Brand Name: ${widget.postData.brandName}',style: StylesManager.textStyle1),
-              Text('Product Category: ${widget.postData.productCategory}',style: StylesManager.textStyle1),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Card(
+                        color: Colors.deepOrangeAccent[200],
+                          child:Container(
+                            height: 25,
+                            width: 350,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10,3,2,2),
+                              child: Text(
+                                  'Product Name:${widget.postData.productName}',
+                                  style: StylesManager.textStyle1
+                              ),
+                            ),
+                          )
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Card(
+                          color:Colors.deepOrangeAccent[200],
+                          child:
+                          Container(
+                            height: 25,
+                            width: 350,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10,3,2,2),
+                              child: Text(
+                                  'Brand Name: ${widget.postData.brandName}',
+                                  style: StylesManager.textStyle1,
+                              ),
+                            ),
+                          ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Card(
+                        color: Colors.deepOrangeAccent[200],
+                          child: Container(
+                            height: 25,
+                            width: 350,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10,3,2,2),
+                              child: Text(
+                                  'Product Category:${widget.postData.productCategory}',
+                                  style: StylesManager.textStyle1,
+                              ),
+                            ),
+                          ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
                Container(
                child: Padding(
                  padding: const EdgeInsets.all(8.0),
@@ -60,17 +132,34 @@ class _DisplayPostState extends State<DisplayPost> {
                          PostChoiceButton(
                            buttonText: 'Fake',
                          buttonAction: (){},),
+                         SizedBox(
+                           width: 2,
+                         ),
                          PostChoiceButton(
                            buttonText: 'Original',
                            buttonAction: (){},),
+                         SizedBox(
+                           width: 2,
+                         ),
                          FaIcon(FontAwesomeIcons.comment, color: Colors.deepOrange,size:40,)
 
-                     ],)
+                     ],),
+                     SizedBox(
+                       height: 5,
+                     ),
+                     Row(
+                       children:[
+                         SizedBox(
+                           width: 270,
+                         ),
+                         Text("12 Comments"),
+                      ],
+                     )
                    ],
                  ),
                ),
                )
-              
+
             ],
           ),decoration: BoxDecoration(
             color: Colors.white
