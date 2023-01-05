@@ -6,6 +6,7 @@ import 'package:fakebustersapp/presentation/screens/categories.dart';
 import 'package:fakebustersapp/presentation/screens/display_post.dart';
 import '../../presentation/screens/Profile.dart';
 import '../../presentation/screens/initial_loading_screen.dart';
+import '../../presentation/screens/posts_screen.dart';
 import '../../presentation/screens/signup_screen.dart';
 import '../../presentation/screens/edit_post.dart';
 import '../../presentation/screens/home.dart';
@@ -94,7 +95,14 @@ final GoRouter appRouter = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return HintScreen();
       },
-    )
+    ),
+    GoRoute(
+      path: '/posts_screen',
+      builder: (BuildContext context, GoRouterState state) {
+        return  PostsScreen(categories: state.extra as List<String>);
+      },
+    ),
+
 
   ],
 );

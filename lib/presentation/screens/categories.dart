@@ -188,6 +188,7 @@ class _CategoriesState extends ConsumerState<Categories> {
                 }
                   else{
                     print(selectedCategories);
+                    context.push('/posts_screen',extra: selectedCategories);
 
                 }
                 }

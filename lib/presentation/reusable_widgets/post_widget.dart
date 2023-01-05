@@ -120,14 +120,9 @@ class PostWidget extends StatelessWidget {
                 children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child:Image.file(
-                        // PRODUCT IMAGE
-                        productImage,
-                        width: 400,
-                        height:400,
-                      ))
-                  //      (productImage.runtimeType==_File)?
-           //     Image.network(ServerManager.baseUrl+"\\"+productImage))
+                      child:Image.network(ServerManager.baseUrl+"\\"+productImage))
+
+
                     ,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

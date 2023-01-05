@@ -11,6 +11,7 @@ import '../../data/data_source/base_post_remote_datasource.dart';
 import '../../data/data_source/post_remote_datasource.dart';
 import '../../domain/domain_repository/base_post_repository.dart';
 import '../../domain/entities/post.dart';
+import '../../domain/usecases/find_posts_by_categories_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
 import '../../domain/usecases/delete_post_usecase.dart';
@@ -65,6 +66,54 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
     });
   }
 }
+
+class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
+  // the initial state will be null cause nothing should be shown till the submit button is clicked
+  String? userToken;
+  List<String> categories;
+  FindPostsByCategoriesEvent(this.categories) : super(AsyncLoading()) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        super.state = AsyncError("You Aren't Allowed To Display Posts", StackTrace.current);
+      }
+
+      else{
+        // update the state with the posts
+        findPostsByCategoriesState(categories);
+      }
+
+    });
+  }
+
+  void findPostsByCategoriesState(List<String> categories) async {
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    FindPostsByCategoriesUseCase findPostsByCategoriesUseCase = FindPostsByCategoriesUseCase(postRepository);
+
+    Either<Failure, List<Post>> data =
+    await findPostsByCategoriesUseCase.excute(categories, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold(
+            (Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    },
+            (List<Post> posts) {
+
+      super.state = AsyncData(posts);
+
+    });
+  }
+}
+
+
+
+
+
+
+
+
 class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
   String? userToken;
   BuildContext context;
@@ -72,6 +121,14 @@ class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
 
   }
 }
+
+
+
+
+
+
+
+
 class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;

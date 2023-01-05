@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/data/models/post_model.dart';
 import 'package:fakebustersapp/domain/entities/post.dart';
 import 'base_post_remote_datasource.dart';
 import 'package:dio/dio.dart';
@@ -87,10 +88,12 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
           data:{"categories":categories});
 
       int statusCode = response.statusCode!;
-
+      print(response.data);
       if (statusCode == 200) {
         // return the retrieved posts on success
-        return response.data['posts'];
+        List jsonPosts =  response.data['posts'];
+        List<Post> posts = jsonPosts.map((e) => PostModel.fromJson(e)).toList();
+        return posts;
       }
       // since the server didn't return 200 then there must have been a problem
       else {
@@ -121,6 +124,7 @@ class PostRemoteDataSource extends BasePostRemoteDataSource{
       }
     }
     catch(error){
+      print(error);
       // CATCH ANY OTHER LEFT EXCEPTION
       throw GenericException(errorMessage:"Unknown Exception Has Occurred");
     }
