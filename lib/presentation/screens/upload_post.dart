@@ -146,8 +146,8 @@ class _UploadPostState extends ConsumerState<UploadPost> {
                         onPressed: () {
                           if (_formKey.currentState!.validate() && productImage != null) {
                             // DATA IS VALID
-                            Post postData =
-                            Post(
+                            UploadedPost postData =
+                            UploadedPost(
                               productName: productNameController.text,
                               brandName: brandNameController.text,
                             productImage: productImage!,
