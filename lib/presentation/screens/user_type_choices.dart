@@ -3,17 +3,17 @@ import 'package:fakebustersapp/core/utils/constants/home_manager.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/user_choice.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class UserTypeChoices extends StatelessWidget {
+class UserTypeChoices extends StatefulWidget {
      UserTypeChoices({Key? key,
-       required this.fakeBusterChoiceAction,
-       required this.bustersSeekerChoiceAction
      }) : super(key: key);
 
-  VoidCallback fakeBusterChoiceAction;
-  VoidCallback bustersSeekerChoiceAction;
+  @override
+  State<UserTypeChoices> createState() => _UserTypeChoicesState();
+}
 
-
+class _UserTypeChoicesState extends State<UserTypeChoices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +32,12 @@ class UserTypeChoices extends StatelessWidget {
                       UserChoice(imagePath: 'assets/images/fakebuster.png',
                           choiceText: 'Fake Buster', imageScale: 1,
                       circleBackgroundColor: ColorsManager.choiceCircleBackground!,
-                      action: fakeBusterChoiceAction,
+                      action: (){ context.push('/categories');},
                       choiceButtonColor: ColorsManager.choiceActiveColor!),
                       UserChoice(imagePath: 'assets/images/siren.png',
                           choiceText: 'Busters Seeker', imageScale: 6,
                       circleBackgroundColor: ColorsManager.choiceCircleBackground!,
-                      action: bustersSeekerChoiceAction,
+                      action: (){  context.push('/uploadpost');},
                           choiceButtonColor: ColorsManager.choiceActiveColor!)
                     ],
 

@@ -20,7 +20,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return UploadPost();
+        return InitialLoadingScreen();
       },
     ),
     GoRoute(

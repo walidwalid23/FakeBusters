@@ -5,7 +5,7 @@ import 'package:fakebustersapp/presentation/reusable_widgets/post_choice_button.
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:io';
+
 
 class DisplayPost extends StatefulWidget {
   DisplayPost({Key? key,required  this.postData}) : super(key: key);
