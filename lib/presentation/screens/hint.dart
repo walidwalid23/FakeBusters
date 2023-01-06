@@ -13,34 +13,87 @@ class HintScreen extends StatelessWidget {
           ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                FaIcon(
-                  FontAwesomeIcons.lightbulb,
-                  size: 130,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Text(
-                'How to know whether it\'s fake or not?',
-              style: StylesManager.textStyle2,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(
                 children: [
-                  Row(
+                  FaIcon(
+                    FontAwesomeIcons.lightbulb,
+                    size: 130,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                  'How to know whether it\'s fake or not?',
+                style: StylesManager.textStyle2,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Row(
+                        children:[
+                          Text(
+                            "\u2022",
+                            style: TextStyle(
+                                fontSize: 16
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child:Text(
+                              "Check the Logo Dimensions.",
+                              style: TextStyle(
+                                  fontSize: 16
+                              ),
+                            ),
+                          ),
+                        ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children:[
+                        Text(
+                          "\u2022",
+                          style: TextStyle(
+                              fontSize: 18
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child:Column(
+                            children: [
+                              Text(
+                                "Search for the authentication code found in the certificate of quality if found on the product.",
+                                style: TextStyle(
+                                    fontSize: 16
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
                       children:[
                         Text(
                           "\u2022",
@@ -53,142 +106,91 @@ class HintScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child:Text(
-                            "Check the Logo Dimensions.",
+                            "Check the Logo position on the product.",
                             style: TextStyle(
                                 fontSize: 16
                             ),
                           ),
                         ),
                       ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children:[
-                      Text(
-                        "\u2022",
-                        style: TextStyle(
-                            fontSize: 18
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children:[
+                        Text(
+                          "\u2022",
+                          style: TextStyle(
+                              fontSize: 16
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child:Column(
-                          children: [
-                            Text(
-                              "Search for the authentication code found in the certificate of quality if found on the product.",
-                              style: TextStyle(
-                                  fontSize: 16
-                              ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child:Text(
+                            "Check the Logo Design.",
+                            style: TextStyle(
+                                fontSize: 16
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children:[
-                      Text(
-                        "\u2022",
-                        style: TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child:Text(
-                          "Check the Logo position on the product.",
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children:[
+                        Text(
+                          "\u2022",
                           style: TextStyle(
                               fontSize: 16
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children:[
-                      Text(
-                        "\u2022",
-                        style: TextStyle(
-                            fontSize: 16
+                        SizedBox(
+                          width: 10,
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child:Text(
-                          "Check the Logo Design.",
+                        Expanded(
+                          child:Text(
+                            "Check the Grammatical & spelling mistakes in the product.",
+                            style: TextStyle(
+                                fontSize: 16
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children:[
+                        Text(
+                          "\u2022",
                           style: TextStyle(
                               fontSize: 16
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children:[
-                      Text(
-                        "\u2022",
-                        style: TextStyle(
-                            fontSize: 16
+                        SizedBox(
+                          width: 10,
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child:Text(
-                          "Check the Grammatical & spelling mistakes in the product.",
-                          style: TextStyle(
-                              fontSize: 16
+                        Expanded(
+                          child:Text(
+                            "Check the barcode or the QR code attached on the product.",
+                            style: TextStyle(
+                                fontSize: 16
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children:[
-                      Text(
-                        "\u2022",
-                        style: TextStyle(
-                            fontSize: 16
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child:Text(
-                          "Check the barcode or the QR code attached on the product.",
-                          style: TextStyle(
-                              fontSize: 16
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       drawer: HomeDrawer(),

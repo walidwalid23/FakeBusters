@@ -61,7 +61,9 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
 
       UploadedPost uploadedPostWithUploader = UploadedPost(productName: post.productName,
           brandName: post.brandName, productCategory: post.productCategory, productImage: post.productImage,
-      uploaderImage: success.uploaderImage, uploaderUsername: success.uploaderUsername);
+      uploaderImage: success.uploaderImage, uploaderUsername: success.uploaderUsername,
+          postID: success.postID
+      );
       // go to home page and show signed up alert
       Fluttertoast.showToast(
           msg: success.successMessage,
@@ -136,7 +138,6 @@ class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>> {
       }
     });
   }
-
   void getPostVotesEventVotesState(String postID) async {
     BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
     BasePostRepository postRepository = PostRepository(postRemoteDataSource);
@@ -162,7 +163,7 @@ class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>> {
       // if the token doesn't exist move to login page without sending a request to the server
       if (userToken == null) {
         Fluttertoast.showToast(
-            msg: "Please Vote Again",
+            msg: "Please Login Again",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 3,
@@ -183,18 +184,12 @@ class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>> {
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
-    }, (Vote vote) {
-      //we don't need to change the state when succeed cause we will move to another screen
-      // but we set it to null to stop loading in case the user went to previous screen
-      super.state = AsyncData(null);
-      // go to home page and show signed up alert
-      context.push('/displaypost', extra: postID);
+    },(Vote voteObj) {
+
+      super.state = AsyncData(voteObj);
     });
   }
 }
-
-
-
 class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
@@ -205,7 +200,7 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
       // if the token doesn't exist move to login page without sending a request to the server
       if (userToken == null) {
         Fluttertoast.showToast(
-            msg: "Please Vote Again",
+            msg: "Please Login Again",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 3,
@@ -239,7 +234,7 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16);
-      context.push('/displaypost', extra: postID);
+          context.push('/displaypost', extra: postID);
     });
   }
 
