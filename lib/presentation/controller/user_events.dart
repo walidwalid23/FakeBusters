@@ -84,7 +84,7 @@ class UserLoginEvent extends StateNotifier <AsyncValue<dynamic>>{
           textColor: Colors.white,
           fontSize: 16
       );
-      context.push('/home');
+      context.go('/home');
 
     });
   }
@@ -100,7 +100,7 @@ class verifyUserTokenEvent extends StateNotifier <AsyncValue<dynamic>>{
       if(token!=null){ verifyUserTokenState(context, token);}
       else{
         // if the token doesn't exist move to login page without sending a request to the server
-        context.push('/login');
+        context.go('/login');
       }
 
     }
@@ -119,13 +119,13 @@ class verifyUserTokenEvent extends StateNotifier <AsyncValue<dynamic>>{
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       // GO TO LOGIN PAGE IF THE TOKEN REQUEST WAS A FAILURE FOR ANY REASON
-      context.push('/login');
+      context.go('/login');
     } , (Success success) {
       //we don't need to change the state when succeed cause we will move to another screen
       // but we set it to null to stop loading in case the user went to previous screen
       super.state = AsyncData(null);
       // go to home page since the token is verified
-      context.push('/home');
+      context.go('/home');
 
     });
 

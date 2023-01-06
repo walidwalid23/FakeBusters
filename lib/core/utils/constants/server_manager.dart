@@ -1,3 +1,3 @@
 class ServerManager{
-  static const String baseUrl = 'http://192.168.1.7';
+  static const String baseUrl = 'https://fakebusters-backend.onrender.com/';
 }
