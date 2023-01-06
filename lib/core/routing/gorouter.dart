@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fakebustersapp/presentation/screens/categories.dart';
 import 'package:fakebustersapp/presentation/screens/display_post.dart';
-import '../../domain/entities/uploaded_post.dart';
 import '../../presentation/screens/Profile.dart';
 import '../../presentation/screens/initial_loading_screen.dart';
 import '../../presentation/screens/posts_screen.dart';
@@ -81,7 +80,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/displaypost',
       builder: (BuildContext context, GoRouterState state) {
-       return DisplayPost(postData: state.extra as UploadedPost);
+       return DisplayPost(postData: state.extra as Post);
       },
     ),
 
