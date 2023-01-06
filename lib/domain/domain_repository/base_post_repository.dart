@@ -5,12 +5,17 @@ import 'package:fakebustersapp/domain/entities/post.dart';
 import '../entities/uploaded_post.dart';
 import '../entities/vote.dart';
 
-abstract class BasePostRepository{
-   Future<Either<Failure, UploadingPostSuccess>> uploadPost(UploadedPost post, String userToken);
-   Future<Either<Failure, Vote>> incrementFakeVotes(String postID, String userToken);
-   Future<Either<Failure, Vote>> incrementOriginalVotes(String postID, String userToken);
-   Future<Either<Failure, Vote>> getPostVotes(String postID, String userToken);
-   Future<Either<Failure, List<Post>>> findPostsByCategories(List<String> categories, String userToken);
-   Future<Either<Failure, Success>> deletePost(String postID, String userToken);
-
+abstract class BasePostRepository {
+  Future<Either<Failure, UploadingPostSuccess>> uploadPost(
+      UploadedPost post, String userToken);
+  Future<Either<Failure, Vote>> incrementFakeVotes(
+      String postID, String userToken);
+  Future<Either<Failure, Vote>> incrementOriginalVotes(
+      String postID, String userToken);
+  Future<Either<Failure, Vote>> getPostVotes(String postID, String userToken);
+  Future<Either<Failure, List<Post>>> findPostsByCategories(
+      List<String> categories, String userToken);
+  Future<Either<Failure, Success>> deletePost(String postID, String userToken);
+  Future<Either<Failure, List<Post>>> findPostsByProductName(
+      String productName, String userToken);
 }

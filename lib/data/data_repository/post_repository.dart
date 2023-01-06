@@ -8,186 +8,155 @@ import '../../domain/entities/uploaded_post.dart';
 import '../../domain/entities/vote.dart';
 import '../data_source/base_post_remote_datasource.dart';
 
-class PostRepository extends BasePostRepository{
+class PostRepository extends BasePostRepository {
   BasePostRemoteDataSource postRemoteDataSource;
   PostRepository(this.postRemoteDataSource);
 
-
   @override
-  Future<Either<Failure, UploadingPostSuccess>> uploadPost(UploadedPost post, String userToken) async{
-    try{
-      UploadingPostSuccess postUploadedSuccess = await postRemoteDataSource.uploadPost(post, userToken);
+  Future<Either<Failure, UploadingPostSuccess>> uploadPost(
+      UploadedPost post, String userToken) async {
+    try {
+      UploadingPostSuccess postUploadedSuccess =
+          await postRemoteDataSource.uploadPost(post, userToken);
       //if no exception was thrown then the method has succeeded
       return Right(postUploadedSuccess);
-
-    }
-    on ConnectionException catch(exception, stackTrace){
-      return Left(
-          ConnectionFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
-
-  }
-    on ServerException catch(exception, stackTrace){
-      return Left(
-          ServerFailure(
-              errorMessage:exception.networkErrorModel.errorMessage,
-              stackTrace: stackTrace));
-    }
-    on GenericException catch(exception, stackTrace){
-      return Left(
-          GenericFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
     }
   }
-
 
   @override
-  Future<Either<Failure, List<Post>>> findPostsByCategories(List<String> categories, String userToken) async{
-    try{
-      List<Post> postUploadedSuccessMessage = await postRemoteDataSource.findPostsByCategories(categories, userToken);
+  Future<Either<Failure, List<Post>>> findPostsByCategories(
+      List<String> categories, String userToken) async {
+    try {
+      List<Post> postUploadedSuccessMessage = await postRemoteDataSource
+          .findPostsByCategories(categories, userToken);
       //if no exception was thrown then the method has succeeded
       return Right(postUploadedSuccessMessage);
-
-    }
-    on ConnectionException catch(exception, stackTrace){
-      return Left(
-          ConnectionFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
-
-    }
-    on ServerException catch(exception, stackTrace){
-      return Left(
-          ServerFailure(
-              errorMessage:exception.networkErrorModel.errorMessage,
-              stackTrace: stackTrace));
-    }
-    on GenericException catch(exception, stackTrace){
-      return Left(
-          GenericFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
     }
   }
 
   @override
-  Future<Either<Failure, Vote>> getPostVotes(String postID, String userToken) async{
-    try{
-      Vote voteObject = await postRemoteDataSource.getPostVotes(postID, userToken);
+  Future<Either<Failure, List<Post>>> findPostsByProductName(
+      String productName, String userToken) async {
+    try {
+      List<Post> postUploadedSuccessMessage = await postRemoteDataSource
+          .findPostsByProductName(productName, userToken);
+      //if no exception was thrown then the method has succeeded
+      return Right(postUploadedSuccessMessage);
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Vote>> getPostVotes(
+      String postID, String userToken) async {
+    try {
+      Vote voteObject =
+          await postRemoteDataSource.getPostVotes(postID, userToken);
       //if no exception was thrown then the method has succeeded
       return Right(voteObject);
-
-    }
-    on ConnectionException catch(exception, stackTrace){
-      return Left(
-          ConnectionFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
-
-    }
-    on ServerException catch(exception, stackTrace){
-      return Left(
-          ServerFailure(
-              errorMessage:exception.networkErrorModel.errorMessage,
-              stackTrace: stackTrace));
-    }
-    on GenericException catch(exception, stackTrace){
-      return Left(
-          GenericFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
     }
   }
 
   @override
-  Future<Either<Failure, Vote>> incrementFakeVotes(String postID, String userToken) async {
-    try{
-      Vote voteObject = await postRemoteDataSource.incrementFakeVotes(postID, userToken);
+  Future<Either<Failure, Vote>> incrementFakeVotes(
+      String postID, String userToken) async {
+    try {
+      Vote voteObject =
+          await postRemoteDataSource.incrementFakeVotes(postID, userToken);
       //if no exception was thrown then the method has succeeded
       return Right(voteObject);
-
-    }
-    on ConnectionException catch(exception, stackTrace){
-      return Left(
-          ConnectionFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
-
-    }
-    on ServerException catch(exception, stackTrace){
-      return Left(
-          ServerFailure(
-              errorMessage:exception.networkErrorModel.errorMessage,
-              stackTrace: stackTrace));
-    }
-    on GenericException catch(exception, stackTrace){
-      return Left(
-          GenericFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
     }
   }
 
   @override
-  Future<Either<Failure, Vote>> incrementOriginalVotes(String postID, String userToken) async {
-    try{
-      Vote voteObject = await postRemoteDataSource.incrementOriginalVotes(postID, userToken);
+  Future<Either<Failure, Vote>> incrementOriginalVotes(
+      String postID, String userToken) async {
+    try {
+      Vote voteObject =
+          await postRemoteDataSource.incrementOriginalVotes(postID, userToken);
       //if no exception was thrown then the method has succeeded
       return Right(voteObject);
-
-    }
-    on ConnectionException catch(exception, stackTrace){
-      return Left(
-          ConnectionFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
-
-    }
-    on ServerException catch(exception, stackTrace){
-      return Left(
-          ServerFailure(
-              errorMessage:exception.networkErrorModel.errorMessage,
-              stackTrace: stackTrace));
-    }
-    on GenericException catch(exception, stackTrace){
-      return Left(
-          GenericFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
     }
   }
-
 
   @override
-  Future<Either<Failure, Success>> deletePost(String postID, String userToken)async {
-        try{
-      String incrementOriginalVotesSuccessMessage = await postRemoteDataSource.deletePost(postID, userToken);
+  Future<Either<Failure, Success>> deletePost(
+      String postID, String userToken) async {
+    try {
+      String incrementOriginalVotesSuccessMessage =
+          await postRemoteDataSource.deletePost(postID, userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(ServerSuccess(successMessage: incrementOriginalVotesSuccessMessage ));
-
-    }
-    on ConnectionException catch(exception, stackTrace){
-      return Left(
-          ConnectionFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
-
-  }
-    on ServerException catch(exception, stackTrace){
-      return Left(
-          ServerFailure(
-              errorMessage:exception.networkErrorModel.errorMessage,
-              stackTrace: stackTrace));
-    }
-    on GenericException catch(exception, stackTrace){
-      return Left(
-          GenericFailure(
-              errorMessage:exception.errorMessage,
-              stackTrace: stackTrace));
+      return Right(
+          ServerSuccess(successMessage: incrementOriginalVotesSuccessMessage));
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
     }
   }
-
-
 }
