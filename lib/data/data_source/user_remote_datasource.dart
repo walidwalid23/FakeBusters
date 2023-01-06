@@ -43,7 +43,8 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
       Dio dio = new Dio();
       var response = await dio.post(ServerManager.baseUrl + "/users/signup", data: formData);
       int statusCode = response.statusCode!;
-
+      print("reponse: ");
+      print(response.data);
 
       // The User Have Signed Up Successfully Now Store His JWT Token Locally
       if (statusCode == 200) {
@@ -85,6 +86,7 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
       }
     catch(error){
       // CATCH ANY OTHER LEFT EXCEPTION
+      print(error);
       throw GenericException(errorMessage:"Unknown Exception Has Occurred");
     }
   }
