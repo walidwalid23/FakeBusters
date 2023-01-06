@@ -74,8 +74,9 @@ class _SettingsState extends ConsumerState<Settings> {
                       height: 20.0,
                     ),
                     DefaultTextFormField(
-                      suffix:
-                      showPassword ? Icons.visibility : Icons.visibility_off,
+                      suffix: showPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       iconSwitch: () {
                         setState(() {
                           showPassword = !showPassword;
@@ -95,17 +96,24 @@ class _SettingsState extends ConsumerState<Settings> {
                       Controller: passwordController,
                       showPassword: showPassword,
                     ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 15),
-                        child: Text(
-                          "Submit",
-                          style: StylesManager.textStyle1,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 80, right: 80),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 15, bottom: 15),
+                          child: Text(
+                            "Submit",
+                            style: StylesManager.textStyle1,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorsManager.themeColor1,
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(20.0),
+                          ),
                         ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorsManager.themeColor1),
                     ),
                     Text(
                       "App Settings",
@@ -146,11 +154,13 @@ class _SettingsState extends ConsumerState<Settings> {
                       ],
                     ),
                     SizedBox(
-                      height: 150.0,
+                      height: 100.0,
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {              
-                        ref.read(userLogoutProvider.notifier).logoutState(context);
+                      onPressed: () {
+                        ref
+                            .read(userLogoutProvider.notifier)
+                            .logoutState(context);
                       },
                       icon: Icon(Icons.logout_rounded),
                       label: Padding(
@@ -160,21 +170,22 @@ class _SettingsState extends ConsumerState<Settings> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorsManager.themeColor1,
                         shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(5.0),
+                          borderRadius: new BorderRadius.circular(20.0),
                         ),
                       ),
-                     
                     ),
                     ref.watch(userLogoutProvider).when(
-                        data: (data)=> Container(),
-                        error: (error, stackTrace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
-                        loading:()=> SpinKitRing(color: ColorsManager.themeColor1!))
-
-                  ]
-                  ),
-                )
-                )
-                ),
+                        data: (data) => Container(),
+                        error: (error, stackTrace) => Text(
+                              error.toString(),
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                        loading: () =>
+                            SpinKitRing(color: ColorsManager.themeColor1!))
+                  ]),
+                ))),
         appBar: AppBar(
           title: Text(HomeManager.appSettings),
           centerTitle: true,
