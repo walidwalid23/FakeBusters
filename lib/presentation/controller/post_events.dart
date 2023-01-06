@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/domain/entities/vote.dart';
+import 'package:fakebustersapp/domain/usecases/get_post_votes_usecase.dart';
 import 'package:fakebustersapp/domain/usecases/increment_orginal_votes_usecase.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -119,12 +120,40 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
 
 
 
+class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>> {
+  String? userToken;
+  String postID;
 
+  GetPostVotesEvent(this.postID) : super(AsyncLoading()) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        super.state = AsyncError("Please Login Again", StackTrace.current);
+      }
+      else {
+        getPostVotesEventVotesState(postID);
+      }
+    });
+  }
 
+  void getPostVotesEventVotesState(String postID) async {
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    GetPostVotesUseCase getPostVotesUseCase = GetPostVotesUseCase(
+        postRepository);
 
-
-
-class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
+    Either<Failure, Vote> data = await getPostVotesUseCase.excute(
+        postID, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    }, (Vote voteObj) {
+      super.state = AsyncData(voteObj);
+    });
+  }
+}
+  class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
   String? userToken;
   BuildContext context;
   IncrementFakeVotesEvent(this.context) : super(AsyncData(null)) {
