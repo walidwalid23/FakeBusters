@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/domain/entities/vote.dart';
 import 'package:fakebustersapp/domain/usecases/increment_orginal_votes_usecase.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -12,9 +13,7 @@ import '../../data/data_source/post_remote_datasource.dart';
 import '../../domain/domain_repository/base_post_repository.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/entities/uploaded_post.dart';
-import '../../domain/entities/vote.dart';
 import '../../domain/usecases/find_posts_by_categories_usecase.dart';
-import '../../domain/usecases/get_post_votes_usecase.dart';
 import '../../domain/usecases/increment_fake_votes_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
@@ -61,9 +60,7 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
 
       UploadedPost uploadedPostWithUploader = UploadedPost(productName: post.productName,
           brandName: post.brandName, productCategory: post.productCategory, productImage: post.productImage,
-      uploaderImage: success.uploaderImage, uploaderUsername: success.uploaderUsername,
-        postID: success.postID
-      );
+      uploaderImage: success.uploaderImage, uploaderUsername: success.uploaderUsername);
       // go to home page and show signed up alert
       Fluttertoast.showToast(
           msg: success.successMessage,
@@ -121,52 +118,22 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
 }
 
 
-class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>>{
-  String? userToken;
-  String postID;
-  GetPostVotesEvent (this.postID): super(AsyncLoading()) {
-    SharedPreferences.getInstance().then((prefs) {
-      userToken = prefs.getString('userToken');
-      // if the token doesn't exist move to login page without sending a request to the server
-      if (userToken == null) {
-        super.state = AsyncError("Please Login Again", StackTrace.current);
-      }
-      else{
-        getPostVotesEventVotesState(postID);
-      }
-    });
-  }
 
-  void getPostVotesEventVotesState(String postID) async {
-    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
-    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
-    GetPostVotesUseCase getPostVotesUseCase = GetPostVotesUseCase(postRepository);
 
-    Either<Failure, Vote> data = await getPostVotesUseCase.excute(postID, userToken!);
-    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
-    data.fold((Failure failure) {
-      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
-    }, (Vote voteObj) {
 
-      super.state = AsyncData(voteObj);
-
-    });
-  }
-
-}
 
 
 
 class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
   String? userToken;
   BuildContext context;
-  IncrementFakeVotesEvent (this.context): super(AsyncData(null)) {
+  IncrementFakeVotesEvent(this.context) : super(AsyncData(null)) {
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
       // if the token doesn't exist move to login page without sending a request to the server
       if (userToken == null) {
         Fluttertoast.showToast(
-            msg: "Please Login Again",
+            msg: "Please Vote Again",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 3,
@@ -177,8 +144,7 @@ class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
       }
     });
   }
-
-  void incrementFakeVotesState(String postID) async {
+  void IncrementFakeVotesState(String postID) async {
     BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
     BasePostRepository postRepository = PostRepository(postRemoteDataSource);
     IncrementFakeVotesUseCase incrementFakeVotesUseCase = IncrementFakeVotesUseCase(postRepository);
@@ -188,28 +154,29 @@ class IncrementFakeVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
-    }, (Vote voteObj) {
-
-      super.state = AsyncData(voteObj);
-
+    }, (Vote vote) {
+      //we don't need to change the state when succeed cause we will move to another screen
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
+      // go to home page and show signed up alert
+      context.push('/displaypost', extra: postID);
     });
   }
-
-
-
 }
 
 
-class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
+
+class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
+  // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
   BuildContext context;
-  IncrementOriginalVotesEvent (this.context): super(AsyncData(null)) {
+  IncrementOriginalVotesEvent(this.context) : super(AsyncData(null)) {
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
       // if the token doesn't exist move to login page without sending a request to the server
       if (userToken == null) {
         Fluttertoast.showToast(
-            msg: "Please Login Again",
+            msg: "Please Vote Again",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 3,
@@ -220,27 +187,36 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>>{
       }
     });
   }
-
   void incrementOriginalVotesState(String postID) async {
     BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
     BasePostRepository postRepository = PostRepository(postRemoteDataSource);
     IncrementOriginalVotesUseCase incrementOriginalVotesUseCase = IncrementOriginalVotesUseCase(postRepository);
     super.state = AsyncLoading();
     Either<Failure, Vote> data =
-    await incrementOriginalVotesUseCase.excute(postID, userToken!);
+        await incrementOriginalVotesUseCase.excute(postID, userToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
-    }, (Vote voteObj) {
-
-      super.state = AsyncData(voteObj);
-
+    }, (Vote vote) {
+      //we don't need to change the state when succeed cause we will move to another screen
+      // but we set it to null to stop loading in case the user went to previous screen
+      super.state = AsyncData(null);
+      // go to home page and show signed up alert
+      Fluttertoast.showToast(
+          msg: "Vote Saved",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16);
+      context.push('/displaypost', extra: postID);
     });
   }
 
+
+
 }
-
-
 class DeletePostEvent extends StateNotifier<AsyncValue<dynamic>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
