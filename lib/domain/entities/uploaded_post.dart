@@ -9,11 +9,10 @@ class UploadedPost{
   String? postDate;
   String? uploaderUsername;
   String? uploaderImage;
-
-
+  String? postID;
 
 
   UploadedPost({required this.productName, required this.brandName, required this.productCategory,
-    required this.productImage, this.postDate,
+    required this.productImage, this.postDate, this.postID,
   this.uploaderUsername, this.uploaderImage});
 }

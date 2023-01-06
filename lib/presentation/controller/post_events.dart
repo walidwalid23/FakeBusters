@@ -14,6 +14,7 @@ import '../../domain/entities/post.dart';
 import '../../domain/entities/uploaded_post.dart';
 import '../../domain/entities/vote.dart';
 import '../../domain/usecases/find_posts_by_categories_usecase.dart';
+import '../../domain/usecases/get_post_votes_usecase.dart';
 import '../../domain/usecases/increment_fake_votes_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
@@ -60,7 +61,9 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
 
       UploadedPost uploadedPostWithUploader = UploadedPost(productName: post.productName,
           brandName: post.brandName, productCategory: post.productCategory, productImage: post.productImage,
-      uploaderImage: success.uploaderImage, uploaderUsername: success.uploaderUsername);
+      uploaderImage: success.uploaderImage, uploaderUsername: success.uploaderUsername,
+        postID: success.postID
+      );
       // go to home page and show signed up alert
       Fluttertoast.showToast(
           msg: success.successMessage,
@@ -118,6 +121,39 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
 }
 
 
+class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>>{
+  String? userToken;
+  String postID;
+  GetPostVotesEvent (this.postID): super(AsyncLoading()) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        super.state = AsyncError("Please Login Again", StackTrace.current);
+      }
+      else{
+        getPostVotesEventVotesState(postID);
+      }
+    });
+  }
+
+  void getPostVotesEventVotesState(String postID) async {
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    GetPostVotesUseCase getPostVotesUseCase = GetPostVotesUseCase(postRepository);
+
+    Either<Failure, Vote> data = await getPostVotesUseCase.excute(postID, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    }, (Vote voteObj) {
+
+      super.state = AsyncData(voteObj);
+
+    });
+  }
+
+}
 
 
 

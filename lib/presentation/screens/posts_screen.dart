@@ -14,7 +14,7 @@ class PostsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("in build now");
+
     print(categories);
     return Scaffold(
       appBar: AppBar(title:Text('Posts'), centerTitle: true,),
@@ -33,7 +33,8 @@ class PostsScreen extends ConsumerWidget {
                        uploaderImage: posts[index].uploaderImage,
                        uploaderUsername: posts[index].uploaderUsername ,
                        postID: posts[index].postID,
-                         isPostUploader:false
+                       isCurrentUserUploader: posts[index].isCurrentUserUploader,
+                       hasCurrentUserVoted: posts[index].hasCurrentUserVoted,
 
                      );
                   }

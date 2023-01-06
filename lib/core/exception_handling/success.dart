@@ -16,9 +16,11 @@ class LocalDBSuccess extends Success{
 }
 
 class UploadingPostSuccess extends Success{
-  UploadingPostSuccess({required super.successMessage, required this.uploaderImage,required this.uploaderUsername});
+  UploadingPostSuccess({required super.successMessage, required this.uploaderImage,required this.uploaderUsername,
+    required this.postID});
   String uploaderUsername;
   String uploaderImage;
+  String postID;
 
 
 }

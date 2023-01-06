@@ -1,4 +1,3 @@
-import 'dart:js';
 import 'package:fakebustersapp/presentation/controller/user_events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

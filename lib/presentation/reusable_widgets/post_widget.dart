@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/presentation/reusable_widgets/post_choice_button.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/voting_commenting_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -18,8 +19,9 @@ class PostWidget extends ConsumerWidget {
    required this.productImage,
    required this.uploaderUsername,
    required this.uploaderImage,
-      this.postID,
-     required this.isPostUploader
+     required this.postID,
+     required this.isCurrentUserUploader,
+     required this.hasCurrentUserVoted
 
 
    }) : super(key: key);
@@ -31,8 +33,9 @@ class PostWidget extends ConsumerWidget {
   dynamic productImage;
   String uploaderUsername;
   String uploaderImage;
-   String? postID;
-   bool isPostUploader;
+   String postID;
+   bool isCurrentUserUploader;
+   bool hasCurrentUserVoted;
 
 
   @override
@@ -144,115 +147,11 @@ class PostWidget extends ConsumerWidget {
                        Image.file(productImage)
                   )
                     ,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // THE Fake BUTTON MUST LISTEN TO THE ORIGINAL BUTTON AND THE FAKE BUTTON AS WELL
-                      ref.watch(incrementOriginalVotesProvider(context)).when(
-                          data: (data){ if (data==null){
-                            //initial state
-                            return  ref.watch(incrementFakeVotesProvider(context)).when(
-                                data: (data){ if (data==null){
-                                  return PostChoiceButton(
-                                    buttonText: 'Fake',
-                                    buttonAction: (){
-                                      ref.read(incrementFakeVotesProvider(context).notifier).incrementFakeVotesState(postID!);
-                                    },);
-                                }
-                                else{
-                                  return  LinearPercentIndicator(
-                                    width: 160.0,
-                                    lineHeight: 37.0,
-                                    percent: double.parse(data.getFakeVotesPercentage())/100,
-                                    center: Text(
-                                      "Fake: ${data.getFakeVotesPercentage()}%",
-                                      style: new TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold),
-                                    ),
-                                    barRadius: Radius.circular(7),
-                                    backgroundColor: Colors.orangeAccent[100],
-                                    progressColor:ColorsManager.themeColor1,
-                                  );
-                                }
-                                },
-                                error: (error,st)=>Text(error.toString()),
-                                loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!));
-                          }
-                          else{
-                            return  LinearPercentIndicator(
-                              width: 160.0,
-                              lineHeight: 37.0,
-                              percent: double.parse(data.getFakeVotesPercentage())/100,
-                              center: Text(
-                                "Fake: ${data.getFakeVotesPercentage()}%",
-                                style: new TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold),
-                              ),
-                              barRadius: Radius.circular(7),
-                              backgroundColor: Colors.orangeAccent[100],
-                              progressColor:ColorsManager.themeColor1,
-                            );
-                          }
-                          },
-                          error: (error,st)=>Text(error.toString()),
-                          loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
-                      ,
-                      SizedBox(
-                        width: 2,
-                      ),
-                      // THE ORIGINAL BUTTON MUST LISTEN TO THE FAKE BUTTON AND THE ORIGINAL BUTTON AS WELL
-                      ref.watch(incrementFakeVotesProvider(context)).when(
-                          data: (data){ if (data==null){
-                            //initial state
-                            return   ref.watch(incrementOriginalVotesProvider(context)).when(
-                                data: (data){ if (data==null){
-                                  return PostChoiceButton(
-                                    buttonText: 'Original',
-                                    buttonAction: (){
-                                      ref.read(incrementOriginalVotesProvider(context).notifier).incrementOriginalVotesState(postID!);
-                                    },);
-                                }
-                                else{
-                                  return  LinearPercentIndicator(
-                                    width: 160.0,
-                                    lineHeight: 37.0,
-                                    percent: double.parse(data.getOriginalVotesPercentage())/100,
-                                    center: Text(
-                                      "Original: ${data.getOriginalVotesPercentage()}%",
-                                      style: new TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-                                    ),
-                                    barRadius: Radius.circular(7),
-                                    backgroundColor: Colors.orangeAccent[100],
-                                    progressColor:ColorsManager.themeColor1,
-                                  );
-                                }
-                                },
-                                error: (error,st)=>Text(error.toString()),
-                                loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!));
-                          }
-                          else{
-                            return  LinearPercentIndicator(
-                              width: 160.0,
-                              lineHeight: 37.0,
-                              percent: double.parse(data.getOriginalVotesPercentage())/100,
-                              center: Text(
-                                "Original: ${data.getOriginalVotesPercentage()}%",
-                                style: new TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-                              ),
-                              barRadius: Radius.circular(7),
-                              backgroundColor: Colors.orangeAccent[100],
-                              progressColor:ColorsManager.themeColor1,
-                            );
-                          }
-                          },
-                          error: (error,st)=>Text(error.toString()),
-                          loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
-                      ,
-
-                      SizedBox(
-                        width: 2,
-                      ),
-                      FaIcon(FontAwesomeIcons.comment, color: Colors.deepOrange,size:40,)
-
-                    ],),
+                  SizedBox(height:10)
+                  ,
+                  // IF THE USER IS THE UPLOADER OF THE POST OR ALREADY VOTED ONLY SHOW THE PERCENTAGES
+            VotingCommentingRow(hasCurrentUserVoted: hasCurrentUserVoted, isCurrentUserUploader: isCurrentUserUploader, postID: postID)
+                  ,
                   SizedBox(
                     height: 5,
                   ),

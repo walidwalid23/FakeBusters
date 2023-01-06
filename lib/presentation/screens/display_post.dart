@@ -36,9 +36,12 @@ class _DisplayPostState extends State<DisplayPost> {
         productImage: widget.postData.productImage,
         productName: widget.postData.productName,
         brandName: widget.postData.brandName,
+        postID: widget.postData.postID??"",
         // since this widget will be displayed when the user submit a post show the current date
         productDate: DatesManager.currentDate+" "+DatesManager.currentTime,
-            isPostUploader:true),
+          isCurrentUserUploader: true,
+        hasCurrentUserVoted: true,
+        ),
 
 
       ),

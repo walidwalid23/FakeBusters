@@ -72,7 +72,34 @@ class PostRepository extends BasePostRepository{
     }
   }
 
+  @override
+  Future<Either<Failure, Vote>> getPostVotes(String postID, String userToken) async{
+    try{
+      Vote voteObject = await postRemoteDataSource.getPostVotes(postID, userToken);
+      //if no exception was thrown then the method has succeeded
+      return Right(voteObject);
 
+    }
+    on ConnectionException catch(exception, stackTrace){
+      return Left(
+          ConnectionFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+
+    }
+    on ServerException catch(exception, stackTrace){
+      return Left(
+          ServerFailure(
+              errorMessage:exception.networkErrorModel.errorMessage,
+              stackTrace: stackTrace));
+    }
+    on GenericException catch(exception, stackTrace){
+      return Left(
+          GenericFailure(
+              errorMessage:exception.errorMessage,
+              stackTrace: stackTrace));
+    }
+  }
 
   @override
   Future<Either<Failure, Vote>> incrementFakeVotes(String postID, String userToken) async {
@@ -161,4 +188,6 @@ class PostRepository extends BasePostRepository{
               stackTrace: stackTrace));
     }
   }
+
+
 }

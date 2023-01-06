@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../../domain/entities/post.dart';
+import '../../domain/entities/vote.dart';
 
 final uploadPostProvider = StateNotifierProvider.family<UploadPostEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  UploadPostEvent(context));
@@ -13,8 +14,12 @@ final incrementFakeVotesProvider = StateNotifierProvider.family<IncrementFakeVot
 final incrementOriginalVotesProvider = StateNotifierProvider.family<IncrementOriginalVotesEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  IncrementOriginalVotesEvent(context));
 
+final getPostVotesProvider = StateNotifierProvider.family<GetPostVotesEvent,AsyncValue<Vote>, String
+>((ref, postID) =>  GetPostVotesEvent(postID));
+
 final deletePostProvider = StateNotifierProvider.family<DeletePostEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  DeletePostEvent(context));
+
 
 //using autoDispose To reset the state when the user leaves a screen and re-enters it
 final findPostsByCategoriesProvider = StateNotifierProvider.autoDispose.family<FindPostsByCategoriesEvent,AsyncValue<List<Post>>,List<String>
