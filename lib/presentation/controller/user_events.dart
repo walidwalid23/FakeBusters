@@ -49,7 +49,7 @@ class UserSignUpEvent extends StateNotifier <AsyncValue<dynamic>>{
           textColor: Colors.white,
           fontSize: 16
       );
-      context.push('/home');
+      context.go('/home');
     });
 
   }
@@ -206,7 +206,7 @@ class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
           fontSize: 16
       );
       // we don't want the user to return to home again after logging out so we use .go
-      context!.push('/home');
+      context!.go('/home');
 
     });
 

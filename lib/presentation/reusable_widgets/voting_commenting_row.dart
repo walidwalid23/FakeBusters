@@ -58,7 +58,11 @@ class VotingCommentingRow extends ConsumerWidget {
                     barRadius: Radius.circular(7),
                     backgroundColor: Colors.orangeAccent[100],
                     progressColor:ColorsManager.themeColor1,
-                  )
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  FaIcon(FontAwesomeIcons.comment, color: Colors.deepOrange,size:40,)
 
 
                 ]
