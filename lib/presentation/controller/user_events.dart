@@ -179,7 +179,7 @@ class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
   UpdateUser? user;
   EditProfileEvent(): super( AsyncData(null) );
 
-  void EditProfileState(UpdateUser user) async{
+  void EditProfileState(List<String> user) async{
 
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
     BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
