@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/values_manager.dart';
 import 'package:fakebustersapp/presentation/screens/edit_profile.dart';
@@ -19,34 +20,39 @@ class _RailState extends State<Rail> {
   PageController pageController = PageController(initialPage:0);
   @override
   Widget build(BuildContext context) {
-    return NavigationRail(
-          destinations:[
-            NavigationRailDestination(
-              icon: FaIcon(FontAwesomeIcons.idBadge),
-              label:  Text('Profile', style: StylesManager.textStyle1),
-            ),
-            NavigationRailDestination(
-              icon: FaIcon(FontAwesomeIcons.houseUser),
-              label:  Text(
-                'Home',
-                style: StylesManager.textStyle1,
+    return Row(
+      children: [
+        NavigationRail(
+          backgroundColor: ColorsManager.themeColor1,
+            destinations:[
+              NavigationRailDestination(
+                icon: FaIcon(FontAwesomeIcons.idBadge),
+                label:  Text('Profile', style: StylesManager.textStyle1),
               ),
-            ),
-            NavigationRailDestination(
-              icon: FaIcon(FontAwesomeIcons.bell),
-              label:  Text('Notifications', style: StylesManager.textStyle1),
-            ),
-            NavigationRailDestination(
-              icon: FaIcon(FontAwesomeIcons.gear),
-              label:  Text('Settings', style: StylesManager.textStyle1),
-            ),
-          ],
-          selectedIndex: currentIndex,
-          onDestinationSelected: (index){
-            pageController.animateToPage(index,
-                duration: Duration(milliseconds: ValuesManager.swipePageAnimationDuration),
-                curve: Curves.easeInCirc);
-          },
+              NavigationRailDestination(
+                icon: FaIcon(FontAwesomeIcons.houseUser),
+                label:  Text(
+                  'Home',
+                  style: StylesManager.textStyle1,
+                ),
+              ),
+              NavigationRailDestination(
+                icon: FaIcon(FontAwesomeIcons.bell),
+                label:  Text('Notifications', style: StylesManager.textStyle1),
+              ),
+              NavigationRailDestination(
+                icon: FaIcon(FontAwesomeIcons.gear),
+                label:  Text('Settings', style: StylesManager.textStyle1),
+              ),
+            ],
+            selectedIndex: currentIndex,
+            onDestinationSelected: (index){
+              pageController.animateToPage(index,
+                  duration: Duration(milliseconds: ValuesManager.swipePageAnimationDuration),
+                  curve: Curves.easeInCirc);
+            },
+        ),
+      ],
     );
   }
 }

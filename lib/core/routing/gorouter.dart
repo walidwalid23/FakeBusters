@@ -1,7 +1,10 @@
 import 'package:fakebustersapp/domain/entities/post.dart';
 import 'package:fakebustersapp/domain/entities/uploaded_post.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:fakebustersapp/presentation/screens/hint.dart';
 import 'package:fakebustersapp/presentation/screens/tablet_categories.dart';
+import 'package:fakebustersapp/presentation/screens/user_type_choices.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fakebustersapp/presentation/screens/categories.dart';
@@ -22,7 +25,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return TabletCategories();
+        return InitialLoadingScreen();
       },
     ),
     GoRoute(
@@ -34,6 +37,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) {
+        print(MediaQuery.of(context).size.width.toInt());
         return ProfileScreen();
       },
     ),
