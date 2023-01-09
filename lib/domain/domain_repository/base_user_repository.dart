@@ -8,6 +8,6 @@ abstract class BaseUserRepository{
   Future<Either<Failure, Success>> login(User user);
   Future<Either<Failure, Success>> verifyUserToken(String token);
   Future<Either<Failure, Success>> logout();
-  Future<Either<Failure, Success>> EditProfile(List<String> user,String userToken);
+  Future<Either<Failure, Success>> EditProfile(Map<String,String> user,String userToken);
 
 }

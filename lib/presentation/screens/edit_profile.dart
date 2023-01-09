@@ -23,7 +23,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   var userform =GlobalKey<FormState>();
   var passwordform =GlobalKey<FormState>();
   bool showPassword=true;
-  late List<String> users;
+  late Map<String,String> users;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -103,18 +103,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         UpdateUser user = UpdateUser(
                             username: usernameController.text,
                             password: passwordController.text);
-                        users.add(usernameController.text);
-                        users.add(passwordController.text);
+                        users.addAll({"username": usernameController.text});
+                        users.addAll({"password":passwordController.text});
                         ref.read(EditProfileProvider.notifier).EditProfileState(users);
                       }else if(userform.currentState!.validate()){
                         UpdateUser user = UpdateUser(
                             username: usernameController.text);
-                        users.add(usernameController.text);
+                        users.addAll({"username": usernameController.text});
                         ref.read(EditProfileProvider.notifier).EditProfileState(users);
                       }else if(passwordform.currentState!.validate()){
                         UpdateUser user = UpdateUser(
                             password: passwordController.text);
-                        users.add(passwordController.text);
+                        users.addAll({"password":passwordController.text});
                         ref.read(EditProfileProvider.notifier).EditProfileState(users);
                       }
                     },

@@ -12,7 +12,7 @@ class EditProfileUsecase{
   BaseUserRepository userRepository;
   EditProfileUsecase({required this.userRepository});
 
-  Future<Either<Failure, Success>> excute(List<String> user,String userToken) async {
+  Future<Either<Failure, Success>> excute(Map<String,String> user,String userToken) async {
     return await userRepository.EditProfile(user,userToken);
 
   }
