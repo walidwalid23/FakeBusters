@@ -1,5 +1,6 @@
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,13 @@ class ProfileScreen extends StatelessWidget {
         ),
         centerTitle: true,
         ),
-      drawer: HomeDrawer(),
+      drawer: Builder(builder: (BuildContext context){
+        if(MediaQuery.of(context).size.width.toInt()<=1024){
+          return HomeDrawer();
+        }else{
+          return Rail();
+        }
+      }),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

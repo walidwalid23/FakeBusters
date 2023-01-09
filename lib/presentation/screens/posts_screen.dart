@@ -1,3 +1,4 @@
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,7 +44,13 @@ class PostsScreen extends ConsumerWidget {
             error: (error,st)=>Center(child:Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
             loading: ()=>Center(child: SpinKitRing(color: ColorsManager.themeColor1!)))
       ),
-      drawer: HomeDrawer(),
+      drawer: Builder(builder: (BuildContext context){
+        if(MediaQuery.of(context).size.width.toInt()<=1024){
+          return HomeDrawer();
+        }else{
+          return Rail();
+        }
+      }),
       backgroundColor: Colors.grey[400],
 
     );

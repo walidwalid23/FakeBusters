@@ -2,6 +2,7 @@ import 'package:fakebustersapp/domain/entities/updateuser.dart';
 import 'package:fakebustersapp/domain/entities/user.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultButton.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/DefaultFormField.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           ),
         ),
       ),
-      drawer: HomeDrawer(),
+      drawer: Builder(builder: (BuildContext context){
+        if(MediaQuery.of(context).size.width.toInt()<=1024){
+          return HomeDrawer();
+        }else{
+          return Rail();
+        }
+      }),
     );
   }
 }

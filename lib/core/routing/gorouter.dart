@@ -22,7 +22,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return InitialLoadingScreen();
+        return TabletCategories();
       },
     ),
     GoRoute(
@@ -73,7 +73,7 @@ final GoRouter appRouter = GoRouter(
         return LayoutBuilder(
           builder:(BuildContext context, BoxConstraints constraints){
             print(constraints.minWidth.toInt());
-            if(constraints.minWidth.toInt()==807){
+            if(constraints.minWidth.toInt()>=807){
               return TabletCategories();
             }
             return Categories();

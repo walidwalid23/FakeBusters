@@ -1,6 +1,7 @@
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/domain/entities/post.dart';
 import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/add_post_form_field.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/image_container.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
@@ -193,6 +194,12 @@ class _UploadPostState extends ConsumerState<UploadPost> {
             ),
           ),
         ),
-        drawer: HomeDrawer());
+        drawer: Builder(builder: (BuildContext context){
+          if(MediaQuery.of(context).size.width.toInt()<=1024){
+            return HomeDrawer();
+          }else{
+            return Rail();
+          }
+        }));
   }
 }
