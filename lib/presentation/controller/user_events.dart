@@ -176,9 +176,23 @@ class UserLogoutEvent extends StateNotifier <AsyncValue<dynamic>>{
 class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
   String? userToken;
   BuildContext? context;
-  UpdateUser? user;
-  EditProfileEvent(): super( AsyncData(null) );
-
+  EditProfileEvent(): super( AsyncData(null) ) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        Fluttertoast.showToast(
+            msg: "Please Login Again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16);
+        context!.push('/login');
+      }
+    });
+  }
   void EditProfileState(List<Map<String,String>> updated_data) async{
 
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
