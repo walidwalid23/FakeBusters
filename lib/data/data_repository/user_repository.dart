@@ -121,9 +121,9 @@ class UserRepository extends BaseUserRepository{
   }
 
   @override
-  Future<Either<Failure, Success>> EditProfile(UpdateUser user,String userToken) async{
+  Future<Either<Failure, Success>> EditProfile(List<Map<String,String>> updated_data,String userToken) async{
     try{
-      String loggedInSuccessMessage = await userRemoteDataSource.EditProfile(user,userToken);
+      String loggedInSuccessMessage = await userRemoteDataSource.EditProfile(updated_data,userToken);
       //if no exception was thrown then the method has succeeded
       return Right(ServerSuccess(successMessage: loggedInSuccessMessage));
 

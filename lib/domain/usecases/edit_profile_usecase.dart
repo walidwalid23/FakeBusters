@@ -12,8 +12,8 @@ class EditProfileUsecase{
   BaseUserRepository userRepository;
   EditProfileUsecase({required this.userRepository});
 
-  Future<Either<Failure, Success>> excute(UpdateUser user,String userToken) async {
-    return await userRepository.EditProfile(user,userToken);
+  Future<Either<Failure, Success>> excute(List<Map<String,String>> updated_data,String userToken) async {
+    return await userRepository.EditProfile(updated_data,userToken);
 
   }
 
