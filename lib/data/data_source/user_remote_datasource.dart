@@ -198,13 +198,13 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
   }
 
   @override
-  Future<String> EditProfile(Map<String,String> user,String userToken) async {
+  Future<String> EditProfile(List<Map<String,String>> updated_data,String userToken) async {
     try {
 
       Dio dio = new Dio();
       dio.options.headers['user-token'] = userToken;
       var response = await dio.post(ServerManager.baseUrl+ "/users/login", data: {
-        "updated_values": user,
+        "updated_values": updated_data,
       });
       int statusCode = response.statusCode!;
 

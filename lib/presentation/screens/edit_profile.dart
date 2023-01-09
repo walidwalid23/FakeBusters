@@ -24,6 +24,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   var passwordform =GlobalKey<FormState>();
   bool showPassword=true;
   late Map<String,String> users;
+  late List<Map<String,String>> updated_data;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -100,22 +101,18 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     text: 'Update',
                     function: (){
                       if(keyform.currentState!.validate()){
-                        UpdateUser user = UpdateUser(
-                            username: usernameController.text,
-                            password: passwordController.text);
                         users.addAll({"username": usernameController.text});
                         users.addAll({"password":passwordController.text});
-                        ref.read(EditProfileProvider.notifier).EditProfileState(users);
+                        updated_data.add(users);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(updated_data);
                       }else if(userform.currentState!.validate()){
-                        UpdateUser user = UpdateUser(
-                            username: usernameController.text);
                         users.addAll({"username": usernameController.text});
-                        ref.read(EditProfileProvider.notifier).EditProfileState(users);
+                        updated_data.add(users);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(updated_data);
                       }else if(passwordform.currentState!.validate()){
-                        UpdateUser user = UpdateUser(
-                            password: passwordController.text);
                         users.addAll({"password":passwordController.text});
-                        ref.read(EditProfileProvider.notifier).EditProfileState(users);
+                        updated_data.add(users);
+                        ref.read(EditProfileProvider.notifier).EditProfileState(updated_data);
                       }
                     },
                   ),

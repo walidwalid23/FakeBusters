@@ -179,7 +179,7 @@ class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
   UpdateUser? user;
   EditProfileEvent(): super( AsyncData(null) );
 
-  void EditProfileState(Map<String,String> user) async{
+  void EditProfileState(List<Map<String,String>> updated_data) async{
 
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
     BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
@@ -187,7 +187,7 @@ class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
     EditProfileUsecase editprofileevent = EditProfileUsecase(userRepository: userRepository);
 
     super.state = AsyncLoading();
-    Either<Failure, Success> data = await editprofileevent.excute(user, userToken!);
+    Either<Failure, Success> data = await editprofileevent.excute(updated_data, userToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
