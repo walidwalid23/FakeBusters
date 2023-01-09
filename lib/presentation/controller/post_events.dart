@@ -217,7 +217,7 @@ class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>> {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context.push('/login');
+        context.go('/login');
       }
     });
   }
@@ -254,7 +254,7 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context.push('/login');
+        context.go('/login');
       }
     });
   }
@@ -268,20 +268,9 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
-    }, (Vote vote) {
-      //we don't need to change the state when succeed cause we will move to another screen
-      // but we set it to null to stop loading in case the user went to previous screen
-      super.state = AsyncData(null);
-      // go to home page and show signed up alert
-      Fluttertoast.showToast(
-          msg: "Vote Saved",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16);
-          context.push('/displaypost', extra: postID);
+    },(Vote voteObj) {
+
+      super.state = AsyncData(voteObj);
     });
   }
 
