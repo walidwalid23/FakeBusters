@@ -8,14 +8,20 @@ import '../entities/vote.dart';
 abstract class BasePostRepository {
   Future<Either<Failure, UploadingPostSuccess>> uploadPost(
       UploadedPost post, String userToken);
+
   Future<Either<Failure, Vote>> incrementFakeVotes(
       String postID, String userToken);
+
   Future<Either<Failure, Vote>> incrementOriginalVotes(
       String postID, String userToken);
+
   Future<Either<Failure, Vote>> getPostVotes(String postID, String userToken);
+
   Future<Either<Failure, List<Post>>> findPostsByCategories(
       List<String> categories, String userToken);
+
   Future<Either<Failure, Success>> deletePost(String postID, String userToken);
-  Future<Either<Failure, List<Post>>> findPostsByProductName(
+
+  Future<Either<Failure, List<Post>>> searchPostsByProductName(
       String productName, String userToken);
 }

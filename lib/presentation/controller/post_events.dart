@@ -16,6 +16,7 @@ import '../../domain/entities/post.dart';
 import '../../domain/entities/uploaded_post.dart';
 import '../../domain/usecases/find_posts_by_categories_usecase.dart';
 import '../../domain/usecases/increment_fake_votes_usecase.dart';
+import '../../domain/usecases/search_posts_by_product_name_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
 import 'package:fakebustersapp/core/exception_handling/success.dart';
 import '../../domain/usecases/delete_post_usecase.dart';
@@ -119,6 +120,52 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
     });
   }
 }
+
+class SearchPostsByProductNameEvent extends StateNotifier<AsyncValue<dynamic>> {
+  // the initial state will be null cause nothing should be shown till the submit button is clicked
+  String? userToken;
+  BuildContext context;
+  SearchPostsByProductNameEvent(this.context) : super(AsyncData(null)) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        Fluttertoast.showToast(
+            msg: "Please Login Again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16);
+        context.push('/login');
+      }
+    });
+  }
+
+  void searchPostsByProductNameState(String productName) async {
+    print('in the state event');
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    SearchPostsByProductNameUseCase findPostsByCategoriesUseCase = SearchPostsByProductNameUseCase(postRepository);
+
+    super.state = AsyncLoading();
+    Either<Failure, List<Post>> data = await findPostsByCategoriesUseCase.excute(productName, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold(
+            (Failure failure) {
+          super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+        },
+            (List<Post> posts) {
+
+          super.state = AsyncData(posts);
+
+        });
+  }
+}
+
+
+
 
 
 

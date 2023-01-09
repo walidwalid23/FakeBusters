@@ -37,10 +37,10 @@ class PostRepository extends BasePostRepository {
   Future<Either<Failure, List<Post>>> findPostsByCategories(
       List<String> categories, String userToken) async {
     try {
-      List<Post> postUploadedSuccessMessage = await postRemoteDataSource
+      List<Post> postsByCategories = await postRemoteDataSource
           .findPostsByCategories(categories, userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(postUploadedSuccessMessage);
+      return Right(postsByCategories);
     } on ConnectionException catch (exception, stackTrace) {
       return Left(ConnectionFailure(
           errorMessage: exception.errorMessage, stackTrace: stackTrace));
@@ -55,13 +55,13 @@ class PostRepository extends BasePostRepository {
   }
 
   @override
-  Future<Either<Failure, List<Post>>> findPostsByProductName(
+  Future<Either<Failure, List<Post>>> searchPostsByProductName(
       String productName, String userToken) async {
     try {
-      List<Post> postUploadedSuccessMessage = await postRemoteDataSource
-          .findPostsByProductName(productName, userToken);
+      List<Post> postsByProductName = await postRemoteDataSource
+          .searchPostsByProductName(productName, userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(postUploadedSuccessMessage);
+      return Right(postsByProductName);
     } on ConnectionException catch (exception, stackTrace) {
       return Left(ConnectionFailure(
           errorMessage: exception.errorMessage, stackTrace: stackTrace));

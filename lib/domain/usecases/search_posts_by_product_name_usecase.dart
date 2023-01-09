@@ -9,6 +9,6 @@ class SearchPostsByProductNameUseCase {
 
   Future<Either<Failure, List<Post>>> excute(
       String productName, String userToken) async {
-    return await postRepository.findPostsByProductName(productName, userToken);
+    return await postRepository.searchPostsByProductName(productName, userToken);
   }
 }

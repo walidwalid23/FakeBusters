@@ -136,15 +136,14 @@ class PostRemoteDataSource extends BasePostRemoteDataSource {
   }
 
   @override
-  Future<List<Post>> findPostsByProductName(
+  Future<List<Post>> searchPostsByProductName(
       String productName, String userToken) async {
     // send a post request to the server
     try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = userToken;
-      var response = await dio.post(
-          ServerManager.baseUrl + "/posts/findPostsByProductName",
-          data: {"ProductName": productName});
+      var response = await dio.get(
+          ServerManager.baseUrl + "/posts/searchPostsByProductName?productName=$productName");
 
       int statusCode = response.statusCode!;
       print(response.data);

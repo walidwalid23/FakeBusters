@@ -8,7 +8,7 @@ abstract class BasePostRemoteDataSource {
   Future<UploadingPostSuccess> uploadPost(UploadedPost post, String userToken);
   Future<List<Post>> findPostsByCategories(
       List<String> categories, String userToken);
-  Future<List<Post>> findPostsByProductName(
+  Future<List<Post>> searchPostsByProductName(
       String productName, String userToken);
   Future<Vote> incrementFakeVotes(String postID, String userToken);
   Future<Vote> incrementOriginalVotes(String postID, String userToken);

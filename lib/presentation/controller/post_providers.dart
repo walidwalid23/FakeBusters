@@ -43,3 +43,6 @@ final deletePostProvider = StateNotifierProvider.family<DeletePostEvent,AsyncVal
 final findPostsByCategoriesProvider = StateNotifierProvider.autoDispose.family<FindPostsByCategoriesEvent,AsyncValue<List<Post>>,List<String>
 >((ref, categories) =>  FindPostsByCategoriesEvent(categories));
 
+final searchPostsByProductNameProvider = StateNotifierProvider.autoDispose.family<SearchPostsByProductNameEvent,AsyncValue<dynamic>,BuildContext
+>((ref, context) =>  SearchPostsByProductNameEvent(context));
+
