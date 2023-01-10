@@ -49,6 +49,12 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: '/hintscreen',
+      builder: (BuildContext context, GoRouterState state) {
+        return HintScreen();
+      },
+    ),
+    GoRoute(
       path: '/search',
       builder: (BuildContext context, GoRouterState state) {
         return Search();
