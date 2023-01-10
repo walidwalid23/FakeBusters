@@ -37,8 +37,7 @@ class _SearchState extends ConsumerState<Search>
                     borderSide: BorderSide(color: Colors.black, width: 20),
                     borderRadius: BorderRadius.circular(90.0))),
             onSubmitted: (String productName) {
-              ref
-                  .read(searchPostsByProductNameProvider(context).notifier)
+              ref.read(searchPostsByProductNameProvider(context).notifier)
                   .searchPostsByProductNameState(productName);
             },
           ),

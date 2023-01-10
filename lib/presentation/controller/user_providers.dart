@@ -10,5 +10,5 @@ final verifyUserTokenProvider = StateNotifierProvider.family<verifyUserTokenEven
 
 final userLogoutProvider = StateNotifierProvider<UserLogoutEvent, AsyncValue<dynamic>>((ref) => UserLogoutEvent());
 
-final EditProfileProvider = StateNotifierProvider<EditProfileEvent, AsyncValue<dynamic>>((ref) => EditProfileEvent());
+final editProfileProvider = StateNotifierProvider.family<EditProfileEvent, AsyncValue<dynamic>, BuildContext>((ref, context) => EditProfileEvent(context));
 

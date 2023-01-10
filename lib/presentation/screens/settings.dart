@@ -26,7 +26,7 @@ class _SettingsState extends ConsumerState<Settings> {
   bool showPassword = true;
   bool isDarkModeEnabled = false;
   var formKey = GlobalKey<FormState>();
-  Map<String,String> updatedValues = {};
+  Map<String,String> updatedData = {};
 
 
   @override
@@ -64,6 +64,10 @@ class _SettingsState extends ConsumerState<Settings> {
                           if (value.length < 3 && value.length!=0) {
                             return "Username must be at least 3 characters long";
                           }
+                          // if both password and username are empty
+                          if(value.length==0 && passwordController.text.length==0){
+                            return "You Cannot Leave All Fields Empty";
+                          }
                           return null;
                         },
                         hintText: "Update Username",
@@ -88,6 +92,10 @@ class _SettingsState extends ConsumerState<Settings> {
                           if(value.length < 8 && value.length!=0){
                             return "Password must be at least 8 characters in length";
                           }
+                          // if both password and username are empty
+                          if(value.length==0 && usernameController.text.length==0){
+                            return "You Cannot Leave All Fields Empty";
+                          }
                           return null;
                         },
                         hintText: "Update Password",
@@ -95,7 +103,7 @@ class _SettingsState extends ConsumerState<Settings> {
                         Controller: passwordController,
                         showPassword: showPassword,
                       ),
-                     SizedBox(height:20),
+                     SizedBox(height:17),
                     Padding(
                       padding: const EdgeInsets.only(left: 80, right: 80),
                       child: ElevatedButton(
@@ -104,18 +112,21 @@ class _SettingsState extends ConsumerState<Settings> {
                           if(formKey.currentState!.validate()){
                             // FIELD IS VALID IF ITS EMPTY OR HAS VALID INPUTS
                             if(usernameController.text.length > 0){
-                              updatedValues.addAll({"username":usernameController.text });
+                              updatedData.addAll({"username":usernameController.text });
+                            }
+                            else if (usernameController.text.length==0){
+                              updatedData.remove("username");
                             }
                             if(passwordController.text.length > 0){
-                              updatedValues.addAll({"password":passwordController.text });
+                              updatedData.addAll({"password":passwordController.text });
+                            }
+                            else if (passwordController.text.length==0){
+                              updatedData.remove("password");
                             }
 
-                        print(updatedValues);
-
+                        ref.read(editProfileProvider(context).notifier).editProfileState(updatedData);
 
                           }
-
-
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 15, bottom: 15),
@@ -132,6 +143,14 @@ class _SettingsState extends ConsumerState<Settings> {
                         ),
                       ),
                     ),
+                    SizedBox(height:17),
+
+                    ref.watch(editProfileProvider(context)).when(
+                        data: (successMessage)=> successMessage==null?Container() :
+                        Center(child: Text(successMessage.toString(),style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),)),
+                        error: (error, trace)=> Center(child: Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
+                        loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
+                    ,
                     Text(
                       "App Settings",
                       style: TextStyle(
@@ -150,8 +169,7 @@ class _SettingsState extends ConsumerState<Settings> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          'Which mode do you prefer?',
+                        Text('Which mode do you prefer?',
                           style: TextStyle(
                             fontSize: 21,
                             height: 0,
@@ -175,9 +193,7 @@ class _SettingsState extends ConsumerState<Settings> {
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
-                        ref
-                            .read(userLogoutProvider.notifier)
-                            .logoutState(context);
+                        ref.read(userLogoutProvider.notifier).logoutState(context);
                       },
                       icon: Icon(Icons.logout_rounded),
                       label: Padding(

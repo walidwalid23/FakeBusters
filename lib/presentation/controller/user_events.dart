@@ -1,4 +1,3 @@
-import 'package:fakebustersapp/domain/entities/updateuser.dart';
 import 'package:fakebustersapp/domain/usecases/edit_profile_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
@@ -126,10 +125,7 @@ class verifyUserTokenEvent extends StateNotifier <AsyncValue<dynamic>>{
       super.state = AsyncData(null);
       // go to home page since the token is verified
       context.go('/home');
-
     });
-
-
   }
 
 }
@@ -175,8 +171,8 @@ class UserLogoutEvent extends StateNotifier <AsyncValue<dynamic>>{
 
 class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
   String? userToken;
-  BuildContext? context;
-  EditProfileEvent(): super( AsyncData(null) ) {
+  BuildContext context;
+  EditProfileEvent(this.context): super( AsyncData(null) ) {
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
       // if the token doesn't exist move to login page without sending a request to the server
@@ -189,38 +185,26 @@ class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context!.push('/login');
+        context.go('/login');
       }
     });
   }
-  void EditProfileState(List<Map<String,String>> updated_data) async{
+
+  void editProfileState(Map<String,String> updatedData) async{
 
     BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
     BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
     BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
-    EditProfileUsecase editprofileevent = EditProfileUsecase(userRepository: userRepository);
+    EditProfileUseCase editProfileUseCase = EditProfileUseCase(userRepository: userRepository);
 
     super.state = AsyncLoading();
-    Either<Failure, Success> data = await editprofileevent.excute(updated_data, userToken!);
+    Either<Failure, Success> data = await editProfileUseCase.excute(updatedData, userToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);
     } , (Success success) {
-      //we don't need to change the state when succeed cause we will move to another screen
-      // but we set it to null to stop loading in case the user went to previous screen
-      super.state = AsyncData(null);
-      // go to home page and show logged in alert
-      Fluttertoast.showToast(
-          msg:  success.successMessage,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb:3,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16
-      );
-      // we don't want the user to return to home again after logging out so we use .go
-      context!.go('/home');
+
+      super.state = AsyncData(success.successMessage);
 
     });
 

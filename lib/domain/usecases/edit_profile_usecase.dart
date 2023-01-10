@@ -4,7 +4,6 @@ import 'package:fakebustersapp/core/exception_handling/success.dart';
 import 'package:fakebustersapp/domain/domain_repository/base_user_repository.dart';
 
 
-
 class EditProfileUseCase{
   BaseUserRepository userRepository;
   EditProfileUseCase({required this.userRepository});

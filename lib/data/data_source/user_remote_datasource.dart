@@ -200,6 +200,7 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
     // send a post request to the server
     try {
       Dio dio = new Dio();
+      dio.options.headers['user-token'] = userToken;
       var response = await dio.post(ServerManager.baseUrl+ "/users/update", data: updatedData);
 
       int statusCode = response.statusCode!;

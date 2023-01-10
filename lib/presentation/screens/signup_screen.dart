@@ -133,7 +133,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                  SizedBox(height:10),
                   Center(child: ImageContainer(width: 200,height: 200,uploadedImage: userImage,)),
                   Center(
-                    child: DefaultButton(text: "Upload Image",width: 200, function: ()async{
+                    child: DefaultButton(text: "Upload Image",width: 200, function: () async{
                       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
                       if(image == null){return;}
                       setState(() {
