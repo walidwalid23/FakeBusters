@@ -19,93 +19,95 @@ class ProfileScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.deepOrange[900],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height:10,
-                        ),
-                        CircleAvatar(
-                          child:
-                          Image.asset(
-                              'assets/images/usericon.png',
-                          ),
-                          radius:80,
-                          backgroundColor: Colors.white,
-                        ),
-                        SizedBox(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.deepOrange[900],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
                             height:10,
-                        ),
-                        Text(
-                          "Username",
-                          style: StylesManager.textStyle2,
+                          ),
+                          CircleAvatar(
+                            child:
+                            Image.asset(
+                                'assets/images/usericon.png',
+                            ),
+                            radius:80,
+                            backgroundColor: Colors.white,
+                          ),
+                          SizedBox(
+                              height:10,
+                          ),
+                          Text(
+                            "Username",
+                            style: StylesManager.textStyle2,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                "Reviews",
+                              style: StylesManager.textStyle2
+                            ),
+                            Text(
+                                "Comments",
+                              style: StylesManager.textStyle2
+                            ),
+                            Text(
+                                "Points",
+                              style: StylesManager.textStyle2
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                "28",
+                              style: StylesManager.textStyle2,
+                            ),
+                            Text(
+                                "73",
+                                style: StylesManager.textStyle2,
+                            ),
+                            Text(
+                                "18",
+                              style: StylesManager.textStyle2,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 50,
                         ),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 35,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              "Reviews",
-                            style: StylesManager.textStyle2
-                          ),
-                          Text(
-                              "Comments",
-                            style: StylesManager.textStyle2
-                          ),
-                          Text(
-                              "Points",
-                            style: StylesManager.textStyle2
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              "28",
-                            style: StylesManager.textStyle2,
-                          ),
-                          Text(
-                              "73",
-                              style: StylesManager.textStyle2,
-                          ),
-                          Text(
-                              "18",
-                            style: StylesManager.textStyle2,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
