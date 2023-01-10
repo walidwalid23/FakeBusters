@@ -39,7 +39,22 @@ class DefaultTextFormField extends StatelessWidget {
                 icon: Icon(suffix),
               )
             : null,
-        border: OutlineInputBorder(),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+              width: 1,
+              color: Colors.deepOrange
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+              width: 1,
+              color: Colors.deepOrange
+          ),
+        ),
+        fillColor: ColorsManager.themeColor1,
+        filled: true,
       ),
     );
   }
