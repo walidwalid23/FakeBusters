@@ -159,4 +159,24 @@ class PostRepository extends BasePostRepository {
           errorMessage: exception.errorMessage, stackTrace: stackTrace));
     }
   }
+
+  @override
+  Future<Either<Failure, Post>> getPostByID(String postID, String userToken) async{
+    try {
+      Post post= await postRemoteDataSource.getPostByID(postID, userToken);
+
+      //if no exception was thrown then the method has succeeded
+      return Right(post);
+    } on ConnectionException catch (exception, stackTrace) {
+      return Left(ConnectionFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    } on ServerException catch (exception, stackTrace) {
+      return Left(ServerFailure(
+          errorMessage: exception.networkErrorModel.errorMessage,
+          stackTrace: stackTrace));
+    } on GenericException catch (exception, stackTrace) {
+      return Left(GenericFailure(
+          errorMessage: exception.errorMessage, stackTrace: stackTrace));
+    }
+  }
 }

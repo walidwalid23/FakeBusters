@@ -24,4 +24,7 @@ abstract class BasePostRepository {
 
   Future<Either<Failure, List<Post>>> searchPostsByProductName(
       String productName, String userToken);
+
+  Future<Either<Failure, Post>> getPostByID(
+      String postID, String userToken);
 }
