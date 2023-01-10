@@ -66,7 +66,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         }
                         return null;
                       },
-                      Label:"Username*" ,
+                      hintText:"Username*" ,
                       type: TextInputType.visiblePassword,
                       Controller:usernameController,
                     ),
@@ -90,7 +90,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       }
                       return null;
                     },
-                    Label:"Password*" ,
+                    hintText:"Password*" ,
                     type: TextInputType.visiblePassword,
                     Controller: passwordController,
                     showPassword: showPassword,

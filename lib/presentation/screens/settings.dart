@@ -20,16 +20,14 @@ class Settings extends ConsumerStatefulWidget {
 }
 
 class _SettingsState extends ConsumerState<Settings> {
-  var emailController = TextEditingController();
+  var usernameController = TextEditingController();
   var passwordController = TextEditingController();
   bool status = false;
   bool showPassword = true;
   bool isDarkModeEnabled = false;
-  var formkey = GlobalKey<FormState>();
-  @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
-  }
+  var formKey = GlobalKey<FormState>();
+  Map updatedValues = {};
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class _SettingsState extends ConsumerState<Settings> {
         drawer: HomeDrawer(),
         body: SafeArea(
             child: Form(
-                key: formkey,
+                key: formKey,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ListView(children: [
@@ -59,48 +57,66 @@ class _SettingsState extends ConsumerState<Settings> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    DefaultTextFormField(
-                      prefix: Icons.email,
-                      validate: (value) {
-                        if (value!.isEmpty) {
-                          return "Email must not be empty";
-                        }
-                        return null;
-                      },
-                      Label: "Update Email",
-                      type: TextInputType.visiblePassword,
-                      Controller: emailController,
-                    ),
+
+                       DefaultTextFormField(
+                        prefix: Icons.supervised_user_circle,
+                        validate: (value) {
+                          if (value.length < 3 && value.length!=0) {
+                            return "Username must be at least 3 characters long";
+                          }
+                          return null;
+                        },
+                        hintText: "Update Username",
+                        type: TextInputType.visiblePassword,
+                        Controller: usernameController,
+                      ),
+
                     SizedBox(
                       height: 20.0,
                     ),
-                    DefaultTextFormField(
-                      suffix: showPassword
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      iconSwitch: () {
-                        setState(() {
-                          showPassword = !showPassword;
-                        });
-                      },
-                      prefix: Icons.lock,
-                      validate: (value) {
-                        if (value!.isEmpty) {
-                          return "Password must not be empty";
-                        } else if (value.length < 8) {
-                          return "Must be at least 8 characters in length";
-                        }
-                        return null;
-                      },
-                      Label: "Update Password",
-                      type: TextInputType.visiblePassword,
-                      Controller: passwordController,
-                      showPassword: showPassword,
-                    ),
+                 DefaultTextFormField(
+                        suffix: showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        iconSwitch: () {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                        prefix: Icons.lock,
+                        validate: (value) {
+                          if(value.length < 8 && value.length!=0){
+                            return "Password must be at least 8 characters in length";
+                          }
+                          return null;
+                        },
+                        hintText: "Update Password",
+                        type: TextInputType.visiblePassword,
+                        Controller: passwordController,
+                        showPassword: showPassword,
+                      ),
+                     SizedBox(height:20),
                     Padding(
                       padding: const EdgeInsets.only(left: 80, right: 80),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                        // EDIT PROFILE
+                          if(formKey.currentState!.validate()){
+                            // FIELD IS VALID IF ITS EMPTY OR HAS VALID INPUTS
+                            if(usernameController.text.length > 0){
+                              updatedValues.addAll({"username":usernameController.text });
+                            }
+                            if(passwordController.text.length > 0){
+                              updatedValues.addAll({"password":passwordController.text });
+                            }
+
+                        print(updatedValues);
+
+
+                          }
+
+
+                        },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 15, bottom: 15),
                           child: Text(

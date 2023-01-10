@@ -71,7 +71,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
                       return null;
                     },
-                    Label: "UserName*",
+                    hintText: "UserName*",
                     type: TextInputType.visiblePassword,
                     Controller: usernameController,
                   ),
@@ -97,7 +97,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       }
                       return null;
                     },
-                    Label: "Password*",
+                    hintText: "Password*",
                     type: TextInputType.visiblePassword,
                     Controller: passwordController,
                     showPassword: showPassword,
@@ -125,7 +125,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       }
                       return null;
                     },
-                    Label: "Confirm Password*",
+                    hintText: "Confirm Password*",
                     type: TextInputType.visiblePassword,
                     Controller: confirmPasswordController,
                     showPassword: showConfirmPassword,

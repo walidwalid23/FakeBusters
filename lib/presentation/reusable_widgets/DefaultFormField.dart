@@ -6,7 +6,7 @@ class DefaultTextFormField extends StatelessWidget {
     Key? key,
     required this.type,
     required this.Controller,
-    required this.Label,
+    required this.hintText,
     required this.validate,
     required this.prefix,
     this.showPassword = false,
@@ -15,7 +15,7 @@ class DefaultTextFormField extends StatelessWidget {
   }) : super(key: key);
   TextEditingController Controller;
   TextInputType type;
-  String Label;
+  String hintText;
   var validate;
   IconData prefix;
   var suffix;
@@ -31,7 +31,7 @@ class DefaultTextFormField extends StatelessWidget {
       obscureText: showPassword,
       maxLength: 50,
       decoration: InputDecoration(
-        hintText: "${Label}",
+        hintText: "${hintText}",
         prefixIcon: Icon(prefix, color: ColorsManager.themeColor1),
         suffixIcon: suffix != null
             ? IconButton(
