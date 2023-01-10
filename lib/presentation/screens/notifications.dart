@@ -25,7 +25,7 @@ class NotificationsScreen extends ConsumerWidget {
           return Rail();
         }
       }),
-      body: ref.watch(getUserNotificationsProvider(context)).when(
+      body: ref.watch(userNotificationsProvider(context)).when(
           data: (List<NotificationEntity> notifications)=>
               ListView.builder(
               itemCount: notifications.length,
@@ -34,28 +34,23 @@ class NotificationsScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(leading: FaIcon(FontAwesomeIcons.circleExclamation),
                     title: Text(notifications[i].notificationText, style: StylesManager.textStyle1,),
+                    tileColor: Colors.orange,
                     subtitle: Text(notifications[i].notificationDate),
                     trailing:IconButton(
-                      icon:  ref.watch(deleteUserNotificationProvider(context)).when(
-                          data: (data)=>FaIcon(FontAwesomeIcons.x,
-                            color: Colors.black,),
-                          error: (error,st)=>Text(error.toString()),
-                          loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!,size: 20,)),
-                      onPressed: (){
-                        //DELETE THE NOTIFICATION
-                        ref.read(deleteUserNotificationProvider(context).notifier).deleteUserNotificationState(notifications[i].notificationID);
+                      icon:  FaIcon(FontAwesomeIcons.x,color: Colors.black,),
+                        onPressed: (){
+                          //DELETE THE NOTIFICATION
+                          ref.read(userNotificationsProvider(context).notifier).deleteUserNotificationState(notifications[i].notificationID);
+                        }
 
+                     )),
 
-                      },
-                    ) ,
-                    tileColor: Colors.orange,
-
-
+                    );}
                   ),
-                );
-              }),
+
           error: (error, trace)=> Center(child: Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
           loading: ()=> Center(child: SpinKitRing(color: ColorsManager.themeColor1!)))
-    );
+                );
+              }
   }
-}
+
