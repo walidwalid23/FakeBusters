@@ -15,6 +15,7 @@ import '../../domain/domain_repository/base_post_repository.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/entities/uploaded_post.dart';
 import '../../domain/usecases/find_posts_by_categories_usecase.dart';
+import '../../domain/usecases/get_post_by_id.dart';
 import '../../domain/usecases/increment_fake_votes_usecase.dart';
 import '../../domain/usecases/search_posts_by_product_name_usecase.dart';
 import '../../domain/usecases/upload_post_usecase.dart';
@@ -164,6 +165,36 @@ class SearchPostsByProductNameEvent extends StateNotifier<AsyncValue<dynamic>> {
   }
 }
 
+class GetPostByIDEvent extends StateNotifier<AsyncValue<Post>> {
+  String? userToken;
+  String postID;
+
+  GetPostByIDEvent(this.postID) : super(AsyncLoading()) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+      // if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        super.state = AsyncError("Please Login Again", StackTrace.current);
+      }
+      else {
+        getPostByIDState(postID);
+      }
+    });
+  }
+  void getPostByIDState(String postID) async {
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    GetPostByIDUseCase getPostByIDUseCase = GetPostByIDUseCase(postRepository);
+
+    Either<Failure, Post> data = await getPostByIDUseCase.excute(postID, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    }, (Post post) {
+      super.state = AsyncData(post);
+    });
+  }
+}
 
 
 
@@ -185,6 +216,7 @@ class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>> {
       }
     });
   }
+
   void getPostVotesEventVotesState(String postID) async {
     BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
     BasePostRepository postRepository = PostRepository(postRemoteDataSource);
@@ -237,6 +269,9 @@ class GetPostVotesEvent extends StateNotifier<AsyncValue<Vote>> {
     });
   }
 }
+
+
+
 class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
@@ -274,9 +309,10 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
     });
   }
 
-
-
 }
+
+
+
 class DeletePostEvent extends StateNotifier<AsyncValue<dynamic>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;

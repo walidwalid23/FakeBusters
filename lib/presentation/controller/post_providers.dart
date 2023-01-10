@@ -22,6 +22,9 @@ final deletePostProvider = StateNotifierProvider.family<DeletePostEvent,AsyncVal
 >((ref, context) =>  DeletePostEvent(context));
 
 
+final getPostByIDProvider = StateNotifierProvider.family<GetPostByIDEvent,AsyncValue<Post>, String
+>((ref, postID) =>  GetPostByIDEvent(postID));
+
 //using autoDispose To reset the state when the user leaves a screen and re-enters it
 final findPostsByCategoriesProvider = StateNotifierProvider.autoDispose.family<FindPostsByCategoriesEvent,AsyncValue<List<Post>>,List<String>
 >((ref, categories) =>  FindPostsByCategoriesEvent(categories));

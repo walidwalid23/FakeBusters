@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/utils/constants/colors_manager.dart';
 import '../controller/notification_providers.dart';
@@ -46,7 +47,8 @@ class NotificationsScreen extends ConsumerWidget {
 
                     ) ,
                     tileColor: Colors.orange,
-
+                    // GO TO A PAGE DISPLAYING THE NOTIFICATION POST ON TAP
+                    onTap: (){context.push('/notification_post',extra:notifications[i].postID);},
 
                   ),
                 );
