@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 
+import '../controller/theme_provider.dart';
 import '../controller/user_providers.dart';
 import '../reusable_widgets/DefaultFormField.dart';
 
@@ -33,10 +34,10 @@ class _SettingsState extends ConsumerState<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Builder(builder: (BuildContext context){
-          if(MediaQuery.of(context).size.width.toInt()<=1024){
+        drawer: Builder(builder: (BuildContext context) {
+          if (MediaQuery.of(context).size.width.toInt() <= 1024) {
             return HomeDrawer();
-          }else{
+          } else {
             return Rail();
           }
         }),
@@ -51,7 +52,6 @@ class _SettingsState extends ConsumerState<Settings> {
                       style: TextStyle(
                         fontSize: 30,
                         height: 2.0,
-                        color: Color.fromARGB(255, 0, 0, 0),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -127,7 +127,6 @@ class _SettingsState extends ConsumerState<Settings> {
                       style: TextStyle(
                         fontSize: 30,
                         height: 3,
-                        color: Color.fromARGB(255, 0, 0, 0),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -146,7 +145,6 @@ class _SettingsState extends ConsumerState<Settings> {
                           style: TextStyle(
                             fontSize: 21,
                             height: 0,
-                            color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -155,6 +153,8 @@ class _SettingsState extends ConsumerState<Settings> {
                           onStateChanged: (isDarkModeEnabled) {
                             setState(() {
                               this.isDarkModeEnabled = isDarkModeEnabled;
+                              ref.read(themeProvider.notifier).setThemeState(
+                                  isDarkModeEnabled ? 'dark' : 'light');
                             });
                           },
                         ),
