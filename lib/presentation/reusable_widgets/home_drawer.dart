@@ -16,6 +16,9 @@ class HomeDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (MediaQuery.of(context).size.width.toInt() >= 807) {
+      return Rail();
+    }
+    else {
       return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -125,9 +128,6 @@ class HomeDrawer extends ConsumerWidget {
           ],
         ),
       );
-    }
-    else {
-      return Rail();
     }
   }
 }

@@ -7,6 +7,7 @@ import 'package:fakebustersapp/presentation/screens/home.dart';
 import 'package:fakebustersapp/presentation/screens/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 class Rail extends StatefulWidget {
   const Rail({Key? key}) : super(key: key);
 
@@ -23,6 +24,7 @@ class _RailState extends State<Rail> {
     return Row(
       children: [
         NavigationRail(
+          minWidth: 70,
           backgroundColor: ColorsManager.themeColor1,
             destinations:[
               NavigationRailDestination(
@@ -47,9 +49,18 @@ class _RailState extends State<Rail> {
             ],
             selectedIndex: currentIndex,
             onDestinationSelected: (index){
-              pageController.animateToPage(index,
-                  duration: Duration(milliseconds: ValuesManager.swipePageAnimationDuration),
-                  curve: Curves.easeInCirc);
+              setState(() {
+                currentIndex=index;
+              });
+              if(currentIndex==0){
+                context.push('/editprofilescreen');
+              }else if(currentIndex==1){
+                context.push('/home');
+              }else if(currentIndex==2){
+                context.push('/notifications');
+              }else if(currentIndex==3){
+                context.push('/hintscreen');
+              }
             },
         ),
       ],
