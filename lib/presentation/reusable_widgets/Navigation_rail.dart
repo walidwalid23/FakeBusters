@@ -17,8 +17,6 @@ class Rail extends StatefulWidget {
 
 class _RailState extends State<Rail> {
   int currentIndex = 0;
-  final List<Widget> Pages = [EditProfileScreen(),Home(),NotificationsScreen(),HintScreen()];
-  PageController pageController = PageController(initialPage:0);
   @override
   Widget build(BuildContext context) {
     return Row(
