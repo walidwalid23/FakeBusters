@@ -105,9 +105,9 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/displaypost',
+      path: '/hintscreen',
       builder: (BuildContext context, GoRouterState state) {
-        return DisplayPost(postData: state.extra as UploadedPost);
+        return HintScreen();
       },
     ),
     GoRoute(

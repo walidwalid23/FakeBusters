@@ -28,11 +28,11 @@ class _RailState extends State<Rail> {
           backgroundColor: ColorsManager.themeColor1,
             destinations:[
               NavigationRailDestination(
-                icon: FaIcon(FontAwesomeIcons.idBadge),
+                icon: FaIcon(FontAwesomeIcons.houseUser),
                 label:  Text('Profile', style: StylesManager.textStyle1),
               ),
               NavigationRailDestination(
-                icon: FaIcon(FontAwesomeIcons.houseUser),
+                icon: FaIcon(FontAwesomeIcons.idBadge),
                 label:  Text(
                   'Home',
                   style: StylesManager.textStyle1,
@@ -53,13 +53,13 @@ class _RailState extends State<Rail> {
                 currentIndex=index;
               });
               if(currentIndex==0){
-                context.push('/editprofilescreen');
-              }else if(currentIndex==1){
                 context.push('/home');
+              }else if(currentIndex==1){
+                context.push('/editprofilescreen');
               }else if(currentIndex==2){
                 context.push('/notifications');
               }else if(currentIndex==3){
-                context.push('/hintscreen');
+                context.push('/settings');
               }
             },
         ),
