@@ -31,13 +31,13 @@ class DefaultTextFormField extends StatelessWidget {
       obscureText: showPassword,
       maxLength: 50,
       decoration: InputDecoration(
-        labelText: "${Label}",
-        labelStyle: TextStyle(color: ColorsManager.themeColor1),
+        hintText: "${Label}",
         prefixIcon: Icon(prefix, color: ColorsManager.themeColor1),
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: iconSwitch,
                 icon: Icon(suffix),
+          color: Colors.black,
               )
             : null,
         focusedBorder: OutlineInputBorder(
@@ -46,7 +46,7 @@ class DefaultTextFormField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(width: 1, color: ColorsManager.themeColor1!),
+          borderSide: BorderSide(width: 1, color: Colors.blue[800]!),
         ),
         //fillColor: Colors.white,
         filled: true,
