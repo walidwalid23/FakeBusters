@@ -17,8 +17,7 @@ class HomeDrawer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (MediaQuery.of(context).size.width.toInt() >= 807) {
       return Rail();
-    }
-    else {
+    } else {
       return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -38,15 +37,23 @@ class HomeDrawer extends ConsumerWidget {
               ),
             ),
             ListTile(
-              leading: FaIcon(FontAwesomeIcons.houseUser),
+              leading: FaIcon(
+                FontAwesomeIcons.houseUser,
+                color: Colors.deepOrange,
+              ),
               title: Text('Home', style: StylesManager.textStyle1),
-              trailing: FaIcon(FontAwesomeIcons.arrowRight),
+              trailing: FaIcon(
+                FontAwesomeIcons.arrowRight,
+              ),
               onTap: () {
                 context.push('/home');
               },
             ),
             ListTile(
-              leading: FaIcon(FontAwesomeIcons.idBadge),
+              leading: FaIcon(
+                FontAwesomeIcons.idBadge,
+                color: Colors.deepOrange,
+              ),
               title: Text('Profile', style: StylesManager.textStyle1),
               trailing: FaIcon(FontAwesomeIcons.arrowRight),
               onTap: () {
@@ -54,27 +61,27 @@ class HomeDrawer extends ConsumerWidget {
               },
             ),
             ListTile(
-              leading: FaIcon(FontAwesomeIcons.bell),
+              leading: FaIcon(
+                FontAwesomeIcons.bell,
+                color: Colors.deepOrange,
+              ),
               title: Row(
                 children: [
                   Text('Notifications', style: StylesManager.textStyle1),
                   SizedBox(width: 10),
                   ref.watch(getNotificationsCountProvider(context)).when(
-                      data: (notificationsCount) =>
-                          CircleAvatar(
+                      data: (notificationsCount) => CircleAvatar(
                             child: Text(notificationsCount.toString(),
                                 style: StylesManager.notificationStyle),
                             backgroundColor: Colors.amber,
                             radius: 15,
                           ),
-                      error: (error, st) =>
-                          Text(
+                      error: (error, st) => Text(
                             error.toString(),
                             style: TextStyle(
                                 color: Colors.red, fontWeight: FontWeight.bold),
                           ),
-                      loading: () =>
-                          SpinKitRing(
+                      loading: () => SpinKitRing(
                             color: ColorsManager.themeColor1!,
                             size: 20,
                           ))
@@ -86,7 +93,10 @@ class HomeDrawer extends ConsumerWidget {
               },
             ),
             ListTile(
-              leading: FaIcon(FontAwesomeIcons.gear),
+              leading: FaIcon(
+                FontAwesomeIcons.gear,
+                color: Colors.deepOrange,
+              ),
               title: Text('Settings', style: StylesManager.textStyle1),
               trailing: FaIcon(FontAwesomeIcons.arrowRight),
               onTap: () {
@@ -96,6 +106,7 @@ class HomeDrawer extends ConsumerWidget {
             ListTile(
               leading: FaIcon(
                 FontAwesomeIcons.lightbulb,
+                color: Colors.deepOrange,
               ),
               title: Text(
                 'Hints',
@@ -109,7 +120,10 @@ class HomeDrawer extends ConsumerWidget {
               },
             ),
             ListTile(
-              leading: FaIcon(FontAwesomeIcons.rightFromBracket),
+              leading: FaIcon(
+                FontAwesomeIcons.rightFromBracket,
+                color: Colors.deepOrange,
+              ),
               title: Text('Log Out', style: StylesManager.textStyle1),
               trailing: FaIcon(FontAwesomeIcons.arrowRight),
               onTap: () {
@@ -118,8 +132,7 @@ class HomeDrawer extends ConsumerWidget {
             ),
             ref.watch(userLogoutProvider).when(
                 data: (data) => Container(),
-                error: (error, stackTrace) =>
-                    Text(
+                error: (error, stackTrace) => Text(
                       error.toString(),
                       style: TextStyle(
                           color: Colors.red, fontWeight: FontWeight.bold),

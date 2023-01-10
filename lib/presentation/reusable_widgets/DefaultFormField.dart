@@ -28,6 +28,7 @@ class DefaultTextFormField extends StatelessWidget {
       validator: validate,
       controller: Controller,
       keyboardType: type,
+      cursorColor: Colors.black,
       obscureText: showPassword,
       maxLength: 50,
       decoration: InputDecoration(
@@ -37,7 +38,7 @@ class DefaultTextFormField extends StatelessWidget {
             ? IconButton(
                 onPressed: iconSwitch,
                 icon: Icon(suffix),
-          color: Colors.black,
+                color: Colors.black,
               )
             : null,
         focusedBorder: OutlineInputBorder(
