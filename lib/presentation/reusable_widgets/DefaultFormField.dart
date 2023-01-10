@@ -32,6 +32,7 @@ class DefaultTextFormField extends StatelessWidget {
       maxLength: 50,
       decoration: InputDecoration(
         labelText: "${Label}",
+        labelStyle: TextStyle(color: ColorsManager.themeColor1),
         prefixIcon: Icon(prefix, color: ColorsManager.themeColor1),
         suffixIcon: suffix != null
             ? IconButton(
@@ -41,19 +42,13 @@ class DefaultTextFormField extends StatelessWidget {
             : null,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-              width: 1,
-              color: Colors.deepOrange
-          ),
+          borderSide: BorderSide(width: 1, color: ColorsManager.themeColor1!),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-              width: 1,
-              color: Colors.deepOrange
-          ),
+          borderSide: BorderSide(width: 1, color: ColorsManager.themeColor1!),
         ),
-        fillColor: ColorsManager.themeColor1,
+        //fillColor: Colors.white,
         filled: true,
       ),
     );
