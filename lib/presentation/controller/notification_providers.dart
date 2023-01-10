@@ -3,8 +3,8 @@ import '../../domain/entities/notification.dart';
 import 'notification_events.dart';
 import 'package:flutter/material.dart';
 
-final userNotificationsProvider = StateNotifierProvider.family<UserNotificationsEvent,AsyncValue<List<NotificationEntity>>, BuildContext
->((ref, context) =>  UserNotificationsEvent(context));
+var userNotificationsProvider = StateNotifierProvider.autoDispose<UserNotificationsEvent,AsyncValue<List<NotificationEntity>>
+>((ref) =>  UserNotificationsEvent());
 
 final getNotificationsCountProvider = StateNotifierProvider.family<GetNotificationsCountEvent,AsyncValue<int>, BuildContext
 >((ref, context) =>  GetNotificationsCountEvent(context));

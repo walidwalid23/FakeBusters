@@ -17,8 +17,8 @@ import '../../domain/usecases/get_user_notifications_usecase.dart';
 class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationEntity>>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
-  BuildContext context;
-  UserNotificationsEvent(this.context) : super(AsyncLoading()) {
+
+  UserNotificationsEvent() : super(AsyncLoading()) {
     print("in provider constructor");
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
@@ -32,12 +32,13 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context.go('/login');
+
       }
 
       else{
         // update the state with the posts
         getUserNotificationsState();
+
       }
 
     });
@@ -56,11 +57,11 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold(
             (Failure failure) {
-          super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+          state = AsyncError(failure.errorMessage, failure.stackTrace);
         },
             (List<NotificationEntity> notifications) {
 
-          super.state = AsyncData(notifications);
+          state = AsyncData(notifications);
 
         });
   }
@@ -79,18 +80,18 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
     await deleteUserNotificationUseCase.excute(notificationID, userToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
-      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+      state = AsyncError(failure.errorMessage, failure.stackTrace);
     }, (Success success) async{
       // IF THE NOTIFICATION IS DELETED GET THE NEW NOTIFICATIONS LIST AND UPDATE THE STATE
       // YOU DON'T NEED TO REQUEST TO THE BACKEND AGAIN SINCE YOU ARE SURE THE DELETE WAS SUCCESS
       // SO DELETE FROM THE CURRENT LIST (STATE) DIRECTLY
-      print(super.state.value);
-      List<NotificationEntity> notifications = super.state.value!; // = ASYNCDATA(value).value
-      notifications.removeWhere((notification) => notification.notificationID == notificationID);
+      print(state.value);
+      List<NotificationEntity> notifications = state.value!; // = ASYNCDATA(value).value
+     notifications.removeWhere((notification) => notification.notificationID == notificationID);
+      print("notifications:");
       print(notifications);
-      super.state = AsyncLoading();
-      super.state = AsyncData(notifications);
-      print(super.state);
+      state = AsyncData(notifications);
+      print(state);
 
 
 
