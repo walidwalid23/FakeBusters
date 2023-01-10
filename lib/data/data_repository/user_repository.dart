@@ -5,7 +5,6 @@ import 'package:fakebustersapp/core/exception_handling/success.dart';
 import 'package:fakebustersapp/data/data_source/base_user_local_datasource.dart';
 import 'package:fakebustersapp/data/data_source/base_user_remote_datasource.dart';
 import 'package:fakebustersapp/domain/domain_repository/base_user_repository.dart';
-import 'package:fakebustersapp/domain/entities/updateuser.dart';
 import 'package:fakebustersapp/domain/entities/user.dart';
 
 class UserRepository extends BaseUserRepository{
@@ -121,11 +120,11 @@ class UserRepository extends BaseUserRepository{
   }
 
   @override
-  Future<Either<Failure, Success>> EditProfile(List<Map<String,String>> updated_data,String userToken) async{
+  Future<Either<Failure, Success>> EditProfile(Map<String,String> updatedData,String userToken) async{
     try{
-      String loggedInSuccessMessage = await userRemoteDataSource.EditProfile(updated_data,userToken);
+      String updatedUserSuccessMessage = await userRemoteDataSource.EditProfile(updatedData,userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(ServerSuccess(successMessage: loggedInSuccessMessage));
+      return Right(ServerSuccess(successMessage: updatedUserSuccessMessage));
 
     }
     on ConnectionException catch(exception, stackTrace){

@@ -26,7 +26,7 @@ class _SettingsState extends ConsumerState<Settings> {
   bool showPassword = true;
   bool isDarkModeEnabled = false;
   var formKey = GlobalKey<FormState>();
-  Map updatedValues = {};
+  Map<String,String> updatedValues = {};
 
 
   @override

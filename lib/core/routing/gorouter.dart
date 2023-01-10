@@ -1,11 +1,6 @@
-import 'package:fakebustersapp/domain/entities/post.dart';
 import 'package:fakebustersapp/domain/entities/uploaded_post.dart';
-import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
-import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
-import 'package:fakebustersapp/presentation/screens/edit_profile.dart';
 import 'package:fakebustersapp/presentation/screens/hint.dart';
 import 'package:fakebustersapp/presentation/screens/tablet_categories.dart';
-import 'package:fakebustersapp/presentation/screens/user_type_choices.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fakebustersapp/presentation/screens/categories.dart';
@@ -122,11 +117,6 @@ final GoRouter appRouter = GoRouter(
         return  PostsScreen(categories: state.extra as List<String>);
       },
     ),
-    GoRoute(
-      path: '/editprofilescreen',
-      builder: (BuildContext context, GoRouterState state) {
-        return  EditProfileScreen();
-      },
-    ),
+
   ],
 );

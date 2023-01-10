@@ -1,5 +1,4 @@
 import 'package:fakebustersapp/core/exception_handling/network_error_model.dart';
-import 'package:fakebustersapp/domain/entities/updateuser.dart';
 import '../../core/exception_handling/exceptions.dart';
 import '../../core/utils/constants/server_manager.dart';
 import '../../domain/entities/user.dart';
@@ -197,21 +196,17 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
   }
 
   @override
-  Future<String> EditProfile(List<Map<String,String>> updated_data,String userToken) async {
+  Future<String> EditProfile(Map<String, String> updatedData, String userToken) async{
+    // send a post request to the server
     try {
-
       Dio dio = new Dio();
-      dio.options.headers['user-token'] = userToken;
-      var response = await dio.post(ServerManager.baseUrl+ "/users/login", data: {
-        "updated_values": updated_data,
-      });
+      var response = await dio.post(ServerManager.baseUrl+ "/users/update", data: updatedData);
+
       int statusCode = response.statusCode!;
 
-      // The token has been successfully verified
       if (statusCode == 200) {
         return response.data['successMessage'];
       }
-
       // since the server didn't return 200 then there must have been a problem
       else {
         throw ServerException(
@@ -237,12 +232,14 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         // rethrow;
         // OR CREATE A GENERIC ERROR MESSAGE
         throw GenericException(errorMessage:"Unknown Exception Has Occurred");
-      }
 
+      }
     }
     catch(error){
       // CATCH ANY OTHER LEFT EXCEPTION
       throw GenericException(errorMessage:"Unknown Exception Has Occurred");
     }
   }
+
+
 }

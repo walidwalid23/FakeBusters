@@ -1,7 +1,6 @@
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/values_manager.dart';
-import 'package:fakebustersapp/presentation/screens/edit_profile.dart';
 import 'package:fakebustersapp/presentation/screens/hint.dart';
 import 'package:fakebustersapp/presentation/screens/home.dart';
 import 'package:fakebustersapp/presentation/screens/notifications.dart';
@@ -53,7 +52,7 @@ class _RailState extends State<Rail> {
               if(currentIndex==0){
                 context.push('/home');
               }else if(currentIndex==1){
-                context.push('/editprofilescreen');
+                context.push('/profile');
               }else if(currentIndex==2){
                 context.push('/notifications');
               }else if(currentIndex==3){
