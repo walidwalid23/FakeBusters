@@ -8,4 +8,6 @@ class ColorsManager {
   static final Color? themeColor2 = Color.fromARGB(255, 0, 0, 0);
   static final Color? choiceInActiveColor = Colors.black12;
   static final Color? choiceActiveColor = Colors.orange;
+  static final Color? scaffoldBackgroundColor = Colors.black;
+  static final Color? appBar = Colors.deepOrange[800];
 }

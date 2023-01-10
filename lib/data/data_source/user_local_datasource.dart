@@ -17,5 +17,25 @@ class UserLocalDataSource extends BaseUserLocalDataSource{
 
 
   }
+  Future<String> setTheme(String theme) async{
+
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('theme', theme);
+
+    return theme;
+
+  }
+
+  Future<String?> getTheme() async{
+
+    final prefs = await SharedPreferences.getInstance();
+
+   String? theme =  prefs.getString('theme');
+
+    return theme;
+
+  }
+
 
 }

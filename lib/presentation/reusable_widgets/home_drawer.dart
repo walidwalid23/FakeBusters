@@ -20,17 +20,17 @@ class HomeDrawer extends ConsumerWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: ColorsManager.themeColor1,
+              color: Colors.deepOrange,
             ),
             child: GestureDetector(
-              onTap: ()=>context.push('/editprofilescreen'),
+              onTap: () => context.push('/editprofilescreen'),
               child: CircleAvatar(
-                child: Image.asset('assets/images/default_profile_image.png', scale: 1),
+                child: Image.asset('assets/images/default_profile_image.png',
+                    scale: 1),
                 radius: 50,
                 backgroundColor: Colors.white,
               ),
             ),
-
           ),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.houseUser),
@@ -54,15 +54,22 @@ class HomeDrawer extends ConsumerWidget {
               children: [
                 Text('Notifications', style: StylesManager.textStyle1),
                 SizedBox(width: 10),
-                ref.watch(getNotificationsCountProvider(context)).
-                when(data: (notificationsCount)=>CircleAvatar(
-                  child: Text(notificationsCount.toString(), style: StylesManager.notificationStyle),
-                  backgroundColor: Colors.amber,
-                  radius: 15,
-                ),
-                    error: (error,st)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
-                    loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!,size: 20,))
-
+                ref.watch(getNotificationsCountProvider(context)).when(
+                    data: (notificationsCount) => CircleAvatar(
+                          child: Text(notificationsCount.toString(),
+                              style: StylesManager.notificationStyle),
+                          backgroundColor: Colors.amber,
+                          radius: 15,
+                        ),
+                    error: (error, st) => Text(
+                          error.toString(),
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold),
+                        ),
+                    loading: () => SpinKitRing(
+                          color: ColorsManager.themeColor1!,
+                          size: 20,
+                        ))
               ],
             ),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
@@ -80,18 +87,17 @@ class HomeDrawer extends ConsumerWidget {
           ),
           ListTile(
             leading: FaIcon(
-                FontAwesomeIcons.lightbulb,
+              FontAwesomeIcons.lightbulb,
             ),
             title: Text(
-                'Hints',
-                style: StylesManager.textStyle1,
+              'Hints',
+              style: StylesManager.textStyle1,
             ),
             trailing: FaIcon(
-                FontAwesomeIcons.arrowRight,
+              FontAwesomeIcons.arrowRight,
             ),
             onTap: () {
               context.push('/hintscreen');
-
             },
           ),
           ListTile(
@@ -100,14 +106,16 @@ class HomeDrawer extends ConsumerWidget {
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
               ref.read(userLogoutProvider.notifier).logoutState(context);
-
             },
           ),
           ref.watch(userLogoutProvider).when(
-              data: (data)=> Container(),
-              error: (error, stackTrace)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
-              loading:()=> SpinKitRing(color: ColorsManager.themeColor1!))
-
+              data: (data) => Container(),
+              error: (error, stackTrace) => Text(
+                    error.toString(),
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+              loading: () => SpinKitRing(color: ColorsManager.themeColor1!))
         ],
       ),
     );
