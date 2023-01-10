@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/core/utils/constants/home_manager.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
@@ -32,7 +33,13 @@ class _SettingsState extends ConsumerState<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: HomeDrawer(),
+        drawer: Builder(builder: (BuildContext context){
+          if(MediaQuery.of(context).size.width.toInt()<=1024){
+            return HomeDrawer();
+          }else{
+            return Rail();
+          }
+        }),
         body: SafeArea(
             child: Form(
                 key: formkey,

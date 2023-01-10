@@ -2,6 +2,7 @@ import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/home_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/styles_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/values_manager.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/user_choice.dart';
 import 'package:fakebustersapp/presentation/screens/categories.dart';
@@ -202,7 +203,13 @@ class _TabletScreenState extends State<TabletCategories> {
             ),
 
       ),
-      drawer: HomeDrawer(),
+      drawer: Builder(builder: (BuildContext context){
+        if(MediaQuery.of(context).size.width.toInt()<=1024){
+          return HomeDrawer();
+        }else{
+          return Rail();
+        }
+      }),
     );
 
 

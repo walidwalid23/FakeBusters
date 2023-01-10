@@ -1,5 +1,6 @@
 import 'package:fakebustersapp/core/utils/constants/colors_manager.dart';
 import 'package:fakebustersapp/core/utils/constants/home_manager.dart';
+import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/user_choice.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,13 @@ class _UserTypeChoicesState extends State<UserTypeChoices> {
 
 
          ),
-      drawer: HomeDrawer(),
+      drawer: Builder(builder: (BuildContext context){
+        if(MediaQuery.of(context).size.width.toInt()>=807){
+          return Rail();
+        }else{
+          return HomeDrawer();
+        }
+      }),
     );
 
   }
