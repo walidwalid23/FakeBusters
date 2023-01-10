@@ -47,13 +47,7 @@ class _UserTypeChoicesState extends State<UserTypeChoices> {
 
 
          ),
-      drawer: Builder(builder: (BuildContext context){
-        if(MediaQuery.of(context).size.width.toInt()>=807){
-          return Rail();
-        }else{
-          return HomeDrawer();
-        }
-      }),
+      drawer: HomeDrawer(),
     );
 
   }

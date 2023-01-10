@@ -44,13 +44,7 @@ class PostsScreen extends ConsumerWidget {
             error: (error,st)=>Center(child:Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
             loading: ()=>Center(child: SpinKitRing(color: ColorsManager.themeColor1!)))
       ),
-      drawer: Builder(builder: (BuildContext context){
-        if(MediaQuery.of(context).size.width.toInt()<=1024){
-          return HomeDrawer();
-        }else{
-          return Rail();
-        }
-      }),
+      drawer: HomeDrawer(),
       backgroundColor: Colors.grey[400],
 
     );

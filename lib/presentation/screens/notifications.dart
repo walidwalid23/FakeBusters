@@ -18,13 +18,7 @@ class NotificationsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar:AppBar(title:Text('Notifications'), centerTitle: true,),
-      drawer: Builder(builder: (BuildContext context){
-        if(MediaQuery.of(context).size.width.toInt()<=1024){
-          return HomeDrawer();
-        }else{
-          return Rail();
-        }
-      }),
+      drawer:HomeDrawer(),
       body: ref.watch(getUserNotificationsProvider(context)).when(
           data: (List<NotificationEntity> notifications)=>
               ListView.builder(

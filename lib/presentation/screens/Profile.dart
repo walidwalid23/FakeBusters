@@ -16,13 +16,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         centerTitle: true,
         ),
-      drawer: Builder(builder: (BuildContext context){
-        if(MediaQuery.of(context).size.width.toInt()<=1024){
-          return HomeDrawer();
-        }else{
-          return Rail();
-        }
-      }),
+      drawer: HomeDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
