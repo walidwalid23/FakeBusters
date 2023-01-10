@@ -138,7 +138,7 @@ class PostRemoteDataSource extends BasePostRemoteDataSource {
   @override
   Future<List<Post>> searchPostsByProductName(
       String productName, String userToken) async {
-    // send a post request to the server
+    // send a get request to the server
     try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = userToken;

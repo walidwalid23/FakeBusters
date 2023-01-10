@@ -50,6 +50,7 @@ class _DisplayPostState extends State<DisplayPost> {
       drawer: HomeDrawer(),
       backgroundColor: Colors.grey[400],
 
+
     );
   }
 }

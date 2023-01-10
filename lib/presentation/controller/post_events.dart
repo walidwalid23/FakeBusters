@@ -38,7 +38,7 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context.push('/login');
+        context.go('/login');
       }
     });
   }
@@ -138,7 +138,7 @@ class SearchPostsByProductNameEvent extends StateNotifier<AsyncValue<dynamic>> {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context.push('/login');
+        context.go('/login');
       }
     });
   }
@@ -294,7 +294,7 @@ class DeletePostEvent extends StateNotifier<AsyncValue<dynamic>> {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context.push('/login');
+        context.go('/login');
       }
     });
   }

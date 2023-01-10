@@ -1,7 +1,7 @@
-class NotificationModel{
-  String text;
-  bool isNew;
-  NotificationModel({required this.text, required this.isNew});
-
+class NotificationEntity{
+  String notificationText;
+  String notificationDate;
+  String postID;
+  NotificationEntity({required this.notificationText, required this.notificationDate, required this.postID});
 
 }

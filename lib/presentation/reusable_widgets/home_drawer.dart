@@ -7,6 +7,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import '../controller/notification_providers.dart';
+
 class HomeDrawer extends ConsumerWidget {
   const HomeDrawer({Key? key}) : super(key: key);
 
@@ -35,7 +37,7 @@ class HomeDrawer extends ConsumerWidget {
             title: Text('Home', style: StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              context.push('/home');
+              context.go('/home');
             },
           ),
           ListTile(
@@ -52,11 +54,15 @@ class HomeDrawer extends ConsumerWidget {
               children: [
                 Text('Notifications', style: StylesManager.textStyle1),
                 SizedBox(width: 10),
-                CircleAvatar(
-                  child: Text("1", style: StylesManager.notificationStyle),
-                  backgroundColor: Colors.blueGrey[500],
+                ref.watch(getNotificationsCountProvider(context)).
+                when(data: (notificationsCount)=>CircleAvatar(
+                  child: Text(notificationsCount.toString(), style: StylesManager.notificationStyle),
+                  backgroundColor: Colors.amber,
                   radius: 15,
-                )
+                ),
+                    error: (error,st)=>Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                    loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!,size: 20,))
+
               ],
             ),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),

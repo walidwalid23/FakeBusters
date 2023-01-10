@@ -22,7 +22,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return InitialLoadingScreen();
+        return Home();
       },
     ),
     GoRoute(
