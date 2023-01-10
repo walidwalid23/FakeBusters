@@ -121,9 +121,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         },
                         child: Text(
                             "Register Now",
-                          style: TextStyle(
-                            color: Colors.blue,
-                          ),
+                          style: TextStyle(color: Colors.blue[800]),
                         ),
                       ),
                     ],

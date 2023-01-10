@@ -150,7 +150,6 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
 
   @override
   Future<String> verifyUserToken(String token) async{
-
     try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = token;
