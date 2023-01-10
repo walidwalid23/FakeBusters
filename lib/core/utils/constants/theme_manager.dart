@@ -15,11 +15,11 @@ class AppThemeManager {
       appBarTheme:
           AppBarTheme(backgroundColor: Color.fromARGB(255, 85, 84, 84)),
       textTheme: TextTheme(
-        bodyText1: TextStyle(),
-        bodyText2: TextStyle(),
+        bodyText1: TextStyle(color: Colors.deepOrange),
+        bodyText2: TextStyle(color: Colors.deepOrange),
       ).apply(
-        bodyColor: Colors.white,
-        displayColor: Colors.white,
+        bodyColor: Colors.deepOrange,
+        displayColor: Colors.deepOrange,
       ),
       drawerTheme: DrawerThemeData(
         backgroundColor: Color.fromARGB(255, 85, 84, 84),
