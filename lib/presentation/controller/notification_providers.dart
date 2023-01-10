@@ -8,3 +8,6 @@ final getUserNotificationsProvider = StateNotifierProvider.family<GetUserNotific
 
 final getNotificationsCountProvider = StateNotifierProvider.family<GetNotificationsCountEvent,AsyncValue<int>, BuildContext
 >((ref, context) =>  GetNotificationsCountEvent(context));
+
+final deleteUserNotificationProvider = StateNotifierProvider.family<DeleteUserNotificationEvent,AsyncValue<dynamic>, BuildContext
+>((ref, context) =>  DeleteUserNotificationEvent(context));

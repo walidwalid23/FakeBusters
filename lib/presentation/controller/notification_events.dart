@@ -6,10 +6,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/exception_handling/failures.dart';
+import '../../core/exception_handling/success.dart';
 import '../../data/data_repository/notification_repository.dart';
 import '../../data/data_source/base_notification_remote_datasource.dart';
 import '../../data/data_source/notification_remote_datasource.dart';
 import '../../domain/domain_repository/base_notification_repository.dart';
+import '../../domain/usecases/delete_user_notification.dart';
 import '../../domain/usecases/get_user_notifications_usecase.dart';
 
 class GetUserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationEntity>>> {
@@ -92,7 +94,6 @@ class GetNotificationsCountEvent extends StateNotifier<AsyncValue<int>> {
   }
 
   void getUserNotificationsState() async {
-    print('in the state event');
     BaseNotificationRemoteDataSource notificationRemoteDataSource = NotificationRemoteDataSource();
     BaseNotificationRepository notificationRepository = NotificationRepository(notificationRemoteDataSource);
     GetUserNotificationsUseCase getUserNotificationsUseCase = GetUserNotificationsUseCase(notificationRepository);
@@ -111,3 +112,49 @@ class GetNotificationsCountEvent extends StateNotifier<AsyncValue<int>> {
         });
   }
 }
+
+
+class DeleteUserNotificationEvent extends StateNotifier<AsyncValue<dynamic>>{
+  // the initial state will be null cause nothing should be shown till the submit button is clicked
+  String? userToken;
+  BuildContext context;
+  DeleteUserNotificationEvent(this.context) : super(AsyncData(null)) {
+    SharedPreferences.getInstance().then((prefs) {
+      userToken = prefs.getString('userToken');
+// if the token doesn't exist move to login page without sending a request to the server
+      if (userToken == null) {
+        Fluttertoast.showToast(
+            msg: "Please Login Again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16);
+        context.go('/login');
+      }
+    });
+  }
+
+  void deleteUserNotificationState(String notificationID) async {
+    BaseNotificationRemoteDataSource notificationRemoteDataSource = NotificationRemoteDataSource();
+    BaseNotificationRepository notificationRepository = NotificationRepository(notificationRemoteDataSource);
+    DeleteUserNotificationUseCase deleteUserNotificationUseCase = DeleteUserNotificationUseCase(notificationRepository);
+
+    super.state = AsyncLoading();
+    Either<Failure, Success> data =
+    await deleteUserNotificationUseCase.excute(notificationID, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold((Failure failure) {
+      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+    }, (Success success) {
+
+   // NULL STATE SINCE THE DELETED NOTIFICATION WILL BE REMOVED AWAY ANYWAY
+      super.state = AsyncData(null);
+
+    });
+  }
+
+
+}
+

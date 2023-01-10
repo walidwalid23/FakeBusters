@@ -37,7 +37,7 @@ class HomeDrawer extends ConsumerWidget {
             title: Text('Home', style: StylesManager.textStyle1),
             trailing: FaIcon(FontAwesomeIcons.arrowRight),
             onTap: () {
-              context.go('/home');
+              context.push('/home');
             },
           ),
           ListTile(
