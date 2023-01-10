@@ -7,8 +7,8 @@ class AppThemeManager {
     secondaryHeaderColor: Color.fromARGB(255, 94, 94, 94),
     primaryColor: Colors.grey[700],
     scaffoldBackgroundColor: Color.fromARGB(255, 85, 84, 84),
-    colorScheme:
-        ColorScheme.light(primary: Colors.white, secondary: Color(0xFFF3A953)),
+    colorScheme: ColorScheme.dark(
+        primary: Colors.white, secondary: Color.fromARGB(255, 255, 255, 255)),
     iconTheme: IconThemeData(
       color: Colors.white,
     ),
@@ -22,8 +22,7 @@ class AppThemeManager {
     ),
     drawerTheme: DrawerThemeData(
       backgroundColor: Color.fromARGB(255, 85, 84, 84),
-      
-    ),    
+    ),
   );
 
   static final ThemeData lightMode = ThemeData(
