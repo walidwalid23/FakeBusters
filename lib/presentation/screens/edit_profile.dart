@@ -126,13 +126,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           ),
         ),
       ),
-      drawer: Builder(builder: (BuildContext context){
-        if(MediaQuery.of(context).size.width.toInt()<=1024){
-          return HomeDrawer();
-        }else{
-          return Rail();
-        }
-      }),
+      drawer: HomeDrawer(),
     );
   }
 }

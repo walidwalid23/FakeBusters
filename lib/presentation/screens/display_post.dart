@@ -48,14 +48,7 @@ class _DisplayPostState extends State<DisplayPost> {
 
 
       ),
-      drawer: Builder(builder: (BuildContext context){
-          if(MediaQuery.of(context).size.width.toInt()<=1024){
-          return HomeDrawer();
-          }else{
-          return Rail();
-          }
-        }
-    ),
+      drawer: HomeDrawer(),
       backgroundColor: Colors.grey[400],
 
 

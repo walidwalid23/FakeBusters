@@ -18,14 +18,8 @@ class NotificationsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar:AppBar(title:Text('Notifications'), centerTitle: true,),
-      drawer: Builder(builder: (BuildContext context){
-        if(MediaQuery.of(context).size.width.toInt()<=1024){
-          return HomeDrawer();
-        }else{
-          return Rail();
-        }
-      }),
-      body: ref.watch(userNotificationsProvider(context)).when(
+      drawer:HomeDrawer(),
+      body: ref.watch(getUserNotificationsProvider(context)).when(
           data: (List<NotificationEntity> notifications)=>
               ListView.builder(
               itemCount: notifications.length,
@@ -34,23 +28,28 @@ class NotificationsScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(leading: FaIcon(FontAwesomeIcons.circleExclamation),
                     title: Text(notifications[i].notificationText, style: StylesManager.textStyle1,),
-                    tileColor: Colors.orange,
                     subtitle: Text(notifications[i].notificationDate),
                     trailing:IconButton(
-                      icon:  FaIcon(FontAwesomeIcons.x,color: Colors.black,),
-                        onPressed: (){
-                          //DELETE THE NOTIFICATION
-                          ref.read(userNotificationsProvider(context).notifier).deleteUserNotificationState(notifications[i].notificationID);
-                        }
+                      icon:  ref.watch(deleteUserNotificationProvider(context)).when(
+                          data: (data)=>FaIcon(FontAwesomeIcons.x,
+                            color: Colors.black,),
+                          error: (error,st)=>Text(error.toString()),
+                          loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!,size: 20,)),
+                      onPressed: (){
+                        //DELETE THE NOTIFICATION
+                        ref.read(deleteUserNotificationProvider(context).notifier).deleteUserNotificationState(notifications[i].notificationID);
 
-                     )),
 
-                    );}
+                      },
+                    ) ,
+                    tileColor: Colors.orange,
+
+
                   ),
-
+                );
+              }),
           error: (error, trace)=> Center(child: Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
           loading: ()=> Center(child: SpinKitRing(color: ColorsManager.themeColor1!)))
-                );
-              }
+    );
   }
-
+}

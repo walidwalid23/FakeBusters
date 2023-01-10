@@ -34,13 +34,7 @@ class _SettingsState extends ConsumerState<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Builder(builder: (BuildContext context) {
-          if (MediaQuery.of(context).size.width.toInt() <= 1024) {
-            return HomeDrawer();
-          } else {
-            return Rail();
-          }
-        }),
+        drawer: HomeDrawer(),
         body: SafeArea(
             child: Form(
                 key: formkey,
