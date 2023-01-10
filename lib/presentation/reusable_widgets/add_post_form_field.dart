@@ -18,6 +18,7 @@ class AddPostTextInputField extends StatelessWidget {
         child: TextFormField(
           controller: textFieldController,
           maxLength: 60,
+          cursorColor: Colors.black,
           decoration: InputDecoration(
             labelText: label,
             labelStyle: TextStyle(color: ColorsManager.themeColor1),
