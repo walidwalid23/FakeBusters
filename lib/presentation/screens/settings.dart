@@ -24,13 +24,16 @@ class _SettingsState extends ConsumerState<Settings> {
   var passwordController = TextEditingController();
   bool status = false;
   bool showPassword = true;
-  bool isDarkModeEnabled = false;
+  bool? isDarkModeEnabled;
   var formKey = GlobalKey<FormState>();
   Map<String,String> updatedData = {};
 
 
+
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
         drawer: HomeDrawer(),
         body: SafeArea(
@@ -176,8 +179,24 @@ class _SettingsState extends ConsumerState<Settings> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        DayNightSwitcher(
-                          isDarkModeEnabled: isDarkModeEnabled,
+                  // SET THE INITIAL THEME BUTTON
+                  ref.watch(themeProvider).when(
+                      data: (data){ if(data=="light"){
+                        isDarkModeEnabled=false;
+                        return  DayNightSwitcher(
+                isDarkModeEnabled: isDarkModeEnabled!,
+                onStateChanged: (isDarkModeEnabled) {
+                setState(() {
+                this.isDarkModeEnabled = isDarkModeEnabled;
+                ref.read(themeProvider.notifier).setThemeState(
+                isDarkModeEnabled ? 'dark' : 'light');
+                });
+                },
+                ); }
+                      else{
+                        isDarkModeEnabled =true;
+                        return  DayNightSwitcher(
+                          isDarkModeEnabled: isDarkModeEnabled!,
                           onStateChanged: (isDarkModeEnabled) {
                             setState(() {
                               this.isDarkModeEnabled = isDarkModeEnabled;
@@ -185,7 +204,13 @@ class _SettingsState extends ConsumerState<Settings> {
                                   isDarkModeEnabled ? 'dark' : 'light');
                             });
                           },
-                        ),
+                        );
+                      }
+                      },
+                      error: (err, st)=>Text(err.toString()),
+                      loading: ()=>  SpinKitRing(color: ColorsManager.themeColor1!))
+                      ,
+
                       ],
                     ),
                     SizedBox(
