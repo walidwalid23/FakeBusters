@@ -28,6 +28,7 @@ class _SearchState extends ConsumerState<Search>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+<<<<<<< Updated upstream
           title: TextField(
             cursorColor: Colors.black,
             decoration: InputDecoration(
@@ -40,6 +41,27 @@ class _SearchState extends ConsumerState<Search>
               ref.read(searchPostsByProductNameProvider(context).notifier)
                   .searchPostsByProductNameState(productName);
             },
+=======
+          title: SizedBox(
+            height: 50,
+            child: TextField(
+              cursorColor: Colors.black,
+              decoration: InputDecoration(
+                  hintText: 'Search For Products',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 20),
+                    borderRadius: BorderRadius.circular(30.0),
+                  )),
+              onSubmitted: (String productName) {
+                if (productName != "") {
+                  ref
+                      .read(searchPostsByProductNameProvider(context).notifier)
+                      .searchPostsByProductNameState(productName);
+                }
+              },
+            ),
+>>>>>>> Stashed changes
           ),
         ),
         body: ref.watch(searchPostsByProductNameProvider(context)).when(
