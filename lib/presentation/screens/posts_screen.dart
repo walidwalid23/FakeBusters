@@ -1,4 +1,3 @@
-import 'package:fakebustersapp/presentation/reusable_widgets/Navigation_rail.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +6,8 @@ import '../../core/utils/constants/colors_manager.dart';
 import '../../domain/entities/post.dart';
 import '../controller/post_providers.dart';
 import '../reusable_widgets/post_widget.dart';
+import 'package:shimmer/shimmer.dart';
+
 
 class PostsScreen extends ConsumerWidget {
   PostsScreen({Key? key, required this.categories}) : super(key: key);
@@ -37,13 +38,30 @@ class PostsScreen extends ConsumerWidget {
                        isCurrentUserUploader: posts[index].isCurrentUserUploader,
                        hasCurrentUserVoted: posts[index].hasCurrentUserVoted,
                        categories: categories,
+                       isFromDisplay: false,
 
                      );
                   }
               );
             },
             error: (error,st)=>Center(child:Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
-            loading: ()=>Center(child: SpinKitRing(color: ColorsManager.themeColor1!)))
+            loading: ()=> Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: ColorsManager.themeColor1!,
+              child: ListView.builder(
+                itemCount: 8,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 1.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const SizedBox(height: 300),
+                  );
+                },
+              ),
+            )
+        )
       ),
       drawer: HomeDrawer(),
       backgroundColor: Colors.grey[400],

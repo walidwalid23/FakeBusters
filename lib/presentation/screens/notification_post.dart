@@ -36,6 +36,8 @@ class DisplayNotificationPost extends ConsumerWidget {
                 productDate: DatesManager.currentDate+" "+DatesManager.currentTime,
                 isCurrentUserUploader: true,
                 hasCurrentUserVoted: true,
+                isFromDisplay: true,
+
               ),
             ),
             error: (error,st)=>Center(child:Text(error.toString(),style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),

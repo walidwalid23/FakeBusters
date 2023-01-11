@@ -22,7 +22,8 @@ class PostWidget extends ConsumerWidget {
      required this.postID,
      required this.isCurrentUserUploader,
      required this.hasCurrentUserVoted,
-     this.categories
+     this.categories,
+     required this.isFromDisplay,
 
 
    }) : super(key: key);
@@ -39,6 +40,7 @@ class PostWidget extends ConsumerWidget {
    bool hasCurrentUserVoted;
    String dropDownValue = "select";
    List<String>? categories;
+   bool isFromDisplay;
 
 
   @override
@@ -76,7 +78,9 @@ class PostWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            trailing: (isCurrentUserUploader)?
+            trailing:
+            (isFromDisplay)?FaIcon(FontAwesomeIcons.bullhorn):
+            (isCurrentUserUploader)?
                     IconButton(icon: FaIcon(FontAwesomeIcons.trash, color: Colors.red,),
                       onPressed: (){
                         //delete post

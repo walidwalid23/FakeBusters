@@ -73,6 +73,8 @@ class _SearchState extends ConsumerState<Search>
                         isCurrentUserUploader:
                             posts[index].isCurrentUserUploader,
                         hasCurrentUserVoted: posts[index].hasCurrentUserVoted,
+                        isFromDisplay: true,
+
                       );
                     });
               },

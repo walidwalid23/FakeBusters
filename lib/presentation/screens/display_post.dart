@@ -27,6 +27,7 @@ class DisplayPost extends StatelessWidget {
           productName: postData.productName,
           brandName: postData.brandName,
           postID: postData.postID??"",
+          isFromDisplay: true,
           // since this widget will be displayed when the user submit a post show the current date
           productDate: DatesManager.currentDate+" "+DatesManager.currentTime,
             isCurrentUserUploader: true,
