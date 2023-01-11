@@ -36,12 +36,13 @@ class _SearchState extends ConsumerState<Search>
                   hintText: 'Search For Products',
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 20),
-                      borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(color: Colors.black, width: 20),
+                    borderRadius: BorderRadius.circular(30.0),
                   )),
               onSubmitted: (String productName) {
-                if(productName!="") {
-                  ref.read(searchPostsByProductNameProvider(context).notifier)
+                if (productName != "") {
+                  ref
+                      .read(searchPostsByProductNameProvider(context).notifier)
                       .searchPostsByProductNameState(productName);
                 }
               },
