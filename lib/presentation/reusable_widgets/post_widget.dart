@@ -73,8 +73,10 @@ class PostWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            trailing: IconButton(icon: FaIcon(FontAwesomeIcons.ellipsis),
-              onPressed: (){},),),
+            trailing: (isCurrentUserUploader)? IconButton(icon: FaIcon(FontAwesomeIcons.ellipsis),
+              onPressed: (){
+              //delete post
+              },):Icon(Icons.account_box_rounded),),
           Container(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
