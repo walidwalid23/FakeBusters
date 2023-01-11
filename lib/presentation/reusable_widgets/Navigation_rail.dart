@@ -66,7 +66,7 @@ class _RailState extends ConsumerState<Rail> {
                 ),
               ),
             ],
-            selectedIndex: currentIndex,
+            selectedIndex: null,
             onDestinationSelected: (index){
               setState(() {
                 currentIndex=index;
