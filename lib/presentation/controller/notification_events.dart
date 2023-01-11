@@ -91,7 +91,7 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
       print("notifications:");
       print(notifications);
       state = AsyncData(notifications);
-      print(state);
+
 
 
 

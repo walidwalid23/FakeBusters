@@ -51,6 +51,7 @@ class _HomeState extends State<Home> {
         ],
          currentIndex: currentPageIndex,
          onTap: (int pageIndex){
+
           print(pageIndex);
           pageController.animateToPage(pageIndex,
               duration: Duration(milliseconds: ValuesManager.swipePageAnimationDuration),

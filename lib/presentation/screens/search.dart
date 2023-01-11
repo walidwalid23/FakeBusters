@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/post.dart';
 import '../controller/post_providers.dart';
+import '../reusable_widgets/home_drawer.dart';
 import '../reusable_widgets/post_widget.dart';
 
 class Search extends ConsumerStatefulWidget {
@@ -41,8 +42,7 @@ class _SearchState extends ConsumerState<Search>
                   )),
               onSubmitted: (String productName) {
                 if (productName != "") {
-                  ref
-                      .read(searchPostsByProductNameProvider(context).notifier)
+                  ref.read(searchPostsByProductNameProvider(context).notifier)
                       .searchPostsByProductNameState(productName);
                 }
               },
@@ -87,7 +87,8 @@ class _SearchState extends ConsumerState<Search>
                   child: RotationTransition(
                       turns: _animationController,
                       child: Image.asset('assets/images/search.png'))),
-            ));
+            ),
+        drawer: HomeDrawer());
   }
 
   @override

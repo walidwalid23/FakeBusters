@@ -20,7 +20,7 @@ class AddPostTextInputField extends StatelessWidget {
           maxLength: 60,
           cursorColor: Colors.black,
           decoration: InputDecoration(
-            labelText: label,
+            hintText: label,
             labelStyle: TextStyle(color: ColorsManager.themeColor1),
             border: OutlineInputBorder(
               borderSide: BorderSide(

@@ -18,9 +18,6 @@ final incrementOriginalVotesProvider = StateNotifierProvider.family<IncrementOri
 final getPostVotesProvider = StateNotifierProvider.family<GetPostVotesEvent,AsyncValue<Vote>, String
 >((ref, postID) =>  GetPostVotesEvent(postID));
 
-final deletePostProvider = StateNotifierProvider.family<DeletePostEvent,AsyncValue<dynamic>, BuildContext
->((ref, context) =>  DeletePostEvent(context));
-
 
 final getPostByIDProvider = StateNotifierProvider.family<GetPostByIDEvent,AsyncValue<Post>, String
 >((ref, postID) =>  GetPostByIDEvent(postID));

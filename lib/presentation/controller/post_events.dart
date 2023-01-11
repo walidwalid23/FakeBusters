@@ -120,6 +120,43 @@ class FindPostsByCategoriesEvent extends StateNotifier<AsyncValue<List<Post>>> {
 
     });
   }
+
+  void deletePostByIDState(String postID) async {
+    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
+    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
+    DeletePostByIDUseCase deletePostByIDUseCase = DeletePostByIDUseCase(postRepository);
+
+    Either<Failure, Success> data =
+    await deletePostByIDUseCase.excute(postID, userToken!);
+    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+    data.fold(
+            (Failure failure) {
+          super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+        },
+            (Success success) {
+              Fluttertoast.showToast(
+                  msg: success.successMessage,
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 3,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16);
+              // DELETE THE POST FROM THE CURRENT LIST THEN UPDATE ITS STATE
+              List<Post> posts = state.value!; // = ASYNCDATA(value).value
+              posts.removeWhere((post) => post.postID == postID);
+
+              print(posts);
+              super.state = AsyncData(posts);
+
+
+        });
+  }
+
+
+
+
+
 }
 
 class SearchPostsByProductNameEvent extends StateNotifier<AsyncValue<dynamic>> {
@@ -313,53 +350,3 @@ class IncrementOriginalVotesEvent extends StateNotifier<AsyncValue<dynamic>> {
 
 
 
-class DeletePostEvent extends StateNotifier<AsyncValue<dynamic>> {
-  // the initial state will be null cause nothing should be shown till the submit button is clicked
-  String? userToken;
-  BuildContext context;
-  DeletePostEvent(this.context) : super(AsyncData(null)) {
-    SharedPreferences.getInstance().then((prefs) {
-      userToken = prefs.getString('userToken');
-      // if the token doesn't exist move to login page without sending a request to the server
-      if (userToken == null) {
-        Fluttertoast.showToast(
-            msg: "Please Delete Again",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16);
-        context.go('/login');
-      }
-    });
-  }
-
-  void deletePostState(String postID) async {
-    BasePostRemoteDataSource postRemoteDataSource = PostRemoteDataSource();
-    BasePostRepository postRepository = PostRepository(postRemoteDataSource);
-    DeletePostUseCase deletePostUseCase = DeletePostUseCase(postRepository);
-
-    super.state = AsyncLoading();
-    Either<Failure, Success> data =
-        await deletePostUseCase.excute(postID, userToken!);
-    // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
-    data.fold((Failure failure) {
-      super.state = AsyncError(failure.errorMessage, failure.stackTrace);
-    }, (Success success) {
-      //we don't need to change the state when succeed cause we will move to another screen
-      // but we set it to null to stop loading in case the user went to previous screen
-      super.state = AsyncData(null);
-      // go to home page and show signed up alert
-      Fluttertoast.showToast(
-          msg: success.successMessage,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16);
-      context.push('/displaypost', extra: postID);
-    });
-  }
-}

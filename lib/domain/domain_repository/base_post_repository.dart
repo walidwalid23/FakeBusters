@@ -20,7 +20,7 @@ abstract class BasePostRepository {
   Future<Either<Failure, List<Post>>> findPostsByCategories(
       List<String> categories, String userToken);
 
-  Future<Either<Failure, Success>> deletePost(String postID, String userToken);
+  Future<Either<Failure, Success>> deletePostByID(String postID, String userToken);
 
   Future<Either<Failure, List<Post>>> searchPostsByProductName(
       String productName, String userToken);

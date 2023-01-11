@@ -139,14 +139,14 @@ class PostRepository extends BasePostRepository {
   }
 
   @override
-  Future<Either<Failure, Success>> deletePost(
+  Future<Either<Failure, Success>> deletePostByID(
       String postID, String userToken) async {
     try {
-      String incrementOriginalVotesSuccessMessage =
-          await postRemoteDataSource.deletePost(postID, userToken);
+      String deletePostSuccessMessage =
+          await postRemoteDataSource.deletePostByID(postID, userToken);
       //if no exception was thrown then the method has succeeded
       return Right(
-          ServerSuccess(successMessage: incrementOriginalVotesSuccessMessage));
+          ServerSuccess(successMessage: deletePostSuccessMessage));
     } on ConnectionException catch (exception, stackTrace) {
       return Left(ConnectionFailure(
           errorMessage: exception.errorMessage, stackTrace: stackTrace));

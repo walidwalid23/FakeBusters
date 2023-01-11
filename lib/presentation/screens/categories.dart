@@ -33,6 +33,7 @@ class _CategoriesState extends ConsumerState<Categories> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -210,6 +211,7 @@ class _CategoriesState extends ConsumerState<Categories> {
             ),
           ),
           drawer: HomeDrawer(),
+
         );
       },
     );
