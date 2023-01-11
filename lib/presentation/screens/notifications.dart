@@ -38,7 +38,7 @@ class NotificationsScreen extends ConsumerWidget {
                     subtitle: Text(notifications[i].notificationDate),
                     trailing:IconButton(
                       icon:FaIcon(FontAwesomeIcons.x,
-                        color: Colors.black,
+                        color: Colors.red,
                        ),
                         onPressed: (){
                       //DELETE THE NOTIFICATION

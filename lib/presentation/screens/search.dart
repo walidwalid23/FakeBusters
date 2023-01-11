@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/post.dart';
 import '../controller/post_providers.dart';
+import '../reusable_widgets/home_drawer.dart';
 import '../reusable_widgets/post_widget.dart';
 
 class Search extends ConsumerStatefulWidget {
@@ -28,18 +29,24 @@ class _SearchState extends ConsumerState<Search>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: TextField(
-            cursorColor: Colors.black,
-            decoration: InputDecoration(
-                hintText: 'Search For Products',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
+          title: SizedBox(
+            height: 50,
+            child: TextField(
+              cursorColor: Colors.black,
+              decoration: InputDecoration(
+                  hintText: 'Search For Products',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 20),
-                    borderRadius: BorderRadius.circular(90.0))),
-            onSubmitted: (String productName) {
-              ref.read(searchPostsByProductNameProvider(context).notifier)
-                  .searchPostsByProductNameState(productName);
-            },
+                    borderRadius: BorderRadius.circular(30.0),
+                  )),
+              onSubmitted: (String productName) {
+                if (productName != "") {
+                  ref.read(searchPostsByProductNameProvider(context).notifier)
+                      .searchPostsByProductNameState(productName);
+                }
+              },
+            ),
           ),
         ),
         body: ref.watch(searchPostsByProductNameProvider(context)).when(
@@ -80,7 +87,8 @@ class _SearchState extends ConsumerState<Search>
                   child: RotationTransition(
                       turns: _animationController,
                       child: Image.asset('assets/images/search.png'))),
-            ));
+            ),
+        drawer: HomeDrawer());
   }
 
   @override

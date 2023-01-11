@@ -36,6 +36,7 @@ class PostsScreen extends ConsumerWidget {
                        postID: posts[index].postID,
                        isCurrentUserUploader: posts[index].isCurrentUserUploader,
                        hasCurrentUserVoted: posts[index].hasCurrentUserVoted,
+                       categories: categories,
 
                      );
                   }

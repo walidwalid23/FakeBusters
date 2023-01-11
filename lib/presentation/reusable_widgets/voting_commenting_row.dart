@@ -62,7 +62,6 @@ class VotingCommentingRow extends ConsumerWidget {
                   SizedBox(
                     width: 2,
                   ),
-                  FaIcon(FontAwesomeIcons.comment, color: Colors.deepOrange,size:40,)
 
 
                 ]
@@ -180,7 +179,6 @@ class VotingCommentingRow extends ConsumerWidget {
           SizedBox(
             width: 2,
           ),
-          FaIcon(FontAwesomeIcons.comment, color: Colors.deepOrange,size:40,)
 
         ],);
     }

@@ -21,7 +21,8 @@ class PostWidget extends ConsumerWidget {
    required this.uploaderImage,
      required this.postID,
      required this.isCurrentUserUploader,
-     required this.hasCurrentUserVoted
+     required this.hasCurrentUserVoted,
+     this.categories
 
 
    }) : super(key: key);
@@ -36,6 +37,8 @@ class PostWidget extends ConsumerWidget {
    String postID;
    bool isCurrentUserUploader;
    bool hasCurrentUserVoted;
+   String dropDownValue = "select";
+   List<String>? categories;
 
 
   @override
@@ -73,8 +76,33 @@ class PostWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            trailing: IconButton(icon: FaIcon(FontAwesomeIcons.ellipsis),
-              onPressed: (){},),),
+            trailing: (isCurrentUserUploader)?
+                    IconButton(icon: FaIcon(FontAwesomeIcons.trash, color: Colors.red,),
+                      onPressed: (){
+                        //delete post
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Warning", style: TextStyle(color: Colors.red),),
+                              content: Text("Are You Sure You Want To Delete This Post?"),
+                              actions: [
+                                ElevatedButton(
+                                  child: Text("Delete",style: TextStyle(color: Colors.red)),
+                                  onPressed: () {
+                                    ref.read(findPostsByCategoriesProvider(categories!)
+                                        .notifier).deletePostByIDState(postID);
+                                    Navigator.pop(context);
+                                  }),
+
+                                ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("Cancel",style: TextStyle(color: Colors.red)))
+                              ],
+                            );;
+                          },
+                        );
+                      },
+                  )
+                  : FaIcon(FontAwesomeIcons.bullhorn) ),
           Container(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -160,7 +188,7 @@ class PostWidget extends ConsumerWidget {
                       SizedBox(
                         width: 270,
                       ),
-                      Text("12 Comments"),
+
                     ],
                   )
                 ],

@@ -13,6 +13,6 @@ abstract class BasePostRemoteDataSource {
   Future<Vote> incrementFakeVotes(String postID, String userToken);
   Future<Vote> incrementOriginalVotes(String postID, String userToken);
   Future<Vote> getPostVotes(String postID, String userToken);
-  Future<String> deletePost(String postID, String userToken);
+  Future<String> deletePostByID(String postID, String userToken);
   Future<Post> getPostByID(String postID, String userToken);
 }

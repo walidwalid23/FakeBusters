@@ -331,12 +331,12 @@ class PostRemoteDataSource extends BasePostRemoteDataSource {
   }
 
   @override
-  Future<String> deletePost(String postID, String userToken) async {
+  Future<String> deletePostByID(String postID, String userToken) async {
     try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = userToken;
       var response =
-          await dio.post(ServerManager.baseUrl + "/posts/uploadPost", data: {
+          await dio.post(ServerManager.baseUrl + "/posts/deletePostByID", data: {
         "postID": postID,
       });
 
