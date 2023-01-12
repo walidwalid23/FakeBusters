@@ -106,10 +106,10 @@ class UserRepository extends BaseUserRepository {
   @override
   Future<Either<Failure, User>> getUserData(String userToken) async {
     try {
-      String tokenVerifiedSuccessMessage =
-          await userRemoteDataSource.verifyUserToken(userToken);
+      User getDataSuccessMessage =
+          await userRemoteDataSource.getUserData(userToken);
       //if no exception was thrown then the method has succeeded
-      return Right(ServerSuccess(successMessage: tokenVerifiedSuccessMessage));
+      return Right(getDataSuccessMessage);
     } on ConnectionException catch (exception, stackTrace) {
       return Left(ConnectionFailure(
           errorMessage: exception.errorMessage, stackTrace: stackTrace));

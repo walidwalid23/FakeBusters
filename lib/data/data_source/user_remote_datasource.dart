@@ -279,11 +279,12 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
       throw GenericException(errorMessage: "Unknown Exception Has Occurred");
     }
   }
+
   @override
-  Future<User> getUserData(String token) async {
+  Future<User> getUserData(String userToken) async {
     try {
       Dio dio = new Dio();
-      dio.options.headers['user-token'] = token;
+      dio.options.headers['user-token'] = userToken;
       var response =
           await dio.post(ServerManager.baseUrl + "/users/verifyUserToken");
 
