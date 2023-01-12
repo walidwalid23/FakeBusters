@@ -10,7 +10,7 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserRemoteDataSource extends BaseUserRemoteDataSource{
+class UserRemoteDataSource extends BaseUserRemoteDataSource {
   @override
   Future<String> signUp(User user) async {
     // IF THE USER DIDN'T UPLOAD IGNORE IT AND THE SERVER WILL PUT A DEFAULT IMAGE
@@ -31,17 +31,15 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         "username": user.username,
         "password": user.password
       });
-    }
-    else {
-      formData = FormData.fromMap({
-        "username": user.username,
-        "password": user.password
-      });
+    } else {
+      formData = FormData.fromMap(
+          {"username": user.username, "password": user.password});
     }
     // send a post request to the server
     try {
       Dio dio = new Dio();
-      var response = await dio.post(ServerManager.baseUrl + "/users/signup", data: formData);
+      var response = await dio.post(ServerManager.baseUrl + "/users/signup",
+          data: formData);
       int statusCode = response.statusCode!;
       print("reponse: ");
       print(response.data);
@@ -64,9 +62,11 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
     }
     // CATCHING THE DIO EXCEPTIONS AND THROWING OUR CUSTOM EXCEPTIONS
     on DioError catch (e) {
-      if ((e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout)) {
+      if ((e.type == DioErrorType.connectTimeout ||
+          e.type == DioErrorType.receiveTimeout)) {
         // handle couldn't connect to server error (it has nothing to do with the internet being available)
-        throw ConnectionException(errorMessage:"Couldn't Connect to the Server");
+        throw ConnectionException(
+            errorMessage: "Couldn't Connect to the Server");
       }
       // status code that falls out of the range of 2xx and is also not 304.
       //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
@@ -75,33 +75,26 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         print(e.response!.data);
         throw ServerException(
             networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
-      }
-      else{
+      } else {
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
         //rethrow;
         // OR CREATE A GENERIC ERROR MESSAGE
-        throw GenericException(errorMessage:"Unknown Exception Has Occurred");
-    }
-
+        throw GenericException(errorMessage: "Unknown Exception Has Occurred");
       }
-    catch(error){
+    } catch (error) {
       // CATCH ANY OTHER LEFT EXCEPTION
       print(error);
-      throw GenericException(errorMessage:"Unknown Exception Has Occurred");
+      throw GenericException(errorMessage: "Unknown Exception Has Occurred");
     }
   }
 
-
-
   @override
-  Future<String> login(User user) async{
+  Future<String> login(User user) async {
     // send a post request to the server
     try {
       Dio dio = new Dio();
-      var response = await dio.post(ServerManager.baseUrl+ "/users/login", data: {
-        "username": user.username,
-        "password": user.password
-      });
+      var response = await dio.post(ServerManager.baseUrl + "/users/login",
+          data: {"username": user.username, "password": user.password});
 
       int statusCode = response.statusCode!;
 
@@ -111,7 +104,7 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         // store the user token using sharedPreferences
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('userToken', userToken);
-          print(response.data['successMessage']);
+        print(response.data['successMessage']);
         return response.data['successMessage'];
       }
       // since the server didn't return 200 then there must have been a problem
@@ -122,9 +115,10 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
     }
     // CATCHING THE DIO EXCEPTIONS AND THROWING OUR CUSTOM EXCEPTIONS
     on DioError catch (e) {
-      if ((e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout)) {
+      if ((e.type == DioErrorType.connectTimeout ||
+          e.type == DioErrorType.receiveTimeout)) {
         // handle no connection error
-        throw ConnectionException(errorMessage:"No Internet Connection");
+        throw ConnectionException(errorMessage: "No Internet Connection");
       }
       // this condition applies if status code falls out of the range of 2xx and is also not 304.
       //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
@@ -133,27 +127,25 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         print(e.response!.data);
         throw ServerException(
             networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
-      }
-      else{
+      } else {
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
-       // rethrow;
+        // rethrow;
         // OR CREATE A GENERIC ERROR MESSAGE
-        throw GenericException(errorMessage:"Unknown Exception Has Occurred");
-
+        throw GenericException(errorMessage: "Unknown Exception Has Occurred");
       }
-    }
-    catch(error){
+    } catch (error) {
       // CATCH ANY OTHER LEFT EXCEPTION
-      throw GenericException(errorMessage:"Unknown Exception Has Occurred");
+      throw GenericException(errorMessage: "Unknown Exception Has Occurred");
     }
   }
 
   @override
-  Future<String> verifyUserToken(String token) async{
+  Future<String> verifyUserToken(String token) async {
     try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = token;
-      var response = await dio.post(ServerManager.baseUrl+ "/users/verifyUserToken");
+      var response =
+          await dio.post(ServerManager.baseUrl + "/users/verifyUserToken");
 
       int statusCode = response.statusCode!;
 
@@ -170,9 +162,10 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
     }
     // CATCHING THE DIO EXCEPTIONS AND THROWING OUR CUSTOM EXCEPTIONS
     on DioError catch (e) {
-      if ((e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout)) {
+      if ((e.type == DioErrorType.connectTimeout ||
+          e.type == DioErrorType.receiveTimeout)) {
         // handle no connection error
-        throw ConnectionException(errorMessage:"No Internet Connection");
+        throw ConnectionException(errorMessage: "No Internet Connection");
       }
       // this condition applies if status code falls out of the range of 2xx and is also not 304.
       //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
@@ -181,28 +174,27 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         print(e.response!.data);
         throw ServerException(
             networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
-      }
-      else{
+      } else {
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
         // rethrow;
         // OR CREATE A GENERIC ERROR MESSAGE
-        throw GenericException(errorMessage:"Unknown Exception Has Occurred");
+        throw GenericException(errorMessage: "Unknown Exception Has Occurred");
       }
-
-    }
-    catch(error){
+    } catch (error) {
       // CATCH ANY OTHER LEFT EXCEPTION
-      throw GenericException(errorMessage:"Unknown Exception Has Occurred");
+      throw GenericException(errorMessage: "Unknown Exception Has Occurred");
     }
   }
 
   @override
-  Future<String> EditProfile(Map<String, String> updatedData, String userToken) async{
+  Future<String> EditProfile(
+      Map<String, String> updatedData, String userToken) async {
     // send a post request to the server
     try {
       Dio dio = new Dio();
       dio.options.headers['user-token'] = userToken;
-      var response = await dio.post(ServerManager.baseUrl+ "/users/update", data: updatedData);
+      var response = await dio.post(ServerManager.baseUrl + "/users/update",
+          data: updatedData);
 
       int statusCode = response.statusCode!;
 
@@ -217,9 +209,10 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
     }
     // CATCHING THE DIO EXCEPTIONS AND THROWING OUR CUSTOM EXCEPTIONS
     on DioError catch (e) {
-      if ((e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout)) {
+      if ((e.type == DioErrorType.connectTimeout ||
+          e.type == DioErrorType.receiveTimeout)) {
         // handle no connection error
-        throw ConnectionException(errorMessage:"No Internet Connection");
+        throw ConnectionException(errorMessage: "No Internet Connection");
       }
       // this condition applies if status code falls out of the range of 2xx and is also not 304.
       //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
@@ -228,21 +221,108 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
         print(e.response!.data);
         throw ServerException(
             networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
-      }
-      else{
+      } else {
         // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
         // rethrow;
         // OR CREATE A GENERIC ERROR MESSAGE
-        throw GenericException(errorMessage:"Unknown Exception Has Occurred");
-
+        throw GenericException(errorMessage: "Unknown Exception Has Occurred");
       }
-    }
-    catch(error){
+    } catch (error) {
       // CATCH ANY OTHER LEFT EXCEPTION
-      throw GenericException(errorMessage:"Unknown Exception Has Occurred");
+      throw GenericException(errorMessage: "Unknown Exception Has Occurred");
     }
   }
 
-@Override
+  @override
+  Future<User> getUserToken(String token) async {
+    try {
+      Dio dio = new Dio();
+      dio.options.headers['user-token'] = token;
+      var response =
+          await dio.post(ServerManager.baseUrl + "/users/verifyUserToken");
 
+      int statusCode = response.statusCode!;
+
+      // The token has been successfully verified
+      if (statusCode == 200) {
+        return response.data['successMessage'];
+      }
+
+      // since the server didn't return 200 then there must have been a problem
+      else {
+        throw ServerException(
+            networkErrorModel: NetworkErrorModel.fromJson(response.data));
+      }
+    }
+    // CATCHING THE DIO EXCEPTIONS AND THROWING OUR CUSTOM EXCEPTIONS
+    on DioError catch (e) {
+      if ((e.type == DioErrorType.connectTimeout ||
+          e.type == DioErrorType.receiveTimeout)) {
+        // handle no connection error
+        throw ConnectionException(errorMessage: "No Internet Connection");
+      }
+      // this condition applies if status code falls out of the range of 2xx and is also not 304.
+      //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
+      else if (e.response != null) {
+        //this is the same data as response.data
+        print(e.response!.data);
+        throw ServerException(
+            networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
+      } else {
+        // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
+        // rethrow;
+        // OR CREATE A GENERIC ERROR MESSAGE
+        throw GenericException(errorMessage: "Unknown Exception Has Occurred");
+      }
+    } catch (error) {
+      // CATCH ANY OTHER LEFT EXCEPTION
+      throw GenericException(errorMessage: "Unknown Exception Has Occurred");
+    }
+  }
+  @override
+  Future<User> getUserData(String token) async {
+    try {
+      Dio dio = new Dio();
+      dio.options.headers['user-token'] = token;
+      var response =
+          await dio.post(ServerManager.baseUrl + "/users/verifyUserToken");
+
+      int statusCode = response.statusCode!;
+
+      // The token has been successfully verified
+      if (statusCode == 200) {
+        return response.data['successMessage'];
+      }
+
+      // since the server didn't return 200 then there must have been a problem
+      else {
+        throw ServerException(
+            networkErrorModel: NetworkErrorModel.fromJson(response.data));
+      }
+    }
+    // CATCHING THE DIO EXCEPTIONS AND THROWING OUR CUSTOM EXCEPTIONS
+    on DioError catch (e) {
+      if ((e.type == DioErrorType.connectTimeout ||
+          e.type == DioErrorType.receiveTimeout)) {
+        // handle no connection error
+        throw ConnectionException(errorMessage: "No Internet Connection");
+      }
+      // this condition applies if status code falls out of the range of 2xx and is also not 304.
+      //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
+      else if (e.response != null) {
+        //this is the same data as response.data
+        print(e.response!.data);
+        throw ServerException(
+            networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
+      } else {
+        // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
+        // rethrow;
+        // OR CREATE A GENERIC ERROR MESSAGE
+        throw GenericException(errorMessage: "Unknown Exception Has Occurred");
+      }
+    } catch (error) {
+      // CATCH ANY OTHER LEFT EXCEPTION
+      throw GenericException(errorMessage: "Unknown Exception Has Occurred");
+    }
+  }
 }

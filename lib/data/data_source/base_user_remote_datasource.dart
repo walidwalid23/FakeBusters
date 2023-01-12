@@ -5,5 +5,5 @@ abstract class BaseUserRemoteDataSource{
   Future<String> login(User user);
   Future<String> verifyUserToken(String token);
   Future<String> EditProfile(Map<String,String> updatedData,String userToken);
-  Future<User>getUserData();
+  Future<User>getUserData(String token);
 }

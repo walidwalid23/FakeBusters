@@ -10,5 +10,5 @@ abstract class BaseUserRepository {
   Future<Either<Failure, Success>> logout();
   Future<Either<Failure, Success>> EditProfile(
       Map<String, String> updatedData, String userToken);
-  Future<Either<Failure, User>> getUserData(String token);
+  Future<Either<Failure, User>> getUserData(String userToken);
 }
