@@ -1,10 +1,7 @@
-import 'package:fakebustersapp/presentation/reusable_widgets/post_choice_button.dart';
 import 'package:fakebustersapp/presentation/reusable_widgets/voting_commenting_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../core/utils/constants/colors_manager.dart';
 import '../../core/utils/constants/server_manager.dart';
 import '../../core/utils/constants/styles_manager.dart';

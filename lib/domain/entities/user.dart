@@ -2,8 +2,8 @@ import 'dart:io';
 
 class User{
   String username;
-  File? profileImage;
-  String password;
+  dynamic profileImage;
+  String? password;
   int? votes;
-  User({required this.username, this.profileImage, required this.password, this.votes});
+  User({required this.username, this.profileImage, this.password, this.votes});
 }

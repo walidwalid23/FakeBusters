@@ -2,6 +2,8 @@ import 'package:fakebustersapp/presentation/controller/user_events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/entities/user.dart';
+
 final userSignUpProvider = StateNotifierProvider<UserSignUpEvent, AsyncValue<dynamic>>((ref) => UserSignUpEvent());
 
 final userLoginProvider = StateNotifierProvider<UserLoginEvent, AsyncValue<dynamic>>((ref) => UserLoginEvent());
@@ -12,3 +14,4 @@ final userLogoutProvider = StateNotifierProvider<UserLogoutEvent, AsyncValue<dyn
 
 final editProfileProvider = StateNotifierProvider.family<EditProfileEvent, AsyncValue<dynamic>, BuildContext>((ref, context) => EditProfileEvent(context));
 
+final getUserDataProvider = StateNotifierProvider.family<GetUserDataEvent, AsyncValue<User>, BuildContext>((ref, context) => GetUserDataEvent(context));

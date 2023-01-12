@@ -208,7 +208,7 @@ class _SettingsState extends ConsumerState<Settings> {
                       }
                       },
                       error: (err, st)=>Text(err.toString()),
-                      loading: ()=>  SpinKitRing(color: ColorsManager.themeColor1!))
+                      loading: ()=> Container())
                       ,
 
                       ],

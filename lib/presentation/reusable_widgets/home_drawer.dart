@@ -7,7 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-
+import '../../core/utils/constants/server_manager.dart';
+import '../../domain/entities/user.dart';
 import '../controller/notification_providers.dart';
 
 class HomeDrawer extends ConsumerWidget {
@@ -28,12 +29,18 @@ class HomeDrawer extends ConsumerWidget {
               ),
               child: GestureDetector(
                 onTap: () => context.push('/editprofilescreen'),
-                child: CircleAvatar(
-                  child: Image.asset('assets/images/default_profile_image.png',
-                      scale: 1),
-                  radius: 50,
-                  backgroundColor: Colors.white,
-                ),
+                child:
+                ref.watch(getUserDataProvider(context)).when(
+                    data: (User userData)=> CircleAvatar(
+                      foregroundImage:
+                      NetworkImage(ServerManager.baseUrl+"\\"+userData.profileImage
+                      ),
+                      radius:80,
+                      backgroundColor: Colors.white,
+                    ),
+                    error: (err,st)=> Text(err.toString(),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                    loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
+                ,
               ),
             ),
             ListTile(

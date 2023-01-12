@@ -1,8 +1,8 @@
 import 'package:fakebustersapp/core/exception_handling/network_error_model.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/exception_handling/exceptions.dart';
 import '../../core/utils/constants/server_manager.dart';
 import '../../domain/entities/user.dart';
+import '../models/user_model.dart';
 import 'base_user_remote_datasource.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
@@ -104,7 +104,6 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
         // store the user token using sharedPreferences
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('userToken', userToken);
-        print(response.data['successMessage']);
         return response.data['successMessage'];
       }
       // since the server didn't return 200 then there must have been a problem
@@ -233,52 +232,6 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
     }
   }
 
-  @override
-  Future<User> getUserToken(String token) async {
-    try {
-      Dio dio = new Dio();
-      dio.options.headers['user-token'] = token;
-      var response =
-          await dio.post(ServerManager.baseUrl + "/users/verifyUserToken");
-
-      int statusCode = response.statusCode!;
-
-      // The token has been successfully verified
-      if (statusCode == 200) {
-        return response.data['successMessage'];
-      }
-
-      // since the server didn't return 200 then there must have been a problem
-      else {
-        throw ServerException(
-            networkErrorModel: NetworkErrorModel.fromJson(response.data));
-      }
-    }
-    // CATCHING THE DIO EXCEPTIONS AND THROWING OUR CUSTOM EXCEPTIONS
-    on DioError catch (e) {
-      if ((e.type == DioErrorType.connectTimeout ||
-          e.type == DioErrorType.receiveTimeout)) {
-        // handle no connection error
-        throw ConnectionException(errorMessage: "No Internet Connection");
-      }
-      // this condition applies if status code falls out of the range of 2xx and is also not 304.
-      //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
-      else if (e.response != null) {
-        //this is the same data as response.data
-        print(e.response!.data);
-        throw ServerException(
-            networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
-      } else {
-        // rethrow the exception again cause you didn't handle it (nothing happens when its rethrown till you handle it)
-        // rethrow;
-        // OR CREATE A GENERIC ERROR MESSAGE
-        throw GenericException(errorMessage: "Unknown Exception Has Occurred");
-      }
-    } catch (error) {
-      // CATCH ANY OTHER LEFT EXCEPTION
-      throw GenericException(errorMessage: "Unknown Exception Has Occurred");
-    }
-  }
 
   @override
   Future<User> getUserData(String userToken) async {
@@ -291,8 +244,10 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
       int statusCode = response.statusCode!;
 
       // The token has been successfully verified
+      // get user data
+      print(response.data["userData"]);
       if (statusCode == 200) {
-        return response.data['successMessage'];
+        return UserModel.fromJson(response.data["userData"]);
       }
 
       // since the server didn't return 200 then there must have been a problem
@@ -323,6 +278,7 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
       }
     } catch (error) {
       // CATCH ANY OTHER LEFT EXCEPTION
+      print(error);
       throw GenericException(errorMessage: "Unknown Exception Has Occurred");
     }
   }

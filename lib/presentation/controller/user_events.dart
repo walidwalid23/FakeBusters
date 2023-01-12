@@ -15,6 +15,7 @@ import '../../data/data_source/user_local_datasource.dart';
 import '../../data/data_source/user_remote_datasource.dart';
 import '../../domain/domain_repository/base_user_repository.dart';
 import '../../domain/entities/user.dart';
+import '../../domain/usecases/get_user_data.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/verify_user_token_usecase.dart';
@@ -113,7 +114,7 @@ class verifyUserTokenEvent extends StateNotifier <AsyncValue<dynamic>>{
     BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
     VerifyUserTokenUseCase  verifyUserTokenUseCase =  VerifyUserTokenUseCase(userRepository: userRepository);
 
-    super.state = AsyncLoading();
+
     Either<Failure, Success> data = await verifyUserTokenUseCase.excute(token);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
@@ -210,5 +211,53 @@ class EditProfileEvent extends StateNotifier <AsyncValue<dynamic>>{
 
 
   }
+
+}
+
+class GetUserDataEvent extends StateNotifier <AsyncValue<User>>{
+
+  GetUserDataEvent(BuildContext context): super( AsyncLoading() ) {
+// get the stored token
+SharedPreferences.getInstance().then((prefs) {
+final String? token = prefs.getString('userToken');
+// if the token exists send it to the server
+if(token!=null){ getUserDataState(token);}
+else{
+// if the token doesn't exist move to login page without sending a request to the server
+  Fluttertoast.showToast(
+      msg: "Please Login Again",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16);
+context.go('/login');
+}
+
+}
+);
+
+}
+
+void getUserDataState(String token) async{
+  BaseUserRemoteDataSource userRemoteDataSource = UserRemoteDataSource();
+  BaseUserLocalDataSource userLocalDataSource = UserLocalDataSource();
+  BaseUserRepository userRepository  = UserRepository(userRemoteDataSource, userLocalDataSource);
+  GetUserDataUseCase  getUserDataUseCase =  GetUserDataUseCase(userRepository: userRepository);
+
+
+  Either<Failure, User> data = await getUserDataUseCase.excute(token);
+  // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
+  data.fold((Failure failure) {
+
+    super.state = AsyncError(failure.errorMessage, failure.stackTrace);
+
+  } , (User user) {
+
+    super.state = AsyncData(user);
+
+  });
+}
 
 }
