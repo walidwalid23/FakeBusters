@@ -1,4 +1,5 @@
 import 'package:fakebustersapp/core/exception_handling/network_error_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/exception_handling/exceptions.dart';
 import '../../core/utils/constants/server_manager.dart';
 import '../../domain/entities/user.dart';
@@ -242,5 +243,6 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource{
     }
   }
 
+@Override
 
 }
