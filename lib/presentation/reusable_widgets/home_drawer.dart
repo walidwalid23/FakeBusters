@@ -28,19 +28,22 @@ class HomeDrawer extends ConsumerWidget {
                 color: Colors.deepOrange,
               ),
               child: GestureDetector(
-                onTap: () => context.push('/editprofilescreen'),
-                child:
-                ref.watch(getUserDataProvider(context)).when(
-                    data: (User userData)=> CircleAvatar(
-                      foregroundImage:
-                      NetworkImage(ServerManager.baseUrl+"\\"+userData.profileImage
-                      ),
-                      radius:80,
-                      backgroundColor: Colors.white,
-                    ),
-                    error: (err,st)=> Text(err.toString(),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                    loading: ()=> SpinKitRing(color: ColorsManager.themeColor1!))
-                ,
+                onTap: () => context.push('/settings'),
+                child: ref.watch(getUserDataProvider(context)).when(
+                    data: (User userData) => CircleAvatar(
+                          foregroundImage: NetworkImage(ServerManager.baseUrl +
+                              "\\" +
+                              userData.profileImage),
+                          radius: 80,
+                          backgroundColor: Colors.white,
+                        ),
+                    error: (err, st) => Text(
+                          err.toString(),
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                    loading: () =>
+                        SpinKitRing(color: ColorsManager.themeColor1!)),
               ),
             ),
             ListTile(
