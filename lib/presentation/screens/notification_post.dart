@@ -11,18 +11,40 @@ import '../reusable_widgets/post_widget.dart';
 
 
 
-class DisplayNotificationPost extends ConsumerWidget {
+class DisplayNotificationPost extends ConsumerStatefulWidget {
   DisplayNotificationPost({Key? key,required  this.postID}) : super(key: key);
 
   String postID;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DisplayNotificationPost> createState() => _DisplayNotificationPostState();
+}
+
+class _DisplayNotificationPostState extends ConsumerState<DisplayNotificationPost> {
+  String pushMessage="";
+
+  @override
+  void didChangeDependencies(){
+    super.didChangeDependencies();
+    final arguments = ModalRoute.of(context)!.settings.arguments;
+
+    if(arguments!=null){
+      Map? pushArguments = arguments as Map;
+
+      setState(() {
+        pushMessage = pushArguments["message"];
+        print("dependencies changed");
+      });
+    }
+
+  }
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(title:Text('Notification Post'), centerTitle: true,),
       body: SafeArea(
-        child: ref.watch(getPostByIDProvider(postID)).when(
+        child: ref.watch(getPostByIDProvider(widget.postID)).when(
             data:(Post post)=> SingleChildScrollView(
               child: PostWidget(
                 uploaderUsername:post.uploaderUsername!,

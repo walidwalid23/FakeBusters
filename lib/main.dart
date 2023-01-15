@@ -1,10 +1,49 @@
 import 'package:fakebustersapp/core/utils/constants/theme_manager.dart';
 import 'package:fakebustersapp/presentation/controller/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'core/routing/gorouter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-void main() {
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'domain/entities/post.dart';
+
+
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  var token = await FirebaseMessaging.instance.getToken();
+  print(token);
+
+  // This only works when the application is running in the background
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async{
+    print("app is opened ");
+    print("the remote message is: ${remoteMessage}");
+    print("the remote data is: ${remoteMessage.data}");
+
+
+    appRouter.routerDelegate.navigatorKey.currentContext!
+        .push('/notification_post',extra:"63c2b094e614840e0bb952f7");
+
+
+  });
+
+  // Works when the application is closed ( not running in the background)
+  FirebaseMessaging.instance.getInitialMessage().then(
+          (RemoteMessage? remoteMessage) {
+            if(remoteMessage!=null) {
+              print("the remote message is: ${remoteMessage}");
+              print("the remote data is: ${remoteMessage.data}");
+            }
+            else{
+              print("app is closed the remote message is null");
+            }
+          }
+  );
+
   runApp(ProviderScope(child:MyApp()));
+  
 }
 
 class MyApp extends ConsumerWidget {
@@ -19,8 +58,10 @@ class MyApp extends ConsumerWidget {
             data: (data)=> (data=="light")?AppThemeManager.lightMode:AppThemeManager.darkMode ,
             error: (err, st)=>AppThemeManager.lightMode,
             loading: ()=> AppThemeManager.lightMode)
-             
-    ,title: 'FakeBusters',);
+
+    ,title: 'FakeBusters',
+
+    );
     
 
     

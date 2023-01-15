@@ -14,7 +14,7 @@ import '../controller/notification_providers.dart';
 
 
 class NotificationsScreen extends ConsumerWidget {
-
+ 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(

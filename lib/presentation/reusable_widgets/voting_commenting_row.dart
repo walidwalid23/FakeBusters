@@ -32,6 +32,8 @@ class VotingCommentingRow extends ConsumerWidget {
       return ref.watch(getPostVotesProvider(postID)).when(
           data: (data){
           //  print(data.getFakeVotesPercentage());
+            print(data.getFakeVotesPercentage());
+            print(data.getOriginalVotesPercentage());
             return  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
