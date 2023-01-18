@@ -48,7 +48,9 @@ class NotificationsScreen extends ConsumerWidget {
                     ) ,
                     tileColor: Colors.orange,
                     // GO TO A PAGE DISPLAYING THE NOTIFICATION POST ON TAP
-                    onTap: (){context.push('/notification_post',extra:notifications[i].postID);},
+
+                    onTap: (){
+                    context.push('/notification_post',extra:notifications[i].postID);},
 
                   ),
                 );

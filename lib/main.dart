@@ -34,7 +34,7 @@ void main() async{
 
   });
 
-  
+
 
 
   // Works when the application is closed ( not running in the background)

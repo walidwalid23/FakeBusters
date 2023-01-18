@@ -21,23 +21,9 @@ class DisplayNotificationPost extends ConsumerStatefulWidget {
 }
 
 class _DisplayNotificationPostState extends ConsumerState<DisplayNotificationPost> {
-  String pushMessage="";
 
-  @override
-  void didChangeDependencies(){
-    super.didChangeDependencies();
-    final arguments = ModalRoute.of(context)!.settings.arguments;
 
-    if(arguments!=null){
-      Map? pushArguments = arguments as Map;
 
-      setState(() {
-        pushMessage = pushArguments["message"];
-        print("dependencies changed");
-      });
-    }
-
-  }
   @override
   Widget build(BuildContext context) {
 
@@ -47,8 +33,8 @@ class _DisplayNotificationPostState extends ConsumerState<DisplayNotificationPos
         child: ref.watch(getPostByIDProvider(widget.postID)).when(
             data:(Post post)=> SingleChildScrollView(
               child: PostWidget(
-                uploaderUsername:post.uploaderUsername!,
-                uploaderImage: post.uploaderImage!,
+                uploaderUsername:post.uploaderUsername,
+                uploaderImage: post.uploaderImage,
                 productCategory: post.productCategory,
                 productImage: post.productImage,
                 productName: post.productName,
