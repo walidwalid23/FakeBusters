@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'domain/entities/post.dart';
-
+import 'package:dcdg/dcdg.dart';
 
 
 void main() async{

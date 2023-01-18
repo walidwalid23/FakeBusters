@@ -14,4 +14,4 @@ final userLogoutProvider = StateNotifierProvider<UserLogoutEvent, AsyncValue<dyn
 
 final editProfileProvider = StateNotifierProvider.family<EditProfileEvent, AsyncValue<dynamic>, BuildContext>((ref, context) => EditProfileEvent(context));
 
-final getUserDataProvider = StateNotifierProvider.family<GetUserDataEvent, AsyncValue<User>, BuildContext>((ref, context) => GetUserDataEvent(context));
+final getUserDataProvider = StateNotifierProvider.autoDispose.family<GetUserDataEvent, AsyncValue<User>, BuildContext>((ref, context) => GetUserDataEvent(context));
