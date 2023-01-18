@@ -23,8 +23,8 @@ void main() async{
   // This only works when the application is running in the background
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async{
     print("app is opened ");
-    print("the remote message is: ${remoteMessage}");
-    print("the remote data is: ${remoteMessage.data}");
+   // print("the remote message is: ${remoteMessage}");
+  //  print("the remote data is: ${remoteMessage.data}");
 
 /*
    appRouter.routerDelegate.navigatorKey.currentContext!
@@ -34,15 +34,18 @@ void main() async{
 
   });
 
+  
+
+
   // Works when the application is closed ( not running in the background)
   FirebaseMessaging.instance.getInitialMessage().then(
           (RemoteMessage? remoteMessage) {
             if(remoteMessage!=null) {
               print("the remote message is: ${remoteMessage}");
-              print("the remote data is: ${remoteMessage.data}");
+        //      print("the remote data is: ${remoteMessage.data}");
             }
             else{
-              print("app is closed the remote message is null");
+         //     print("app is closed the remote message is null");
             }
           }
   );

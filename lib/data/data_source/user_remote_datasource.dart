@@ -123,7 +123,7 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
       //WE ALREADY HANDLED THIS ABOVE BUT WE MUST HANDLE IT THROW DIO AS WELL CAUSE IT THROWS IT
       else if (e.response != null) {
         //this is the same data as response.data
-        print(e.response!.data);
+        print(e.response!);
         throw ServerException(
             networkErrorModel: NetworkErrorModel.fromJson(e.response!.data));
       } else {
