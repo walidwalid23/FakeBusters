@@ -8,10 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'domain/entities/post.dart';
+import 'package:dcdg/dcdg.dart';
 
-
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // this is the token that is being listened to
@@ -21,58 +20,48 @@ void main() async{
   await prefs.setString('notificationToken', notificationToken!);
 
   // This only works when the application is running in the background
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async{
+  FirebaseMessaging.onMessageOpenedApp
+      .listen((RemoteMessage remoteMessage) async {
     print("app is opened ");
-   // print("the remote message is: ${remoteMessage}");
-  //  print("the remote data is: ${remoteMessage.data}");
+    // print("the remote message is: ${remoteMessage}");
+    //  print("the remote data is: ${remoteMessage.data}");
 
 /*
    appRouter.routerDelegate.navigatorKey.currentContext!
         .push('/notification_post',extra:"63c2b094e614840e0bb952f7");
     */
-
-
   });
 
-
-
-
   // Works when the application is closed ( not running in the background)
-  FirebaseMessaging.instance.getInitialMessage().then(
-          (RemoteMessage? remoteMessage) {
-            if(remoteMessage!=null) {
-              print("the remote message is: ${remoteMessage}");
-        //      print("the remote data is: ${remoteMessage.data}");
-            }
-            else{
-         //     print("app is closed the remote message is null");
-            }
-          }
-  );
+  FirebaseMessaging.instance
+      .getInitialMessage()
+      .then((RemoteMessage? remoteMessage) {
+    if (remoteMessage != null) {
+      print("the remote message is: ${remoteMessage}");
+      //      print("the remote data is: ${remoteMessage.data}");
+    } else {
+      //     print("app is closed the remote message is null");
+    }
+  });
 
-  runApp(ProviderScope(child:MyApp()));
-  
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
-    MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
-      theme:ref.watch(themeProvider).when(            
-            data: (data)=> (data=="light")?AppThemeManager.lightMode:AppThemeManager.darkMode ,
-            error: (err, st)=>AppThemeManager.lightMode,
-            loading: ()=> AppThemeManager.lightMode)
-
-    ,title: 'FakeBusters',
-
+      theme: ref.watch(themeProvider).when(
+          data: (data) => (data == "light")
+              ? AppThemeManager.lightMode
+              : AppThemeManager.darkMode,
+          error: (err, st) => AppThemeManager.lightMode,
+          loading: () => AppThemeManager.lightMode),
+      title: 'FakeBusters',
     );
-    
-
-    
-    
   }
 }
