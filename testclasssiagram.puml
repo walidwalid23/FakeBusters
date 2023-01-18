@@ -1,0 +1,941 @@
+@startuml
+set namespaceSeparator ::
+
+class "fakebustersapp::core::exception_handling::exceptions.dart::ServerException" {
+  +NetworkErrorModel networkErrorModel
+}
+
+"fakebustersapp::core::exception_handling::exceptions.dart::ServerException" o-- "fakebustersapp::core::exception_handling::network_error_model.dart::NetworkErrorModel"
+"dart::core::Exception" <|-- "fakebustersapp::core::exception_handling::exceptions.dart::ServerException"
+
+class "fakebustersapp::core::exception_handling::exceptions.dart::ConnectionException" {
+  +String errorMessage
+}
+
+"dart::core::Exception" <|-- "fakebustersapp::core::exception_handling::exceptions.dart::ConnectionException"
+
+class "fakebustersapp::core::exception_handling::exceptions.dart::LocalDatabaseException" {
+  +String errorMessage
+}
+
+"dart::core::Exception" <|-- "fakebustersapp::core::exception_handling::exceptions.dart::LocalDatabaseException"
+
+class "fakebustersapp::core::exception_handling::exceptions.dart::GenericException" {
+  +String errorMessage
+}
+
+"dart::core::Exception" <|-- "fakebustersapp::core::exception_handling::exceptions.dart::GenericException"
+
+abstract class "fakebustersapp::core::exception_handling::failures.dart::Failure" {
+  +String errorMessage
+  +StackTrace stackTrace
+}
+
+class "fakebustersapp::core::exception_handling::failures.dart::ConnectionFailure" {
+}
+
+"fakebustersapp::core::exception_handling::failures.dart::Failure" <|-- "fakebustersapp::core::exception_handling::failures.dart::ConnectionFailure"
+
+class "fakebustersapp::core::exception_handling::failures.dart::ServerFailure" {
+}
+
+"fakebustersapp::core::exception_handling::failures.dart::Failure" <|-- "fakebustersapp::core::exception_handling::failures.dart::ServerFailure"
+
+class "fakebustersapp::core::exception_handling::failures.dart::LocalDatabaseFailure" {
+}
+
+"fakebustersapp::core::exception_handling::failures.dart::Failure" <|-- "fakebustersapp::core::exception_handling::failures.dart::LocalDatabaseFailure"
+
+class "fakebustersapp::core::exception_handling::failures.dart::GenericFailure" {
+}
+
+"fakebustersapp::core::exception_handling::failures.dart::Failure" <|-- "fakebustersapp::core::exception_handling::failures.dart::GenericFailure"
+
+class "fakebustersapp::core::exception_handling::network_error_model.dart::NetworkErrorModel" {
+  +int statusCode
+  +String errorMessage
+}
+
+abstract class "fakebustersapp::core::exception_handling::success.dart::Success" {
+  +String successMessage
+}
+
+class "fakebustersapp::core::exception_handling::success.dart::ServerSuccess" {
+}
+
+"fakebustersapp::core::exception_handling::success.dart::Success" <|-- "fakebustersapp::core::exception_handling::success.dart::ServerSuccess"
+
+class "fakebustersapp::core::exception_handling::success.dart::LocalDBSuccess" {
+}
+
+"fakebustersapp::core::exception_handling::success.dart::Success" <|-- "fakebustersapp::core::exception_handling::success.dart::LocalDBSuccess"
+
+class "fakebustersapp::core::exception_handling::success.dart::UploadingPostSuccess" {
+  +String uploaderUsername
+  +String uploaderImage
+  +String postID
+}
+
+"fakebustersapp::core::exception_handling::success.dart::Success" <|-- "fakebustersapp::core::exception_handling::success.dart::UploadingPostSuccess"
+
+class "fakebustersapp::core::utils::constants::theme_manager.dart::AppThemeManager" {
+  {static} +ThemeData darkMode
+  {static} +ThemeData lightMode
+}
+
+"fakebustersapp::core::utils::constants::theme_manager.dart::AppThemeManager" o-- "flutter::src::material::theme_data.dart::ThemeData"
+
+class "fakebustersapp::core::utils::constants::values_manager.dart::ValuesManager" {
+  {static} +int swipePageAnimationDuration
+}
+
+class "fakebustersapp::core::utils::constants::styles_manager.dart::StylesManager" {
+  {static} +TextStyle textStyle1
+  {static} +TextStyle notificationStyle
+  {static} +TextStyle textStyle2
+}
+
+"fakebustersapp::core::utils::constants::styles_manager.dart::StylesManager" o-- "flutter::src::painting::text_style.dart::TextStyle"
+
+class "fakebustersapp::core::utils::constants::server_manager.dart::ServerManager" {
+  {static} +String baseUrl
+}
+
+class "fakebustersapp::core::utils::constants::colors_manager.dart::ColorsManager" {
+  {static} +Color? themeColor1
+  {static} +Color? bottomBarUnselectedIconsColor
+  {static} +Color? bottomBarSelectedIconsColor
+  {static} +Color? choiceCircleBackground
+  {static} +Color? themeColor2
+  {static} +Color? choiceInActiveColor
+  {static} +Color? choiceActiveColor
+  {static} +Color? scaffoldBackgroundColor
+  {static} +Color? appBar
+}
+
+"fakebustersapp::core::utils::constants::colors_manager.dart::ColorsManager" o-- "dart::ui::Color"
+
+class "fakebustersapp::core::utils::constants::home_manager.dart::HomeManager" {
+  {static} +String appName
+  {static} +String appSettings
+  {static} +String bottomNavigationBarItemLabel1
+  {static} +String bottomNavigationBarItemLabel2
+  {static} +String bottomNavigationBarItemLabel3
+  {static} +String bottomNavigationBarItemLabel4
+}
+
+class "fakebustersapp::core::utils::constants::Dates_manager.dart::DatesManager" {
+  {static} +String currentTime
+  {static} +String currentDate
+}
+
+class "fakebustersapp::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::main.dart::MyApp"
+
+abstract class "fakebustersapp::data::data_source::base_user_remote_datasource.dart::BaseUserRemoteDataSource" {
+  +Future<String> signUp()
+  +Future<String> login()
+  +Future<String> verifyUserToken()
+  +Future<String> EditProfile()
+  +Future<User> getUserData()
+}
+
+class "fakebustersapp::data::data_source::user_local_datasource.dart::UserLocalDataSource" {
+  +Future<String> logout()
+  +Future<String> setTheme()
+  +Future<String?> getTheme()
+}
+
+"fakebustersapp::data::data_source::base_user_local_datasource.dart::BaseUserLocalDataSource" <|-- "fakebustersapp::data::data_source::user_local_datasource.dart::UserLocalDataSource"
+
+abstract class "fakebustersapp::data::data_source::base_notification_remote_datasource.dart::BaseNotificationRemoteDataSource" {
+  +Future<List<NotificationEntity>> getUserNotifications()
+  +Future<String> deleteUserNotification()
+}
+
+abstract class "fakebustersapp::data::data_source::base_user_local_datasource.dart::BaseUserLocalDataSource" {
+  +Future<String> logout()
+}
+
+abstract class "fakebustersapp::data::data_source::base_post_remote_datasource.dart::BasePostRemoteDataSource" {
+  +Future<UploadingPostSuccess> uploadPost()
+  +Future<List<Post>> findPostsByCategories()
+  +Future<List<Post>> searchPostsByProductName()
+  +Future<Vote> incrementFakeVotes()
+  +Future<Vote> incrementOriginalVotes()
+  +Future<Vote> getPostVotes()
+  +Future<String> deletePostByID()
+  +Future<Post> getPostByID()
+}
+
+class "fakebustersapp::data::data_source::post_remote_datasource.dart::PostRemoteDataSource" {
+  +Future<UploadingPostSuccess> uploadPost()
+  +Future<List<Post>> findPostsByCategories()
+  +Future<List<Post>> searchPostsByProductName()
+  +Future<Vote> getPostVotes()
+  +Future<Vote> incrementFakeVotes()
+  +Future<Vote> incrementOriginalVotes()
+  +Future<String> deletePostByID()
+  +Future<Post> getPostByID()
+}
+
+"fakebustersapp::data::data_source::base_post_remote_datasource.dart::BasePostRemoteDataSource" <|-- "fakebustersapp::data::data_source::post_remote_datasource.dart::PostRemoteDataSource"
+
+class "fakebustersapp::data::data_source::user_remote_datasource.dart::UserRemoteDataSource" {
+  +Future<String> signUp()
+  +Future<String> login()
+  +Future<String> verifyUserToken()
+  +Future<String> EditProfile()
+  +Future<User> getUserData()
+}
+
+"fakebustersapp::data::data_source::base_user_remote_datasource.dart::BaseUserRemoteDataSource" <|-- "fakebustersapp::data::data_source::user_remote_datasource.dart::UserRemoteDataSource"
+
+class "fakebustersapp::data::data_source::notification_remote_datasource.dart::NotificationRemoteDataSource" {
+  +Future<List<NotificationEntity>> getUserNotifications()
+  +Future<String> deleteUserNotification()
+}
+
+"fakebustersapp::data::data_source::base_notification_remote_datasource.dart::BaseNotificationRemoteDataSource" <|-- "fakebustersapp::data::data_source::notification_remote_datasource.dart::NotificationRemoteDataSource"
+
+class "fakebustersapp::data::data_repository::notification_repository.dart::NotificationRepository" {
+  +BaseNotificationRemoteDataSource notificationRemoteDataSource
+  +Future<Either<Failure, List<NotificationEntity>>> getUserNotifications()
+  +Future<Either<Failure, Success>> deleteUserNotification()
+}
+
+"fakebustersapp::data::data_repository::notification_repository.dart::NotificationRepository" o-- "fakebustersapp::data::data_source::base_notification_remote_datasource.dart::BaseNotificationRemoteDataSource"
+"fakebustersapp::domain::domain_repository::base_notification_repository.dart::BaseNotificationRepository" <|-- "fakebustersapp::data::data_repository::notification_repository.dart::NotificationRepository"
+
+class "fakebustersapp::data::data_repository::post_repository.dart::PostRepository" {
+  +BasePostRemoteDataSource postRemoteDataSource
+  +Future<Either<Failure, UploadingPostSuccess>> uploadPost()
+  +Future<Either<Failure, List<Post>>> findPostsByCategories()
+  +Future<Either<Failure, List<Post>>> searchPostsByProductName()
+  +Future<Either<Failure, Vote>> getPostVotes()
+  +Future<Either<Failure, Vote>> incrementFakeVotes()
+  +Future<Either<Failure, Vote>> incrementOriginalVotes()
+  +Future<Either<Failure, Success>> deletePostByID()
+  +Future<Either<Failure, Post>> getPostByID()
+}
+
+"fakebustersapp::data::data_repository::post_repository.dart::PostRepository" o-- "fakebustersapp::data::data_source::base_post_remote_datasource.dart::BasePostRemoteDataSource"
+"fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository" <|-- "fakebustersapp::data::data_repository::post_repository.dart::PostRepository"
+
+class "fakebustersapp::data::data_repository::user_repository.dart::UserRepository" {
+  +BaseUserRemoteDataSource userRemoteDataSource
+  +BaseUserLocalDataSource userLocalDataSource
+  +Future<Either<Failure, Success>> signUp()
+  +Future<Either<Failure, Success>> login()
+  +Future<Either<Failure, Success>> verifyUserToken()
+  +Future<Either<Failure, Success>> logout()
+  +Future<Either<Failure, Success>> EditProfile()
+  +Future<Either<Failure, User>> getUserData()
+}
+
+"fakebustersapp::data::data_repository::user_repository.dart::UserRepository" o-- "fakebustersapp::data::data_source::base_user_remote_datasource.dart::BaseUserRemoteDataSource"
+"fakebustersapp::data::data_repository::user_repository.dart::UserRepository" o-- "fakebustersapp::data::data_source::base_user_local_datasource.dart::BaseUserLocalDataSource"
+"fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository" <|-- "fakebustersapp::data::data_repository::user_repository.dart::UserRepository"
+
+class "fakebustersapp::data::models::user_model.dart::UserModel" {
+}
+
+"fakebustersapp::domain::entities::user.dart::User" <|-- "fakebustersapp::data::models::user_model.dart::UserModel"
+
+class "fakebustersapp::data::models::post_model.dart::PostModel" {
+}
+
+"fakebustersapp::domain::entities::post.dart::Post" <|-- "fakebustersapp::data::models::post_model.dart::PostModel"
+
+class "fakebustersapp::data::models::notification_model.dart::NotificationModel" {
+}
+
+"fakebustersapp::domain::entities::notification.dart::NotificationEntity" <|-- "fakebustersapp::data::models::notification_model.dart::NotificationModel"
+
+class "fakebustersapp::data::models::vote_model.dart::VoteModel" {
+}
+
+"fakebustersapp::domain::entities::vote.dart::Vote" <|-- "fakebustersapp::data::models::vote_model.dart::VoteModel"
+
+abstract class "fakebustersapp::domain::domain_repository::base_notification_repository.dart::BaseNotificationRepository" {
+  +Future<Either<Failure, List<NotificationEntity>>> getUserNotifications()
+  +Future<Either<Failure, Success>> deleteUserNotification()
+}
+
+abstract class "fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository" {
+  +Future<Either<Failure, Success>> signUp()
+  +Future<Either<Failure, Success>> login()
+  +Future<Either<Failure, Success>> verifyUserToken()
+  +Future<Either<Failure, Success>> logout()
+  +Future<Either<Failure, Success>> EditProfile()
+  +Future<Either<Failure, User>> getUserData()
+}
+
+abstract class "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository" {
+  +Future<Either<Failure, UploadingPostSuccess>> uploadPost()
+  +Future<Either<Failure, Vote>> incrementFakeVotes()
+  +Future<Either<Failure, Vote>> incrementOriginalVotes()
+  +Future<Either<Failure, Vote>> getPostVotes()
+  +Future<Either<Failure, List<Post>>> findPostsByCategories()
+  +Future<Either<Failure, Success>> deletePostByID()
+  +Future<Either<Failure, List<Post>>> searchPostsByProductName()
+  +Future<Either<Failure, Post>> getPostByID()
+}
+
+class "fakebustersapp::domain::usecases::theme_mode_usecase.dart::ThemeModeUsecase" {
+  +UserLocalDataSource userLocalDataSource
+  +Future<String> excute()
+}
+
+"fakebustersapp::domain::usecases::theme_mode_usecase.dart::ThemeModeUsecase" o-- "fakebustersapp::data::data_source::user_local_datasource.dart::UserLocalDataSource"
+
+class "fakebustersapp::domain::usecases::get_post_by_id.dart::GetPostByIDUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, Post>> excute()
+}
+
+"fakebustersapp::domain::usecases::get_post_by_id.dart::GetPostByIDUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::signup_usecase.dart::SignUpUseCase" {
+  +BaseUserRepository userRepository
+  +Future<Either<Failure, Success>> excute()
+}
+
+"fakebustersapp::domain::usecases::signup_usecase.dart::SignUpUseCase" o-- "fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository"
+
+class "fakebustersapp::domain::usecases::login_usecase.dart::LoginUseCase" {
+  +BaseUserRepository userRepository
+  +Future<Either<Failure, Success>> excute()
+}
+
+"fakebustersapp::domain::usecases::login_usecase.dart::LoginUseCase" o-- "fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository"
+
+class "fakebustersapp::domain::usecases::edit_profile_usecase.dart::EditProfileUseCase" {
+  +BaseUserRepository userRepository
+  +Future<Either<Failure, Success>> excute()
+}
+
+"fakebustersapp::domain::usecases::edit_profile_usecase.dart::EditProfileUseCase" o-- "fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository"
+
+class "fakebustersapp::domain::usecases::logout_usecase.dart::LogoutUseCase" {
+  +BaseUserRepository userRepository
+  +Future<Either<Failure, Success>> excute()
+}
+
+"fakebustersapp::domain::usecases::logout_usecase.dart::LogoutUseCase" o-- "fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository"
+
+class "fakebustersapp::domain::usecases::get_post_votes_usecase.dart::GetPostVotesUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, Vote>> excute()
+}
+
+"fakebustersapp::domain::usecases::get_post_votes_usecase.dart::GetPostVotesUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::increment_fake_votes_usecase.dart::IncrementFakeVotesUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, Vote>> excute()
+}
+
+"fakebustersapp::domain::usecases::increment_fake_votes_usecase.dart::IncrementFakeVotesUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::find_posts_by_categories_usecase.dart::FindPostsByCategoriesUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, List<Post>>> excute()
+}
+
+"fakebustersapp::domain::usecases::find_posts_by_categories_usecase.dart::FindPostsByCategoriesUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::upload_post_usecase.dart::UploadPostUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, UploadingPostSuccess>> excute()
+}
+
+"fakebustersapp::domain::usecases::upload_post_usecase.dart::UploadPostUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::delete_post_usecase.dart::DeletePostByIDUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, Success>> excute()
+}
+
+"fakebustersapp::domain::usecases::delete_post_usecase.dart::DeletePostByIDUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::increment_orginal_votes_usecase.dart::IncrementOriginalVotesUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, Vote>> excute()
+}
+
+"fakebustersapp::domain::usecases::increment_orginal_votes_usecase.dart::IncrementOriginalVotesUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::get_user_data.dart::GetUserDataUseCase" {
+  +BaseUserRepository userRepository
+  +Future<Either<Failure, User>> excute()
+}
+
+"fakebustersapp::domain::usecases::get_user_data.dart::GetUserDataUseCase" o-- "fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository"
+
+class "fakebustersapp::domain::usecases::delete_user_notification.dart::DeleteUserNotificationUseCase" {
+  +BaseNotificationRepository notificationRepository
+  +Future<Either<Failure, Success>> excute()
+}
+
+"fakebustersapp::domain::usecases::delete_user_notification.dart::DeleteUserNotificationUseCase" o-- "fakebustersapp::domain::domain_repository::base_notification_repository.dart::BaseNotificationRepository"
+
+class "fakebustersapp::domain::usecases::get_user_notifications_usecase.dart::GetUserNotificationsUseCase" {
+  +BaseNotificationRepository notificationRepository
+  +Future<Either<Failure, List<NotificationEntity>>> excute()
+}
+
+"fakebustersapp::domain::usecases::get_user_notifications_usecase.dart::GetUserNotificationsUseCase" o-- "fakebustersapp::domain::domain_repository::base_notification_repository.dart::BaseNotificationRepository"
+
+class "fakebustersapp::domain::usecases::search_posts_by_product_name_usecase.dart::SearchPostsByProductNameUseCase" {
+  +BasePostRepository postRepository
+  +Future<Either<Failure, List<Post>>> excute()
+}
+
+"fakebustersapp::domain::usecases::search_posts_by_product_name_usecase.dart::SearchPostsByProductNameUseCase" o-- "fakebustersapp::domain::domain_repository::base_post_repository.dart::BasePostRepository"
+
+class "fakebustersapp::domain::usecases::verify_user_token_usecase.dart::VerifyUserTokenUseCase" {
+  +BaseUserRepository userRepository
+  +Future<Either<Failure, Success>> excute()
+}
+
+"fakebustersapp::domain::usecases::verify_user_token_usecase.dart::VerifyUserTokenUseCase" o-- "fakebustersapp::domain::domain_repository::base_user_repository.dart::BaseUserRepository"
+
+class "fakebustersapp::domain::entities::post.dart::Post" {
+  +String postID
+  +String productName
+  +String brandName
+  +String productCategory
+  +dynamic productImage
+  +int? fakeVotes
+  +int? originalVotes
+  +String? postDate
+  +String uploaderUsername
+  +String uploaderImage
+  +bool isCurrentUserUploader
+  +bool hasCurrentUserVoted
+}
+
+class "fakebustersapp::domain::entities::user.dart::User" {
+  +String username
+  +dynamic profileImage
+  +String? password
+  +int? votes
+}
+
+class "fakebustersapp::domain::entities::notification.dart::NotificationEntity" {
+  +String notificationID
+  +String notificationText
+  +String notificationDate
+  +String postID
+}
+
+class "fakebustersapp::domain::entities::vote.dart::Vote" {
+  +int fakeVotes
+  +int originalVotes
+  +String getFakeVotesPercentage()
+  +String getOriginalVotesPercentage()
+}
+
+class "fakebustersapp::domain::entities::uploaded_post.dart::UploadedPost" {
+  +String productName
+  +String brandName
+  +String productCategory
+  +dynamic productImage
+  +int? fakeVotes
+  +int? originalVotes
+  +String? postDate
+  +String? uploaderUsername
+  +String? uploaderImage
+  +String? postID
+}
+
+class "fakebustersapp::presentation::reusable_widgets::add_post_form_field.dart::AddPostTextInputField" {
+  +String label
+  +String? Function(String?) validatorFunc
+  +TextEditingController textFieldController
+  +Widget build()
+}
+
+"fakebustersapp::presentation::reusable_widgets::add_post_form_field.dart::AddPostTextInputField" o-- "null::String Function(String)"
+"fakebustersapp::presentation::reusable_widgets::add_post_form_field.dart::AddPostTextInputField" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::reusable_widgets::add_post_form_field.dart::AddPostTextInputField"
+
+class "fakebustersapp::presentation::reusable_widgets::Navigation_rail.dart::Rail" {
+  +ConsumerState<Rail> createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::reusable_widgets::Navigation_rail.dart::Rail"
+
+class "fakebustersapp::presentation::reusable_widgets::Navigation_rail.dart::_RailState" {
+  +int currentIndex
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::reusable_widgets::Navigation_rail.dart::_RailState"
+
+class "fakebustersapp::presentation::reusable_widgets::DefaultFormField.dart::DefaultTextFormField" {
+  +TextEditingController Controller
+  +TextInputType type
+  +String hintText
+  +dynamic validate
+  +IconData prefix
+  +dynamic suffix
+  +bool showPassword
+  +dynamic iconSwitch
+  +Widget build()
+}
+
+"fakebustersapp::presentation::reusable_widgets::DefaultFormField.dart::DefaultTextFormField" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fakebustersapp::presentation::reusable_widgets::DefaultFormField.dart::DefaultTextFormField" o-- "flutter::src::services::text_input.dart::TextInputType"
+"fakebustersapp::presentation::reusable_widgets::DefaultFormField.dart::DefaultTextFormField" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::reusable_widgets::DefaultFormField.dart::DefaultTextFormField"
+
+class "fakebustersapp::presentation::reusable_widgets::voting_commenting_row.dart::VotingCommentingRow" {
+  +bool isCurrentUserUploader
+  +bool hasCurrentUserVoted
+  +String postID
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::presentation::reusable_widgets::voting_commenting_row.dart::VotingCommentingRow"
+
+class "fakebustersapp::presentation::reusable_widgets::post_widget.dart::PostWidget" {
+  +String productName
+  +String productCategory
+  +String brandName
+  +String productDate
+  +dynamic productImage
+  +String uploaderUsername
+  +String uploaderImage
+  +String postID
+  +bool isCurrentUserUploader
+  +bool hasCurrentUserVoted
+  +String dropDownValue
+  +List<String>? categories
+  +bool isFromDisplay
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::presentation::reusable_widgets::post_widget.dart::PostWidget"
+
+class "fakebustersapp::presentation::reusable_widgets::image_container.dart::ImageContainer" {
+  +File? uploadedImage
+  +double width
+  +double height
+  +Widget build()
+}
+
+"fakebustersapp::presentation::reusable_widgets::image_container.dart::ImageContainer" o-- "dart::io::File"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::reusable_widgets::image_container.dart::ImageContainer"
+
+class "fakebustersapp::presentation::reusable_widgets::post_choice_button.dart::PostChoiceButton" {
+  +void Function() buttonAction
+  +String buttonText
+  +Widget build()
+}
+
+"fakebustersapp::presentation::reusable_widgets::post_choice_button.dart::PostChoiceButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::reusable_widgets::post_choice_button.dart::PostChoiceButton"
+
+class "fakebustersapp::presentation::reusable_widgets::user_choice.dart::UserChoice" {
+  +String imagePath
+  +double circleRadius
+  +double imageScale
+  +String choiceText
+  +void Function() action
+  +Color circleBackgroundColor
+  +Color choiceButtonColor
+  +Widget build()
+}
+
+"fakebustersapp::presentation::reusable_widgets::user_choice.dart::UserChoice" o-- "dart::ui::void Function()"
+"fakebustersapp::presentation::reusable_widgets::user_choice.dart::UserChoice" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::reusable_widgets::user_choice.dart::UserChoice"
+
+class "fakebustersapp::presentation::reusable_widgets::DefaultButton.dart::DefaultButton" {
+  +String text
+  +double width
+  +dynamic function
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::reusable_widgets::DefaultButton.dart::DefaultButton"
+
+class "fakebustersapp::presentation::reusable_widgets::home_drawer.dart::HomeDrawer" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::presentation::reusable_widgets::home_drawer.dart::HomeDrawer"
+
+class "fakebustersapp::presentation::controller::user_events.dart::UserSignUpEvent" {
+  +void signupState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::user_events.dart::UserSignUpEvent"
+
+class "fakebustersapp::presentation::controller::user_events.dart::UserLoginEvent" {
+  +void loginState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::user_events.dart::UserLoginEvent"
+
+class "fakebustersapp::presentation::controller::user_events.dart::verifyUserTokenEvent" {
+  +void verifyUserTokenState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::user_events.dart::verifyUserTokenEvent"
+
+class "fakebustersapp::presentation::controller::user_events.dart::UserLogoutEvent" {
+  +void logoutState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::user_events.dart::UserLogoutEvent"
+
+class "fakebustersapp::presentation::controller::user_events.dart::EditProfileEvent" {
+  +String? userToken
+  +BuildContext context
+  +void editProfileState()
+}
+
+"fakebustersapp::presentation::controller::user_events.dart::EditProfileEvent" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::user_events.dart::EditProfileEvent"
+
+class "fakebustersapp::presentation::controller::user_events.dart::GetUserDataEvent" {
+  +void getUserDataState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::user_events.dart::GetUserDataEvent"
+
+class "fakebustersapp::presentation::controller::theme_events.dart::ThemesState" {
+  +void initThemeState()
+  +void setThemeState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::theme_events.dart::ThemesState"
+
+class "fakebustersapp::presentation::controller::post_events.dart::UploadPostEvent" {
+  +String? userToken
+  +String? notificationToken
+  +BuildContext context
+  +void uploadPostState()
+}
+
+"fakebustersapp::presentation::controller::post_events.dart::UploadPostEvent" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::post_events.dart::UploadPostEvent"
+
+class "fakebustersapp::presentation::controller::post_events.dart::FindPostsByCategoriesEvent" {
+  +String? userToken
+  +List<String> categories
+  +void findPostsByCategoriesState()
+  +void deletePostByIDState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::post_events.dart::FindPostsByCategoriesEvent"
+
+class "fakebustersapp::presentation::controller::post_events.dart::SearchPostsByProductNameEvent" {
+  +String? userToken
+  +BuildContext context
+  +void searchPostsByProductNameState()
+}
+
+"fakebustersapp::presentation::controller::post_events.dart::SearchPostsByProductNameEvent" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::post_events.dart::SearchPostsByProductNameEvent"
+
+class "fakebustersapp::presentation::controller::post_events.dart::GetPostByIDEvent" {
+  +String? userToken
+  +String postID
+  +void getPostByIDState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::post_events.dart::GetPostByIDEvent"
+
+class "fakebustersapp::presentation::controller::post_events.dart::GetPostVotesEvent" {
+  +String? userToken
+  +String postID
+  +void getPostVotesEventVotesState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::post_events.dart::GetPostVotesEvent"
+
+class "fakebustersapp::presentation::controller::post_events.dart::IncrementFakeVotesEvent" {
+  +String? userToken
+  +BuildContext context
+  +void IncrementFakeVotesState()
+}
+
+"fakebustersapp::presentation::controller::post_events.dart::IncrementFakeVotesEvent" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::post_events.dart::IncrementFakeVotesEvent"
+
+class "fakebustersapp::presentation::controller::post_events.dart::IncrementOriginalVotesEvent" {
+  +String? userToken
+  +BuildContext context
+  +void incrementOriginalVotesState()
+}
+
+"fakebustersapp::presentation::controller::post_events.dart::IncrementOriginalVotesEvent" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::post_events.dart::IncrementOriginalVotesEvent"
+
+class "fakebustersapp::presentation::controller::notification_events.dart::UserNotificationsEvent" {
+  +String? userToken
+  +void getUserNotificationsState()
+  +void deleteUserNotificationState()
+}
+
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::notification_events.dart::UserNotificationsEvent"
+
+class "fakebustersapp::presentation::controller::notification_events.dart::GetNotificationsCountEvent" {
+  +String? userToken
+  +BuildContext context
+  +void getUserNotificationsCountState()
+}
+
+"fakebustersapp::presentation::controller::notification_events.dart::GetNotificationsCountEvent" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"state_notifier::state_notifier.dart::StateNotifier" <|-- "fakebustersapp::presentation::controller::notification_events.dart::GetNotificationsCountEvent"
+
+class "fakebustersapp::presentation::screens::display_post.dart::DisplayPost" {
+  +UploadedPost postData
+  +Widget build()
+}
+
+"fakebustersapp::presentation::screens::display_post.dart::DisplayPost" o-- "fakebustersapp::domain::entities::uploaded_post.dart::UploadedPost"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::screens::display_post.dart::DisplayPost"
+
+class "fakebustersapp::presentation::screens::home.dart::Home" {
+  +State<Home> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fakebustersapp::presentation::screens::home.dart::Home"
+
+class "fakebustersapp::presentation::screens::home.dart::_HomeState" {
+  +int currentPageIndex
+  +PageController pageController
+  +List<Widget> mainPages
+  +Widget build()
+  +void dispose()
+}
+
+"fakebustersapp::presentation::screens::home.dart::_HomeState" o-- "flutter::src::widgets::page_view.dart::PageController"
+"flutter::src::widgets::framework.dart::State" <|-- "fakebustersapp::presentation::screens::home.dart::_HomeState"
+
+class "fakebustersapp::presentation::screens::posts_screen.dart::PostsScreen" {
+  +List<String> categories
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::presentation::screens::posts_screen.dart::PostsScreen"
+
+class "fakebustersapp::presentation::screens::Profile.dart::ProfileScreen" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::presentation::screens::Profile.dart::ProfileScreen"
+
+class "fakebustersapp::presentation::screens::tablet_categories.dart::TabletCategories" {
+  +State<TabletCategories> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fakebustersapp::presentation::screens::tablet_categories.dart::TabletCategories"
+
+class "fakebustersapp::presentation::screens::tablet_categories.dart::_TabletScreenState" {
+  +String toysState
+  +String appliancesState
+  +String musicInstrumentsState
+  +String fashionState
+  +String electronicsState
+  +String sportsEquipmentState
+  +Color toysButtonState
+  +Color appliancesButtonState
+  +Color musicInstrumentsButtonState
+  +Color fashionButtonState
+  +Color electronicsButtonState
+  +Color sportsEquipmentButtonState
+  +String errorMessage
+  +List<String> selectedCategories
+  +Widget build()
+}
+
+"fakebustersapp::presentation::screens::tablet_categories.dart::_TabletScreenState" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::State" <|-- "fakebustersapp::presentation::screens::tablet_categories.dart::_TabletScreenState"
+
+class "fakebustersapp::presentation::screens::signup_screen.dart::SignupScreen" {
+  +_SignupScreenState createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::screens::signup_screen.dart::SignupScreen"
+
+class "fakebustersapp::presentation::screens::signup_screen.dart::_SignupScreenState" {
+  +TextEditingController usernameController
+  +TextEditingController passwordController
+  +TextEditingController confirmPasswordController
+  +GlobalKey<FormState> formKey
+  +dynamic confirmPass
+  +bool showPassword
+  +bool showConfirmPassword
+  -ImagePicker _picker
+  +File? userImage
+  +void setState()
+  +Widget build()
+}
+
+"fakebustersapp::presentation::screens::signup_screen.dart::_SignupScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fakebustersapp::presentation::screens::signup_screen.dart::_SignupScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fakebustersapp::presentation::screens::signup_screen.dart::_SignupScreenState" o-- "image_picker::image_picker.dart::ImagePicker"
+"fakebustersapp::presentation::screens::signup_screen.dart::_SignupScreenState" o-- "dart::io::File"
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::screens::signup_screen.dart::_SignupScreenState"
+
+class "fakebustersapp::presentation::screens::upload_post.dart::UploadPost" {
+  +ConsumerState<UploadPost> createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::screens::upload_post.dart::UploadPost"
+
+class "fakebustersapp::presentation::screens::upload_post.dart::_UploadPostState" {
+  +String dropdownValue
+  -GlobalKey<FormState> _formKey
+  -ImagePicker _picker
+  +File? productImage
+  +String imageValidationError
+  +TextEditingController productNameController
+  +TextEditingController brandNameController
+  +Widget build()
+}
+
+"fakebustersapp::presentation::screens::upload_post.dart::_UploadPostState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"fakebustersapp::presentation::screens::upload_post.dart::_UploadPostState" o-- "image_picker::image_picker.dart::ImagePicker"
+"fakebustersapp::presentation::screens::upload_post.dart::_UploadPostState" o-- "dart::io::File"
+"fakebustersapp::presentation::screens::upload_post.dart::_UploadPostState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::screens::upload_post.dart::_UploadPostState"
+
+class "fakebustersapp::presentation::screens::notification_post.dart::DisplayNotificationPost" {
+  +String postID
+  +ConsumerState<DisplayNotificationPost> createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::screens::notification_post.dart::DisplayNotificationPost"
+
+class "fakebustersapp::presentation::screens::notification_post.dart::_DisplayNotificationPostState" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::screens::notification_post.dart::_DisplayNotificationPostState"
+
+class "fakebustersapp::presentation::screens::notifications.dart::NotificationsScreen" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::presentation::screens::notifications.dart::NotificationsScreen"
+
+class "fakebustersapp::presentation::screens::hint.dart::HintScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "fakebustersapp::presentation::screens::hint.dart::HintScreen"
+
+class "fakebustersapp::presentation::screens::login_screen.dart::LoginScreen" {
+  +ConsumerState<LoginScreen> createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::screens::login_screen.dart::LoginScreen"
+
+class "fakebustersapp::presentation::screens::login_screen.dart::_LoginScreenState" {
+  +TextEditingController usernameController
+  +TextEditingController passwordController
+  +GlobalKey<FormState> formkey
+  +bool showPassword
+  +void setState()
+  +Widget build()
+}
+
+"fakebustersapp::presentation::screens::login_screen.dart::_LoginScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fakebustersapp::presentation::screens::login_screen.dart::_LoginScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::screens::login_screen.dart::_LoginScreenState"
+
+class "fakebustersapp::presentation::screens::initial_loading_screen.dart::InitialLoadingScreen" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "fakebustersapp::presentation::screens::initial_loading_screen.dart::InitialLoadingScreen"
+
+class "fakebustersapp::presentation::screens::categories.dart::Categories" {
+  +ConsumerState<Categories> createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::screens::categories.dart::Categories"
+
+class "fakebustersapp::presentation::screens::categories.dart::_CategoriesState" {
+  +String toysState
+  +String appliancesState
+  +String musicInstrumentsState
+  +String fashionState
+  +String electronicsState
+  +String sportsEquipmentState
+  +Color toysButtonState
+  +Color appliancesButtonState
+  +Color musicInstrumentsButtonState
+  +Color fashionButtonState
+  +Color electronicsButtonState
+  +Color sportsEquipmentButtonState
+  +String errorMessage
+  +List<String> selectedCategories
+  +Widget build()
+}
+
+"fakebustersapp::presentation::screens::categories.dart::_CategoriesState" o-- "dart::ui::Color"
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::screens::categories.dart::_CategoriesState"
+
+class "fakebustersapp::presentation::screens::user_type_choices.dart::UserTypeChoices" {
+  +State<UserTypeChoices> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "fakebustersapp::presentation::screens::user_type_choices.dart::UserTypeChoices"
+
+class "fakebustersapp::presentation::screens::user_type_choices.dart::_UserTypeChoicesState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "fakebustersapp::presentation::screens::user_type_choices.dart::_UserTypeChoicesState"
+
+class "fakebustersapp::presentation::screens::search.dart::Search" {
+  +ConsumerState<Search> createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::screens::search.dart::Search"
+
+class "fakebustersapp::presentation::screens::search.dart::_SearchState" {
+  -AnimationController _animationController
+  +void initState()
+  +Widget build()
+  +void dispose()
+}
+
+"fakebustersapp::presentation::screens::search.dart::_SearchState" o-- "flutter::src::animation::animation_controller.dart::AnimationController"
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::screens::search.dart::_SearchState"
+"flutter::src::widgets::ticker_provider.dart::SingleTickerProviderStateMixin" <|-- "fakebustersapp::presentation::screens::search.dart::_SearchState"
+
+class "fakebustersapp::presentation::screens::settings.dart::Settings" {
+  +_SettingsState createState()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerStatefulWidget" <|-- "fakebustersapp::presentation::screens::settings.dart::Settings"
+
+class "fakebustersapp::presentation::screens::settings.dart::_SettingsState" {
+  +TextEditingController usernameController
+  +TextEditingController passwordController
+  +bool status
+  +bool showPassword
+  +bool? isDarkModeEnabled
+  +GlobalKey<FormState> formKey
+  +Map<String, String> updatedData
+  +Widget build()
+}
+
+"fakebustersapp::presentation::screens::settings.dart::_SettingsState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"fakebustersapp::presentation::screens::settings.dart::_SettingsState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter_riverpod::src::consumer.dart::ConsumerState" <|-- "fakebustersapp::presentation::screens::settings.dart::_SettingsState"
+
+
+@enduml
