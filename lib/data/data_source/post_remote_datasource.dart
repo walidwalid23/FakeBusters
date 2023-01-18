@@ -16,7 +16,7 @@ import 'package:http_parser/http_parser.dart';
 class PostRemoteDataSource extends BasePostRemoteDataSource {
   @override
   Future<UploadingPostSuccess> uploadPost(
-      UploadedPost post, String userToken) async {
+      UploadedPost post, String userToken, String notificationToken) async {
     // send a post request to the server
     try {
       File productImage = post.productImage;
@@ -33,7 +33,8 @@ class PostRemoteDataSource extends BasePostRemoteDataSource {
         "postImage": imageFile,
         "productName": post.productName,
         "category": post.productCategory,
-        "brandName": post.brandName
+        "brandName": post.brandName,
+        "uploaderNotificationToken": notificationToken
       });
 
       Dio dio = new Dio();

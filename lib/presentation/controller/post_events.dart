@@ -25,10 +25,12 @@ import '../../domain/usecases/delete_post_usecase.dart';
 class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
+  String? notificationToken;
   BuildContext context;
   UploadPostEvent(this.context) : super(AsyncData(null)) {
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
+      notificationToken = prefs.getString('notificationToken');
       // if the token doesn't exist move to login page without sending a request to the server
       if (userToken == null) {
         Fluttertoast.showToast(
@@ -52,7 +54,7 @@ class UploadPostEvent extends StateNotifier<AsyncValue<dynamic>> {
 
     super.state = AsyncLoading();
     Either<Failure, UploadingPostSuccess> data =
-        await uploadPostUseCase.excute(post, userToken!);
+        await uploadPostUseCase.excute(post, userToken!, notificationToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold((Failure failure) {
       super.state = AsyncError(failure.errorMessage, failure.stackTrace);

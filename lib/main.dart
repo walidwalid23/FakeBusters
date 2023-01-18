@@ -2,6 +2,7 @@ import 'package:fakebustersapp/core/utils/constants/theme_manager.dart';
 import 'package:fakebustersapp/presentation/controller/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'core/routing/gorouter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,8 +14,11 @@ import 'domain/entities/post.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  var token = await FirebaseMessaging.instance.getToken();
-  print(token);
+  // this is the token that is being listened to
+  var notificationToken = await FirebaseMessaging.instance.getToken();
+  //store the notifier token of this user
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('notificationToken', notificationToken!);
 
   // This only works when the application is running in the background
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async{
@@ -22,9 +26,10 @@ void main() async{
     print("the remote message is: ${remoteMessage}");
     print("the remote data is: ${remoteMessage.data}");
 
-
-    appRouter.routerDelegate.navigatorKey.currentContext!
+/*
+   appRouter.routerDelegate.navigatorKey.currentContext!
         .push('/notification_post',extra:"63c2b094e614840e0bb952f7");
+    */
 
 
   });

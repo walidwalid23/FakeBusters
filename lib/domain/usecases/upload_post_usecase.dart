@@ -9,9 +9,9 @@ class UploadPostUseCase{
   BasePostRepository postRepository;
   UploadPostUseCase(this.postRepository);
 
-  Future<Either<Failure, UploadingPostSuccess>> excute(UploadedPost post, String userToken) async {
+  Future<Either<Failure, UploadingPostSuccess>> excute(UploadedPost post, String userToken, String notificationToken) async {
 
-    return await postRepository.uploadPost(post, userToken);
+    return await postRepository.uploadPost(post, userToken, notificationToken);
 
   }
 

@@ -14,10 +14,10 @@ class PostRepository extends BasePostRepository {
 
   @override
   Future<Either<Failure, UploadingPostSuccess>> uploadPost(
-      UploadedPost post, String userToken) async {
+      UploadedPost post, String userToken, String notificationToken) async {
     try {
       UploadingPostSuccess postUploadedSuccess =
-          await postRemoteDataSource.uploadPost(post, userToken);
+          await postRemoteDataSource.uploadPost(post, userToken, notificationToken);
       //if no exception was thrown then the method has succeeded
       return Right(postUploadedSuccess);
     } on ConnectionException catch (exception, stackTrace) {

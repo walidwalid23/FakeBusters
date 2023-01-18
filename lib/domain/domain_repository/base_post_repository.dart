@@ -7,7 +7,7 @@ import '../entities/vote.dart';
 
 abstract class BasePostRepository {
   Future<Either<Failure, UploadingPostSuccess>> uploadPost(
-      UploadedPost post, String userToken);
+      UploadedPost post, String userToken, String notificationToken);
 
   Future<Either<Failure, Vote>> incrementFakeVotes(
       String postID, String userToken);

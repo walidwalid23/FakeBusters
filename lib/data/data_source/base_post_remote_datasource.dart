@@ -5,7 +5,7 @@ import '../../domain/entities/uploaded_post.dart';
 import '../../domain/entities/vote.dart';
 
 abstract class BasePostRemoteDataSource {
-  Future<UploadingPostSuccess> uploadPost(UploadedPost post, String userToken);
+  Future<UploadingPostSuccess> uploadPost(UploadedPost post, String userToken, String notificationToken);
   Future<List<Post>> findPostsByCategories(
       List<String> categories, String userToken);
   Future<List<Post>> searchPostsByProductName(
