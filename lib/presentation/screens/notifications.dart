@@ -50,7 +50,7 @@ class NotificationsScreen extends ConsumerWidget {
                     // GO TO A PAGE DISPLAYING THE NOTIFICATION POST ON TAP
 
                     onTap: (){
-                    context.push('/notification_post',extra:notifications[i].postID);},
+                    context.go('/notification_post',extra:notifications[i].postID);},
 
                   ),
                 );
