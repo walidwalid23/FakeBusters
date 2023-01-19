@@ -15,7 +15,7 @@ final incrementFakeVotesProvider = StateNotifierProvider.family<IncrementFakeVot
 final incrementOriginalVotesProvider = StateNotifierProvider.family<IncrementOriginalVotesEvent,AsyncValue<dynamic>, BuildContext
 >((ref, context) =>  IncrementOriginalVotesEvent(context));
 
-final getPostVotesProvider = StateNotifierProvider.family<GetPostVotesEvent,AsyncValue<Vote>, String
+final getPostVotesProvider = StateNotifierProvider.autoDispose.family<GetPostVotesEvent,AsyncValue<Vote>, String
 >((ref, postID) =>  GetPostVotesEvent(postID));
 
 

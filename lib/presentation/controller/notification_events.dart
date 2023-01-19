@@ -23,6 +23,7 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
     print("in provider constructor");
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
+
       // if the token doesn't exist move to login page without sending a request to the server
       if (userToken == null) {
         Fluttertoast.showToast(
@@ -47,14 +48,17 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
   }
 
   void getUserNotificationsState() async {
-
+    final prefs = await SharedPreferences.getInstance();
+    String? theUserToken = prefs.getString('userToken');
     print('in the state event');
     BaseNotificationRemoteDataSource notificationRemoteDataSource = NotificationRemoteDataSource();
     BaseNotificationRepository notificationRepository = NotificationRepository(notificationRemoteDataSource);
     GetUserNotificationsUseCase getUserNotificationsUseCase = GetUserNotificationsUseCase(notificationRepository);
     state = AsyncLoading();
+    print("token:");
+    print(theUserToken);
     Either<Failure, List<NotificationEntity>> data =
-    await getUserNotificationsUseCase.excute(userToken!);
+    await getUserNotificationsUseCase.excute(theUserToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
     data.fold(
             (Failure failure) {
