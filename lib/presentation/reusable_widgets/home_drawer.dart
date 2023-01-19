@@ -79,7 +79,7 @@ class HomeDrawer extends ConsumerWidget {
                 children: [
                   Text('Notifications', style: StylesManager.textStyle1),
                   SizedBox(width: 10),
-                  ref.watch(getNotificationsCountProvider(context)).when(
+                  ref.watch(getNotificationsCountProvider(ref)).when(
                       data: (notificationsCount) => CircleAvatar(
                             child: Text(notificationsCount.toString(),
                                 style: StylesManager.notificationStyle),

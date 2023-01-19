@@ -13,6 +13,7 @@ import '../../data/data_source/notification_remote_datasource.dart';
 import '../../domain/domain_repository/base_notification_repository.dart';
 import '../../domain/usecases/delete_user_notification.dart';
 import '../../domain/usecases/get_user_notifications_usecase.dart';
+import 'notification_providers.dart';
 
 class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationEntity>>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
@@ -51,7 +52,7 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
     BaseNotificationRemoteDataSource notificationRemoteDataSource = NotificationRemoteDataSource();
     BaseNotificationRepository notificationRepository = NotificationRepository(notificationRemoteDataSource);
     GetUserNotificationsUseCase getUserNotificationsUseCase = GetUserNotificationsUseCase(notificationRepository);
-
+    state = AsyncLoading();
     Either<Failure, List<NotificationEntity>> data =
     await getUserNotificationsUseCase.excute(userToken!);
     // USE .FOLD METHOD IN THE SCREENS LAYER TO DEAL WITH THE EITHER DATA
@@ -102,8 +103,8 @@ class UserNotificationsEvent extends StateNotifier<AsyncValue<List<NotificationE
 class GetNotificationsCountEvent extends StateNotifier<AsyncValue<int>> {
   // the initial state will be null cause nothing should be shown till the submit button is clicked
   String? userToken;
-  BuildContext context;
-  GetNotificationsCountEvent(this.context) : super(AsyncLoading()) {
+  WidgetRef widgetRef;
+  GetNotificationsCountEvent(this.widgetRef) : super(AsyncLoading()) {
     print("in provider constructor");
     SharedPreferences.getInstance().then((prefs) {
       userToken = prefs.getString('userToken');
@@ -117,12 +118,14 @@ class GetNotificationsCountEvent extends StateNotifier<AsyncValue<int>> {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16);
-        context.go('/login');
+
       }
 
       else{
         // update the state with the posts
         getUserNotificationsCountState();
+        // update the state of the notifications in the notifications page with the new added notifications
+        widgetRef.read(userNotificationsProvider.notifier).getUserNotificationsState();
       }
 
     });
